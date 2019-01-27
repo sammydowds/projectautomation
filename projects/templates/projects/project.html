@@ -1,0 +1,88 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Project
+{% endblock %}
+
+{% block main %}
+<div style = "padding: 7rem;">
+	<table style = "text-align: center;" class = "table table-hover table-bordered table-responsive">
+    <thead class = "thead-dark">
+		<tr>
+
+          <th>Project Number</th>
+          <th>Project Name</th>
+          <th>Off Track</th>
+          <th>On Watch</th>
+          <th>ME Release</th>
+          <th>EE Release</th>
+          <th>Manufacturing</th>
+          <th>Finishing</th>
+          <th>Assembly</th>
+          <th>Integration</th>
+          <th>Internal Runoff</th>
+          <th>Customer Runoff</th>
+          <th>Ship</th>
+          <th>Install</th>
+          <th>Install Finish</th>
+          <th>Documentation</th>
+          <th>Update Project</th>
+          <!-- <th>Dashboard</th> -->
+          <th>Complete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for project in projects %}
+
+        <tr>
+          <td> {{ project.projectnumber }} </td>
+          <td><a href = "http://127.0.0.1:8000/projects/dashboard">{{ project.projectname }}</a></td>
+          <td>
+            {% if project.offtrack == False %}
+            <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+            {% else %}
+            <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+            {% endif %}
+          </td>
+          <td>
+            {% if project.onwatch == False %}
+            <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+            {% else %}
+            <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+            {% endif %}
+          </td>
+          <td>{{ project.mechanicalrelease }} </td>
+          <td> {{ project.electricalrelease }} </td>
+          <td> {{ project.manufacturing }} </td>
+          <td>{{ project.finishing }} </td>
+          <td> {{ project.assembly }} </td>
+          <td> {{ project.integration }} </td>
+          <td>{{ project.internalrunoff }} </td>
+          <td> {{ project.customerrunoff }} </td>
+          <td> {{ project.ship }} </td>
+          <td>{{ project.installstart }} </td>
+          <td> {{ project.installfinish }} </td>
+          <td> {{ project.documentation }} </td>
+          <td>
+              <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
+          </td>
+          <!-- <td>
+              <button style = "background-color: orange;" onclick = "location.href = 'http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}'" class="btn btn-info">Dashboard</button>
+          </td> -->
+
+          <td>
+              <button style = "background-color: #db0000;" onclick = "location.href = 'http://127.0.0.1:8000/projects/close'" class="btn btn-info">Close</button>
+          </td>
+
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+{% endblock %}
