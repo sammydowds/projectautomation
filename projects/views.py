@@ -5,7 +5,6 @@ from projects.forms import *
 
 # Create your views here.
 def index(request):
-    Project.objects.all().delete()
     projects_list = Project.objects.all()
     context = {
         'projects': projects_list
