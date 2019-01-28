@@ -61,7 +61,7 @@ def create(request):
                                   onwatch = True)
             #adding the new project to the database
             new_project.save()
-            return render('/projects/')
+            return redirect('/projects/')
     elif request.method == "GET":
         #presenting empty form to the client
         form = ProjectForm()
