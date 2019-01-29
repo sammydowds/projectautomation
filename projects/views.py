@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db import models
 from projects.models import *
 from projects.forms import *
 
 # Create your views here.
 def index(request):
-    projects_list = Project.objects.all()
+    projects_list = Project.objects.exclude(iscurrent=False)
+    print(projects_list)
     context = {
         'projects': projects_list
     }
@@ -40,6 +42,7 @@ def update(request, num):
 def create(request):
     #Processing POST method (form to create a project)
     if request.method == "POST":
+        #need to add filter to ensure project does not already exist with the same projec number
         form = ProjectForm(request.POST)
         if form.is_valid():
             #note: there has to be a better way to convert a form directly to an object below....!
@@ -88,3 +91,13 @@ def switch(request):
 
 
     return HttpResponse("Successfully sent request, but did you send data??")
+
+
+def close(request, num):
+    if request.method == "GET":
+        project_close = num
+        print(project_close)
+        proj = Project.objects.get(projectnumber=num)
+        proj.iscurrent = False
+        proj.save()
+        return redirect('/projects')

@@ -26,10 +26,13 @@ class Project(models.Model):
     documentation = models.DateField(null = True)
     offtrack = models.BooleanField(null = True)
     onwatch = models.BooleanField(null = True)
+    iscurrent = models.BooleanField(null = True)
     employees = models.ManyToManyField(Employee)
 
     def __str__(self):
         return self.projectname
+
+
 
 
 
