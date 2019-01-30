@@ -6,7 +6,11 @@
 
 {% block main %}
 <div style = "padding: 7rem;">
+
+  <!-- TODO: Can this table be more dynamic?-->
 	<table style = "text-align: center;" class = "table table-hover table-bordered table-responsive">
+
+    <!-- TODO: Can you match this table head to the base.html navbar? -->
     <thead class = "thead-dark">
 		<tr>
 
@@ -39,6 +43,7 @@
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard">{{ project.projectname }}</a></td>
           <td>
+            <!-- TODO: Possible to format these buttons to match the table head and navbar? -->
             {% if project.offtrack == False %}
             <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
             {% else %}
@@ -46,6 +51,7 @@
             {% endif %}
           </td>
           <td>
+            <!-- TODO: Possible to format these buttons to match the table head and navbar? -->
             {% if project.onwatch == False %}
             <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
             {% else %}
@@ -65,6 +71,7 @@
           <td> {{ project.installfinish }} </td>
           <td> {{ project.documentation }} </td>
           <td>
+            <!-- TODO: Possible to format button to match the table head and navbar? -->
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
           </td>
           <!-- <td>
@@ -72,6 +79,7 @@
           </td> -->
 
           <td>
+            <!-- TODO: Possible to format button to match the table head and navbar? -->
               <button style = "background-color: #db0000;" onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-info">Close</button>
           </td>
 

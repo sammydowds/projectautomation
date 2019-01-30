@@ -5,12 +5,16 @@
 {% endblock %}
 
 {% block main %}
+
+<!-- TODO: Possible to format these buttons to match the table head and navbar? -->
 <div style = "height:200px;" class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-7">Create a Project</h1>
     <p class="lead">Fill in the Form Below</p>
   </div>
 </div>
+
+<!-- TODO: Possible to format these buttons to match the table head and navbar? -->
 <form style = "text-align: center; font-weight: bold; padding: 2rem 10rem 10rem;" action="/projects/create/" method="POST">
   {% csrf_token %}
 <table style = "text-align: center;" class = "table table table-hover table-responsive table-bordered">
