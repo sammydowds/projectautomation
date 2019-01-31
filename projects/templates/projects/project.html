@@ -11,7 +11,7 @@
 	<table style = "text-align: center;" class = "table table-hover table-bordered table-responsive">
 
     <!-- TODO: Can you match this table head to the base.html navbar? -->
-    <thead class = "thead-dark">
+    <thead style = "color: white; background-color: black;" >
 		<tr>
 
           <th>Project Number</th>
@@ -79,7 +79,7 @@
           </td> -->
 
           <td>
-            <!-- TODO: Possible to format button to match the table head and navbar? -->
+            <!-- TODO: Possible to format button to match the table head and navbar? Also: When this close button is clicked can we show an alert that the project has been closed?-->
               <button style = "background-color: #db0000;" onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-info">Close</button>
           </td>
 
