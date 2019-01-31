@@ -15,7 +15,7 @@
 </div>
 
 <!-- TODO: Possible to format these buttons to match the table head and navbar? -->
-<form style = "text-align: center; font-weight: bold; padding: 2rem 5rem 10rem;" action="/projects/create/" method="POST">
+<form style = "text-align: center; font-weight: bold; padding: 2rem 5rem;" action="/projects/create/" method="POST">
   {% csrf_token %}
 <table style = "text-align: center;" class = "table table table-hover table-responsive table-bordered">
   {% for field in form %}

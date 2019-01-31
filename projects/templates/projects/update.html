@@ -15,7 +15,7 @@
 
 
 <!-- TODO: Style the form to match the base.html navbar?? -->
-<form style = "text-align: center; padding: 1rem 10rem 10rem;" action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
+<form style = "text-align: center; padding: 2rem 5rem;" action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
   {% csrf_token %}
   <table style = "text-align: center;" class = "table table table-hover table-responsive table-bordered">
     {% for field in form %}
