@@ -55,3 +55,21 @@ function updateproject(k) {
   request.send(data);
 
 }
+
+function completemilestone(k, lbl) {
+  const projectnumber = k.id;
+  const milestone = k.value;
+  const request = new XMLHttpRequest();
+  request.open('POST', '/projects/milestonecomplete/');
+  var csrftoken = getCookie('csrftoken');
+  request.setRequestHeader("X-CSRFToken", csrftoken);
+
+  request.onload = function(){
+    }
+
+  var data = new FormData();
+  data.append('projectnumber', projectnumber);
+  data.append('milestone', milestone);
+  request.send(data);
+
+}
