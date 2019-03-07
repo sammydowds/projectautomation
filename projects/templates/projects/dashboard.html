@@ -6,93 +6,113 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="/static/projects/styles.css" rel="stylesheet">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
     <title>{{project.projectname}} · Acieta</title>
 
+
     <!-- Bootstrap core CSS -->
-    <link href="css-circular-prog-bar.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/projects/circle.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <main role="main">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
-  <div style = "text-align: center; background-color: transparent;">
+  <div style="font-family: Arial;">
+  <div style = "padding: 0rem 0rem 2rem; text-align: center; background-color: transparent;">
     <div class="container">
-      <img src="/static/projects/logo.png" class="mr-3">
-      <h4 class="display-1">{{project.projectnumber}}: {{project.projectname}}</h4>
+      <img src="/static/projects/logo.png">
+        <p style="font-size: 40px;">{{project.projectnumber}}: {{project.projectname}}</p>
+        <p style ="font-size: 25px;">Report Date: {{ date_today }}</p>
     </div>
   </div>
 
-  <div style="padding: 2rem 2rem 2rem; text-align: center;" class="container">
+  <!-- <div style="padding: 2rem 2rem 2rem; text-align: center;" class="container">
     <div class="row">
-      <div class="col">
-        <p style ="font-size: 25px;">Report Date: {{ date_today }}</p>
-        {% if project.offtrack == False %}
-          <p style ="font-size: 25px; color: green;"> Project: On Track </p>
-        {% else %}
-          <p style ="font-size: 25px; color: red;"> Project: Off-Track </p>
-        {% endif %}
+    </div>
+  </div> -->
+
+<!-- Overview stats  -->
+  <div style="border-top: solid red 3px; border-bottom: solid red 3px;text-align: center; padding: 2rem 1rem 2rem;" class="container">
+    <p>{% if project.offtrack == False %}
+      <p style ="font-size: 30px; color: green;"> Status - On Track </p>
+    {% else %}
+      <p style ="font-size: 30px; color: red;"> Status - Off-Track </p>
+    {% endif %}
+    </p>
+
+    <div class ="row">
+      <div style="text-align: center;" class = "col">
+        <h2 style="padding: 2rem 2rem 2rem;">Phase: {{phase.Phase}}</h2>
+            <div class="c100 p{{phase.Progress}} red big">
+            <span>{{phase.Progress}}%</span>
+            <div class="slice">
+              <div class="bar"></div>
+              <div class="fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center;" class = "col">
+          <h2 style="padding: 2rem 2rem 2rem;">Acieta Runoff:</h2>
+          <p style="font-size: 25px; font-family: Courier;">{{project.customerrunoff}}</p>
+          <h2 style="padding: 2rem 2rem 2rem;">Shipment:</h2>
+          <p style="text-align: center; font-size: 25px; font-family: Courier;">{{project.ship}}</p>
+        </div>
+
+        <div style=" text-align: center;" class = "col">
+          <h2 style="padding: 2rem 2rem 2rem;">Install Start:</h2>
+          <p style="text-align: center; font-size: 25px; font-family: Courier;">{{project.installstart}}</p>
+          <h2 style="padding: 2rem 2rem 2rem;">Install Finish:</h2>
+          <p style="text-align: center; font-size: 25px; font-family: Courier;">{{project.installfinish}}</p>
+        </div>
       </div>
     </div>
-  </div>
 
-
-  <div style="text-align: center; padding: 2rem 2rem 2rem;" class="container">
+<!-- Second Container - Detailed schedule and risks -->
+<div style="padding: 2rem 1rem 2rem;">
+  <div style="border-bottom: solid red 2px; text-align: center; padding: 2rem 2rem 2rem;" class="container">
     <!-- Example row of columns -->
-    <div class="row">
-      <div style="text-align: center;" class="col">
-        <h1>Future Estimated Timeline</h1>
-        <table style="font-size: 15px;"class="table">
-          <thead>
-          <tr>
-            <th>Miletsone</th>
-            <th>Date</th>
-            <th>Duration</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% for key,value in milestones.items %}
-          <tr style="font-size: 15px;">
+    <div style="text-align: center;"class="row">
+      <div class="col">
+        <h1>Detailed Project Timeline</h1>
+        <table style="border: none; table-layout: fixed; width: 100%; font-size: 25px;"class="table borderless">
+          <!-- <thead>
+            <tr>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead> -->
 
-            <td>{{ key }}</td>
+          {% for key,value in milestones.items %}
+          <tr>
             {%if value != None %}
-            <td>{{ value }}</td>
+            <td style="border: none;"> | <br> {{ key }} <br> {{ value }}</td>
             {%else%}
-            <td>Complete!</td>
+            <td>{{ key }} <br> Not Scheduled</td>
             {%endif%}
-            <td>0 Days</td>
           </tr>
           {% endfor %}
-          </tbody>
-      </table>
+
+
+        </table>
       </div>
-      <div class="col">
-        <h1>Current Phase</h1>
-        <p style="font-size: 20px;">Insert Phase Here</p>
-        <h2 style="padding: 12rem;">Circular progress bar on the current milestone</h2>
+      <div style="padding: 1rem 1rem 1rem; text-align:" class="col">
+        <h1>Project Risks</h1>
+      </div>
       </div>
 
-      <!-- <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
       </div>
-    </div> -->
+    </div>
 
-    <hr>
 
-  </div> <!-- /container -->
+
+</div>
 
 </main>
 
 <footer class="container">
-  <p>&copy; Company 2017-2018</p>
+  <p>&copy; Acieta 2019</p>
 </footer>
-<script src="../static/index.js"></script>
+<script src="/static/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

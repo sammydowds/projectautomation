@@ -15,7 +15,7 @@
 </div>
 
 <!-- TODO: Possible to format these buttons to match the table head and navbar? -->
-<form style = "text-align: center; font-weight: bold; padding: 2rem 5rem;" action="/projects/create/" method="POST">
+<form action="/projects/create/" method="POST">
   {% csrf_token %}
 <table style = "text-align: center;" class = "table table table-hover table-responsive table-bordered">
   {% for field in form %}
@@ -30,11 +30,11 @@
 </table>
   <button style = "text-align: left;" type="submit" class="btn btn-default">Submit</button>
 </form>
+
 {% endblock %}
 
-<!-- </form>
 
 
 
-  <button type="submit" class="btn btn-default">Submit</button>
+  <!-- <button type="submit" class="btn btn-default">Submit</button>
 </form> -->

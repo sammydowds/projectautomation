@@ -10,7 +10,8 @@ urlpatterns = [
     path('update/<int:num>/', views.update, name = "update"),
     path('close/<int:num>/', views.close, name = "close"),
     path('dashboard/<int:num>/', views.dashboard, name = "dashboard"),
-    path('milestonecomplete/', views.milestonescomplete, name = "milestonecomplete")
+    path('milestonecomplete/', views.milestonescomplete, name = "milestonecomplete"),
+    path('capacity/', views.capacity, name = "capacity")
 
 
 ]

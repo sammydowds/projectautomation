@@ -4,13 +4,25 @@ from django.db import models
 from projects.models import *
 from projects.forms import *
 import datetime
+from projects.helpers import *
+from projects.import_proj import *
+
 
 # Create your views here.
 
 #main project page
 def index(request):
-    #pulling all current projects 
-    projects_list = Project.objects.exclude(iscurrent=False)
+    #pulling all current projects
+
+    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
+    # test_proj = list_projects()
+    # for proj in test_proj:
+    #     print(proj)
+    #     imported_proj = Project(**proj)
+    #     imported_proj.save()
+    # -----------------------------------------------------------------------------------------------------------------
+
+    projects_list = reversed(Project.objects.exclude(iscurrent=False))
     print(projects_list)
     context = {
         'projects': projects_list,
@@ -18,6 +30,7 @@ def index(request):
     print(projects_list)
     return render(request, "projects/project.html", context)
 
+#page for updating a project
 def update(request, num):
     #if get request, render form with initial values of the project plugged ing
     if request.method == "GET":
@@ -92,6 +105,8 @@ def create(request):
         form = ProjectForm()
         return render(request, "projects/create.html", {'form': form})
 
+
+#handles AJAX request to switch a project from on watch to off, or on track to off
 def switch(request):
     #switching value in database when button is clicked for certain project number
     #saving request data to var for query
@@ -112,7 +127,7 @@ def switch(request):
     project.save()
 
     #switch value base on current value
-    return HttpResponse("Successfully sent request, but did you send data??")
+    return redirect("/projects/")
 
 #closing out a project based on a get request - note need to update this method.
 def close(request, num):
@@ -124,29 +139,18 @@ def close(request, num):
         proj.save()
         return redirect('/projects')
 
-
+#passes project data, milestones abstracted, today's date and the phase which the project is in to the HTML template
 def dashboard(request,num):
     if request.method == "GET":
-        project_dash = Project.objects.get(projectnumber=num)
-        project_dash = project_dash.__dict__
-        print(project_dash)
-        milestones = []
-        proj_dash = list(project_dash.items())
-
-        for i in range(4, 28):
-            print(proj_dash[i])
-            if i % 2 == 0 and proj_dash[i+1][1] == False:
-                milestones.append(proj_dash[i])
-        milestones = dict(milestones)
-        date_today = datetime.datetime.today()
-        print(date_today)
+        #pulling information from database for the project number
+        proj = Project.objects.get(projectnumber=num)
 
 
-        #pull project information there
+
         #plug it into the template, and render it
-        return render(request, 'projects/dashboard.html', {'project': project_dash, 'milestones': milestones, 'date_today':date_today})
+        return render(request, 'projects/dashboard.html', {'project': proj, 'milestones': proj.milestones_remaining(), 'date_today': date.today(), 'phase': proj.current_phase()})
 
-
+#handles AJAX request to mark a milestone complete in the database
 def milestonescomplete(request):
     if request.method == "POST":
         #saving request data
@@ -166,3 +170,10 @@ def milestonescomplete(request):
 
         project.save()
         return redirect('/projects')
+
+#returns dictionary of dates related to each department
+def capacity(request):
+    if request.method == "GET":
+        capacity_company, capacity_an = capacity_analysis()
+        print("ANALYSIS RAN")
+        return render(request, 'projects/capacity.html', {"capacity": capacity_company, "capacity_analysis": capacity_an})

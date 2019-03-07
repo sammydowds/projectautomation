@@ -1,0 +1,173 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: Active Projects
+{% endblock %}
+
+{% block main %}
+
+
+<script src="/static/charts.js"></script>
+
+<!-- Div for engineering dates -->
+<div onclick="chartStyle({{capacity_analysis}})" style="text-align: center; padding: 5rem 1rem 2rem;">
+  <h1 style="text-align: left;"> Engineering </h1>
+
+  <!-- TODO: allow to scroll in body only -->
+	<table style="width: 100%;" class = "table table-sm table-hover">
+
+    <!-- TODO: Table head fixed -->
+    <thead style="font-size: 20px;" class="thead-dark">
+  		<tr>
+            <th>Project Number</th>
+            <th>Project Name</th>
+            <th>Engineering Start</th>
+            <th>Mechanical Released</th>
+            <th>Electrical Released</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for value in capacity.Engineering %}
+        <tr style="border: solid grey 2px;">
+          {% for info in value %}
+          <td> {{info}} </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+
+  <div id="Engineering" style="height: 300px; width: 100%;"></div>
+
+  <!-- Div for Manufacturing and Finishing dates -->
+  <div style="text-align: center;padding: 1rem 1rem 2rem;">
+    <h1 style="text-align: left;"> Manufacturing and Assembly </h1>
+
+    <!-- TODO: allow to scroll in body only -->
+  	<table style="width: 100%;" class = "table table-sm table-hover">
+
+      <!-- TODO: Table head fixed -->
+      <thead style="font-size: 20px;" class="thead-dark">
+    		<tr>
+              <th>Project Number</th>
+              <th>Project Name</th>
+              <th>ME Drawings Released</th>
+              <th>Manufacturing Deadline</th>
+              <th>Finishing Deadline</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for value in capacity.Manufacturing_and_Finishing %}
+          <tr style="border: solid grey 2px;">
+            {% for info in value %}
+            <td> {{info}} </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+    <div id="Manufacturing_and_Finishing" style="height: 300px; width: 100%;"></div>
+
+    <!-- Div for Assembly dates -->
+    <div style="text-align: center;padding: 1rem 1rem 2rem;">
+      <h1 style="text-align: left;"> Assembly </h1>
+
+      <!-- TODO: allow to scroll in body only -->
+      <table style="width: 100%;" class = "table table-sm table-hover">
+
+        <!-- TODO: Table head fixed -->
+        <thead style="font-size: 20px;" class="thead-dark">
+          <tr>
+                <th>Project Number</th>
+                <th>Project Name</th>
+                <th>Finishing Done</th>
+                <th>Assembly Complete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for value in capacity.Assembly %}
+            <tr style="border: solid grey 2px;">
+              {% for info in value %}
+              <td> {{info}} </td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+      </div>
+      <div id="Assembly" style="height: 300px; width: 100%;"></div>
+
+      <!-- Div for Integration at Acieta dates -->
+      <div style="text-align: center;padding: 1rem 1rem 2rem;">
+        <h1 style="text-align: left;"> Integration at Acieta </h1>
+
+        <!-- TODO: allow to scroll in body only -->
+        <table style="width: 100%;" class = "table table-sm table-hover">
+
+          <!-- TODO: Table head fixed -->
+          <thead style="font-size: 20px;" class="thead-dark">
+            <tr>
+                  <th>Project Number</th>
+                  <th>Project Name</th>
+                  <th>Assembly Complete/Programming Start</th>
+                  <th>Internal Run Off</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          {% for value in capacity.Integration_at_Acieta %}
+              <tr style="border: solid grey 2px;">
+                {% for info in value %}
+                <td> {{info}} </td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+        <div id="Integration_at_Acieta" style="height: 300px; width: 100%;"></div>
+
+        <!-- Div for Installations dates -->
+        <div style="text-align: center;padding: 1rem 1rem 2rem;">
+          <h1 style="text-align: left;"> Installations </h1>
+
+          <!-- TODO: allow to scroll in body only -->
+          <table style="width: 100%;" class = "table table-sm table-hover">
+
+            <!-- TODO: Table head fixed -->
+            <thead style="font-size: 20px;" class="thead-dark">
+              <tr>
+                    <th>Project Number</th>
+                    <th>Project Name</th>
+                    <th>Install Start</th>
+                    <th>Install Finish</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            {% for value in capacity.Install_at_Customer %}
+                <tr style="border: solid grey 2px;">
+                  {% for info in value %}
+                  <td> {{info}} </td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+
+            </table>
+          </div>
+          <div id="Install_at_Customer" style="height: 300px; width: 100%;"></div>
+
+
+
+
+{% endblock %}
