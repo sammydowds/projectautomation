@@ -7,13 +7,13 @@
 {% block main %}
 
 
-<div style="padding: 5rem 1rem 2rem;">
+<div style="padding: 5rem 0rem 0rem;">
 
   <!-- TODO: allow to scroll in body only -->
-	<table style="width: 100%;" class = "table table-sm table-hover">
+	<table class = "table table-sm table-hover table-responsive">
 
     <!-- TODO: Table head fixed -->
-    <thead style="color: white; background-color: black; font-size: 20px;" class="thead">
+    <thead style="background-color: black; font-size: 20px;" class="thead-dark">
   		<tr>
             <th>Project Number</th>
             <th>Project Name</th>
@@ -45,7 +45,7 @@
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}</a></td>
           <td>
-            <!-- TODO: Possible to format these buttons to match the table head and navbar? -->
+
             {% if project.offtrack == False %}
             <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
             {% else %}
@@ -53,7 +53,6 @@
             {% endif %}
           </td>
           <td>
-            <!-- TODO: Possible to format these buttons to match the table head and navbar? -->
             {% if project.onwatch == False %}
             <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
             {% else %}
@@ -216,17 +215,12 @@
             </div>
             {%endif%}
           </td>
-
           <td>
-            <!-- TODO: Possible to format button to match the table head and navbar? -->
+
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
           </td>
-          <!-- <td>
-              <button style = "background-color: orange;" onclick = "location.href = 'http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}'" class="btn btn-info">Dashboard</button>
-          </td> -->
-
           <td>
-            <!-- TODO: Possible to format button to match the table head and navbar? Also: When this close button is clicked can we show an alert that the project has been closed?-->
+
               <button style = "background-color: #db0000;" onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-info">Close</button>
           </td>
 

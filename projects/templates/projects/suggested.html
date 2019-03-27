@@ -1,0 +1,46 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: Active Projects
+{% endblock %}
+
+{% block main %}
+
+<!-- Div for engineering dates -->
+
+<div style="width: 50%; margin: 0 auto; padding: 5rem 1rem 2rem;">
+  <h2 style="text-align: center;"> {{projectdetails.project_num}}: {{projectdetails.project_name}} <br> Suggested Planning</h2>
+
+  <!-- TODO: allow to scroll in body only -->
+	<table class = "table table-sm table-hover bordered">
+
+    <!-- TODO: Table head fixed -->
+    <thead style="font-size: 20px;" class="thead-dark">
+  		<tr>
+
+            <th>Milestone/Task</th>
+            <th>Date</th>
+            <th>Assumption/Comment</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for key, value in suggested_schedule_analysis.items %}
+        <tr style="border: solid grey 2px;">
+          <td> {{ key }} </td>
+          {% for element in value %}
+          <td> {{ element }} </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+  </div>
+
+
+
+
+
+
+{% endblock %}

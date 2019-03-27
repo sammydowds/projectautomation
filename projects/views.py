@@ -6,11 +6,11 @@ from projects.forms import *
 import datetime
 from projects.helpers import *
 from projects.import_proj import *
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
-
-#main project page
+@login_required
 def index(request):
     #pulling all current projects
 
@@ -30,7 +30,9 @@ def index(request):
     print(projects_list)
     return render(request, "projects/project.html", context)
 
+
 #page for updating a project
+@login_required
 def update(request, num):
     #if get request, render form with initial values of the project plugged ing
     if request.method == "GET":
@@ -54,7 +56,10 @@ def update(request, num):
             form.save()
         return redirect('/projects')
 
+
 #creating a project
+
+@login_required
 def create(request):
     #Processing POST method (form to create a project)
     if request.method == "POST":
@@ -105,8 +110,8 @@ def create(request):
         form = ProjectForm()
         return render(request, "projects/create.html", {'form': form})
 
-
 #handles AJAX request to switch a project from on watch to off, or on track to off
+@login_required
 def switch(request):
     #switching value in database when button is clicked for certain project number
     #saving request data to var for query
@@ -130,6 +135,7 @@ def switch(request):
     return redirect("/projects/")
 
 #closing out a project based on a get request - note need to update this method.
+@login_required
 def close(request, num):
     if request.method == "GET":
         project_close = num
@@ -140,6 +146,7 @@ def close(request, num):
         return redirect('/projects')
 
 #passes project data, milestones abstracted, today's date and the phase which the project is in to the HTML template
+@login_required
 def dashboard(request,num):
     if request.method == "GET":
         #pulling information from database for the project number
@@ -151,6 +158,7 @@ def dashboard(request,num):
         return render(request, 'projects/dashboard.html', {'project': proj, 'milestones': proj.milestones_remaining(), 'date_today': date.today(), 'phase': proj.current_phase()})
 
 #handles AJAX request to mark a milestone complete in the database
+@login_required
 def milestonescomplete(request):
     if request.method == "POST":
         #saving request data
@@ -172,8 +180,35 @@ def milestonescomplete(request):
         return redirect('/projects')
 
 #returns dictionary of dates related to each department
+@login_required
 def capacity(request):
     if request.method == "GET":
         capacity_company, capacity_an = capacity_analysis()
         print("ANALYSIS RAN")
         return render(request, 'projects/capacity.html', {"capacity": capacity_company, "capacity_analysis": capacity_an})
+
+#renders suggested schedule based on suggest_schedule algorithm
+@login_required
+def suggested(request, num):
+    if request.method == "GET":
+        project=Project.objects.get(projectnumber=num)
+        suggested_schedule_an = suggest_schedule(project)
+        project_details = {"project_num": project.projectnumber, "project_name": project.projectname}
+
+        return render(request, 'projects/suggested.html', {'suggested_schedule_analysis': suggested_schedule_an, "projectdetails": project_details })
+
+#renders suggested schedule based on suggest_schedule algorithm  for each of the projects in the database
+@login_required
+def tasks(request):
+    if request.method == "GET":
+        projects = Project.objects.all()
+        project_tasks = []
+        for project in projects:
+            project_tasks.append(suggest_schedule(project))
+        print(project_tasks)
+        ordered_tasks = organize_tasks(project_tasks)
+        print(len(ordered_tasks))
+        return render(request, 'projects/tasks.html', {'sorted_tasks': ordered_tasks, 'number_tasks': len(ordered_tasks)})
+
+def logout(request):
+    logout(request)
