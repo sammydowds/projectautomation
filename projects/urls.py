@@ -18,5 +18,6 @@ urlpatterns = [
     path('suggested/<int:num>/', views.suggested, name = "suggested"),
     path('tasks/', views.tasks, name = "tasks"),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', views.register, name = "register")
 
 ]

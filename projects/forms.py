@@ -1,5 +1,7 @@
 from django import forms
 from projects.models import Project
+from django.contrib.auth.forms import UserCreationForm
+
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -21,3 +23,6 @@ class ProjectForm(forms.ModelForm):
                     'documentation': forms.DateInput(attrs={'class': 'datepicker'})
 
                     }
+class RegisterExtendedForm(UserCreationForm):
+    first_name = forms.CharField(label="First Name")
+    last_name = forms.CharField(label="Last Name")

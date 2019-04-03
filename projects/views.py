@@ -8,6 +8,9 @@ from projects.helpers import *
 from projects.import_proj import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 
 @login_required
@@ -212,3 +215,20 @@ def tasks(request):
 
 def logout(request):
     logout(request)
+    return redirect('/projects')
+
+def register(request):
+    if request.method == 'GET':
+        form = RegisterExtendedForm()
+        return render(request, 'registration/register.html', {'form': form})
+    if request.method == 'POST':
+        form = RegisterExtendedForm(request.POST)
+        print(form)
+        if form.is_valid():
+            user = User.objects.create_user(username=form.cleaned_data['username'],
+                                         password=form.cleaned_data['password1'],
+                                         first_name=form.cleaned_data['first_name'],
+                                         last_name=form.cleaned_data['last_name'])
+
+            user.save()
+            return redirect('/projects')

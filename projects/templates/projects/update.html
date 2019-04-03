@@ -15,21 +15,19 @@
 
 
 <!-- TODO: Style the form to match the base.html navbar?? -->
-<form style = "align: center; margin: 0px auto;float: none;width: 25%;" action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
+<form action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
   {% csrf_token %}
-  <table class = "table table table-hover table-responsive table-bordered">
-
-        {% for field in form %}
-        <thead>
+<table style = "text-align: center;" class = "table table table-hover table-responsive table-bordered">
+      {% for field in form %}
+      <tr>
           <th>{{ field.label }}</th>
-        </thead>
-        <tbody>
           <td>
             {{ field }}
+          <br>
           </td>
-        </tbody>
-        {% endfor %}
-  </table>
+      </tr>
+      {% endfor %}
+</table>
   <button style = "text-align: left;" type="submit" class="btn btn-default">Submit</button>
 </form>
 

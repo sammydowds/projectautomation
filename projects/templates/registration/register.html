@@ -1,0 +1,51 @@
+
+
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: Register User
+{% endblock %}
+
+{% block main %}
+
+
+<div style="width: 50%; margin: 0px auto; text-align: left; margin-top: 100px">
+
+  <!-- {% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+      {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+      {% else %}
+      <p>Please login to see this page.</p>
+      {% endif %}
+  {% endif %} -->
+
+
+  <form method="post" action="{% url 'register' %}">
+  {% csrf_token %}
+  {% for field in form %}
+    <p>
+      {{ field.label_tag }}<br>
+      {{ field }}
+      {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+  {% endfor %}
+
+  <input type="submit" value="register">
+  <input type="hidden" name="next" value="{{ next }}">
+
+  </form>
+
+  <!-- {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
+</div>
+{% endblock %}

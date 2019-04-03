@@ -8,6 +8,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/projects/video.css">
 
       <style>
         .bd-placeholder-img {
@@ -47,6 +48,16 @@
         <li class="nav-item">
           <a style = "color: grey;"class="nav-link" href="/projects/create">Create</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a style = "color: grey;"class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+        <li class="nav-item">
+          <p style = "color: red; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>
+        </li>
+
+
+        {% endif %}
       </ul>
       <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Project Number" aria-label="Search">
