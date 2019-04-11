@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 import numpy as np
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -42,7 +43,8 @@ class Project(models.Model):
     offtrack = models.BooleanField(default=True, null = True)
     onwatch = models.BooleanField(default=True, null = True)
     iscurrent = models.BooleanField(default=True, null = True)
-    employees = models.ManyToManyField(Employee)
+    projectmanager = models.CharField(max_length=150, null = True)
+
 
     def __str__(self):
         return self.projectname

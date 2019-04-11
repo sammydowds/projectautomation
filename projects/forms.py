@@ -7,8 +7,9 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        exclude = ['employees']
+        exclude = ['projectmanager']
         widgets = {
+                    'engineering_start': forms.DateInput(attrs={'class': 'datepicker'}),
                     'mechanicalrelease': forms.DateInput(attrs={'class': 'datepicker'}),
                     'electricalrelease': forms.DateInput(attrs={'class': 'datepicker'}),
                     'manufacturing': forms.DateInput(attrs={'class': 'datepicker'}),

@@ -15,22 +15,22 @@ from django.contrib.auth.models import User
 
 @login_required
 def index(request):
-    #pulling all current projects
-
+    user = request.user
+    # pulling all current projects
+    #
     # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
     # test_proj = list_projects()
     # for proj in test_proj:
-    #     print(proj)
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
-    # -----------------------------------------------------------------------------------------------------------------
-
-    projects_list = reversed(Project.objects.exclude(iscurrent=False))
-    print(projects_list)
+    # # -----------------------------------------------------------------------------------------------------------------
+    projects_list = Project.objects.filter(projectmanager=request.user.username)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
     context = {
         'projects': projects_list,
+        'num_proj': num_proj
     }
-    print(projects_list)
     return render(request, "projects/project.html", context)
 
 
@@ -40,18 +40,15 @@ def update(request, num):
     #if get request, render form with initial values of the project plugged ing
     if request.method == "GET":
         #pulling project number from request
-        print("GREAT SUCCESS")
         project_num = num
-        print(project_num)
         #pulling project from database
         proj_current = Project.objects.get(projectnumber=project_num)
-        print(proj_current)
         form = ProjectForm(initial = proj_current.__dict__)
+
 
         return render(request, "projects/update.html", {'form': form, 'project': proj_current})
     #if post request, post updates into the database and return back to the main projects page
     if request.method == "POST":
-        print("GREAT SUCCESS 2")
 
         proj_updating = Project.objects.get(projectnumber = num)
         form = ProjectForm(request.POST, instance=proj_updating)
@@ -85,7 +82,7 @@ def create(request):
                                   installfinish = form.cleaned_data["installfinish"],\
                                   documentation = form.cleaned_data["documentation"], \
                                   offtrack = True, \
-                                  onwatch = True)
+                                  onwatch = True, )
             #adding the new project to the initial project table
             #note: there has to be a better way to convert a form directly to an object below....!
             initial_project = InitialProject(projectname = form.cleaned_data["projectname"],
@@ -106,6 +103,8 @@ def create(request):
                                   onwatch = True)
             #adding the new project to the database
             new_project.save()
+            new_project.projectmanager = request.user.username
+            new_project.save()
             initial_project.save()
             return redirect('/projects/')
     elif request.method == "GET":
@@ -118,7 +117,6 @@ def create(request):
 def switch(request):
     #switching value in database when button is clicked for certain project number
     #saving request data to var for query
-    print(request.POST['projectnumber'])
     projectnumber = request.POST['projectnumber']
     type = request.POST['type']
 
@@ -142,7 +140,6 @@ def switch(request):
 def close(request, num):
     if request.method == "GET":
         project_close = num
-        print(project_close)
         proj = Project.objects.get(projectnumber=num)
         proj.iscurrent = False
         proj.save()
@@ -168,7 +165,7 @@ def milestonescomplete(request):
         projectnumber = request.POST['projectnumber']
         milestone = request.POST['milestone']
         milestone_status = milestone + 'complete'
-        print(milestone)
+
 
         #query the database for matching project
         project = Project.objects.get(projectnumber=projectnumber)
@@ -187,7 +184,6 @@ def milestonescomplete(request):
 def capacity(request):
     if request.method == "GET":
         capacity_company, capacity_an = capacity_analysis()
-        print("ANALYSIS RAN")
         return render(request, 'projects/capacity.html', {"capacity": capacity_company, "capacity_analysis": capacity_an})
 
 #renders suggested schedule based on suggest_schedule algorithm
@@ -204,13 +200,11 @@ def suggested(request, num):
 @login_required
 def tasks(request):
     if request.method == "GET":
-        projects = Project.objects.all()
+        projects = Project.objects.filter(projectmanager=request.user.username, iscurrent=True)
         project_tasks = []
         for project in projects:
             project_tasks.append(suggest_schedule(project))
-        print(project_tasks)
         ordered_tasks = organize_tasks(project_tasks)
-        print(len(ordered_tasks))
         return render(request, 'projects/tasks.html', {'sorted_tasks': ordered_tasks, 'number_tasks': len(ordered_tasks)})
 
 def logout(request):
@@ -223,7 +217,6 @@ def register(request):
         return render(request, 'registration/register.html', {'form': form})
     if request.method == 'POST':
         form = RegisterExtendedForm(request.POST)
-        print(form)
         if form.is_valid():
             user = User.objects.create_user(username=form.cleaned_data['username'],
                                          password=form.cleaned_data['password1'],

@@ -5,7 +5,7 @@ from datetime import datetime
 #function pulls projects, and appends a list of dictionaries with each dictionary being a project
 def list_projects():
     #opening xlsx sheet and saving to a var
-    book = xlrd.open_workbook("projects/projects2.xlsx")
+    book = xlrd.open_workbook("projects/projects2.xlsm")
 
     #saving the second sheet (data)
     data = book.sheet_by_index(1)
@@ -32,7 +32,7 @@ def list_projects():
             real_project.append(proj)
 
     #assembling a dictionary for each project, and giving a key to each value
-    object_vars = ['projectnumber', 'projectname', 'mechanicalrelease', 'electricalrelease', 'manufacturing', 'finishing', 'assembly', 'integration', 'internalrunoff', 'customerrunoff', 'ship', 'installstart', 'installfinish', 'documentation']
+    object_vars = ['projectnumber', 'projectname', 'mechanicalrelease', 'electricalrelease', 'manufacturing', 'finishing', 'assembly', 'internalrunoff', 'customerrunoff', 'ship', 'installstart', 'installfinish', 'documentation']
     object_dictionary = []
     for p in real_project:
         temp_dict = {}
@@ -41,14 +41,16 @@ def list_projects():
         for i in range(2, 13):
             #removing blank dates
             if isinstance(p[i], tuple):
-                print(p[i])
                 temp_dict[object_vars[i]]=(str(p[i][0]) +'-'+str(p[i][1])+'-'+str(p[i][2]))
         temp_dict['engineering_start'] = datetime(2019, 2, 1)
+        if 'internalrunoff' in temp_dict.keys():
+            temp_dict['integration'] = temp_dict['internalrunoff']
+        print(temp_dict)
         object_dictionary.append(temp_dict)
 
     for proj in object_dictionary:
         proj['projectnumber'] = proj['projectnumber'] * 100
-    print(object_dictionary)
+
 
 
     return object_dictionary

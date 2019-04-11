@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+# import django_heroku
 
 DATE_FORMAT = 'm/d/y (D)'
 
@@ -126,3 +127,4 @@ LOGOUT_REDIRECT_URL = '/projects/accounts/login'
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# django_heroku.settings(locals())
