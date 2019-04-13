@@ -8,7 +8,7 @@
 
 
 <div style="width: 100%; font-size: 20px; padding: 5rem 2rem 0rem;">
-  <div style="text-align: center; font-size: 40px;"> All Projects </div>
+  <div style="text-align: center; font-size: 30px;"> All Projects </div>
   <div style="padding: 2rem 0rem 2rem; font-size: 20px;"> Acieta's Number of Active Projects: ({{ num_proj }})</div>
 
   <!-- TODO: allow to scroll in body only -->
@@ -17,10 +17,13 @@
     <!-- TODO: Table head fixed -->
     <thead class="thead">
   		<tr style="height: 25px;">
+
             <th>Project Number</th>
             <th>Project Name</th>
+            <th>Project Manager</th>
             <th>Off Track</th>
             <th>On Watch</th>
+            <th>Next Deadline</th>
             <th>ME Release</th>
             <th>EE Release</th>
             <th>Manufacturing</th>
@@ -45,6 +48,7 @@
 
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}</a></td>
+          <td> {{project.projectmanager.first_name}} {{project.projectmanager.last_name}} </td>
           <td>
 
             {% if project.offtrack == False %}
@@ -60,6 +64,7 @@
             <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
             {% endif %}
           </td>
+          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }}</a> <a style="white-space: nowrap; font-size: 15px;"> ({{ project.days_from_next_deadline }} Business Days from Today)</a></td>
 
           <td>{% if project.mechanicalreleasecomplete != True %}
             <div class="form-check custom-control-inline">
@@ -216,6 +221,7 @@
             </div>
             {%endif%}
           </td>
+
           <!-- <td>
 
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>

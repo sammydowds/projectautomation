@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from datetime import date, datetime
 import numpy as np
 from django.contrib.auth.models import User
 
@@ -92,6 +92,15 @@ class Project(models.Model):
         #first milestone appended is the next milestone
         this_milestone = list(self.milestones_remaining())
         return this_milestone[0]
+
+    #returns days until next Deadline
+    def days_from_next_deadline(self):
+        return self.busdays_between(self.current_milestone_deadline(), datetime.today())
+
+    #returns next deadline date for the project
+    def current_milestone_deadline(self):
+        proj = self.__dict__
+        return (proj[self.current_milestone()])
 
     #returning the current phase project and the progress as a percentage
     def current_phase(self):
