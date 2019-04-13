@@ -12,7 +12,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-
 @login_required
 def index(request):
     user = request.user
@@ -24,7 +23,7 @@ def index(request):
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
     # # -----------------------------------------------------------------------------------------------------------------
-    projects_list = Project.objects.filter(projectmanager=request.user.username)
+    projects_list = Project.objects.all()
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -32,6 +31,26 @@ def index(request):
         'num_proj': num_proj
     }
     return render(request, "projects/project.html", context)
+
+@login_required
+def myprojects(request):
+    user = request.user
+    # pulling all current projects
+    #
+    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
+    # test_proj = list_projects()
+    # for proj in test_proj:
+    #     imported_proj = Project(**proj)
+    #     imported_proj.save()
+    # # -----------------------------------------------------------------------------------------------------------------
+    projects_list = Project.objects.filter(projectmanager=request.user)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj
+    }
+    return render(request, "projects/myprojects.html", context)
 
 
 #page for updating a project
@@ -52,6 +71,7 @@ def update(request, num):
 
         proj_updating = Project.objects.get(projectnumber = num)
         form = ProjectForm(request.POST, instance=proj_updating)
+
         if form.is_valid():
             form.save()
         return redirect('/projects')
@@ -82,7 +102,8 @@ def create(request):
                                   installfinish = form.cleaned_data["installfinish"],\
                                   documentation = form.cleaned_data["documentation"], \
                                   offtrack = True, \
-                                  onwatch = True, )
+                                  onwatch = True, \
+                                  projectmanager=form.cleaned_data["projectmanager"] )
             #adding the new project to the initial project table
             #note: there has to be a better way to convert a form directly to an object below....!
             initial_project = InitialProject(projectname = form.cleaned_data["projectname"],
@@ -102,8 +123,6 @@ def create(request):
                                   offtrack = True, \
                                   onwatch = True)
             #adding the new project to the database
-            new_project.save()
-            new_project.projectmanager = request.user.username
             new_project.save()
             initial_project.save()
             return redirect('/projects/')
@@ -151,9 +170,6 @@ def dashboard(request,num):
     if request.method == "GET":
         #pulling information from database for the project number
         proj = Project.objects.get(projectnumber=num)
-
-
-
         #plug it into the template, and render it
         return render(request, 'projects/dashboard.html', {'project': proj, 'milestones': proj.milestones_remaining(), 'date_today': date.today(), 'phase': proj.current_phase()})
 
@@ -165,7 +181,6 @@ def milestonescomplete(request):
         projectnumber = request.POST['projectnumber']
         milestone = request.POST['milestone']
         milestone_status = milestone + 'complete'
-
 
         #query the database for matching project
         project = Project.objects.get(projectnumber=projectnumber)
@@ -211,6 +226,7 @@ def logout(request):
     logout(request)
     return redirect('/projects')
 
+#TODO need to add where if the username already exists in the system it throws an error
 def register(request):
     if request.method == 'GET':
         form = RegisterExtendedForm()

@@ -8,8 +8,8 @@
 
 
 <div style="width: 100%; font-size: 20px; padding: 5rem 2rem 0rem;">
-  <div style="text-align: center; font-size: 40px;"> All Projects </div>
-  <div style="padding: 2rem 0rem 2rem; font-size: 20px;"> Acieta's Number of Active Projects: ({{ num_proj }})</div>
+  <div style="text-align: center; padding: 1rem 0rem 1rem; font-size: 30px;"> Project Manager: {{ user.first_name}} {{user.last_name}}</div>
+  <div style="padding: 2rem 0rem 2rem; font-size: 20px;"> Table - All Projects ({{ num_proj }})</div>
 
   <!-- TODO: allow to scroll in body only -->
 	<table style="width: 100%; height: 50%;"class = "table table-hover table-responsive">
@@ -33,8 +33,9 @@
             <th>Install</th>
             <th>Install Finish</th>
             <th>Documentation</th>
-            <!-- <th>Update Project</th>
-            <th>Complete</th> -->
+            <th>Update Project</th>
+            <!-- <th>Dashboard</th> -->
+            <th>Complete</th>
       </tr>
     </thead>
 
@@ -216,14 +217,14 @@
             </div>
             {%endif%}
           </td>
-          <!-- <td>
+          <td>
 
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
-          </td> -->
-          <!-- <td>
+          </td>
+          <td>
 
               <button style = "background-color: #db0000;" onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-info">Close</button>
-          </td> -->
+          </td>
 
 
         </tr>

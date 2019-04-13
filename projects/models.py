@@ -43,7 +43,7 @@ class Project(models.Model):
     offtrack = models.BooleanField(default=True, null = True)
     onwatch = models.BooleanField(default=True, null = True)
     iscurrent = models.BooleanField(default=True, null = True)
-    projectmanager = models.CharField(max_length=150, null = True)
+    projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
 
 
     def __str__(self):
@@ -145,6 +145,7 @@ class Project(models.Model):
 
     #returns business days between two dates
     def busdays_between(self, date1, date2):
+        #TODO Create case for 0 business days between
         return np.busday_count(date2,date1)
 
 
