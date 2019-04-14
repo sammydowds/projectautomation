@@ -8,7 +8,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name = "index"),
+    path('projectcards/', views.projectcards, name = "projectcards"),
     path('myprojects/', views.myprojects, name = "myprojects"),
+    path('myprojectcards/', views.myprojectcards, name = "myprojectcards"),
     path('create/', views.create, name = "create"),
     path('switch/', views.switch, name = "switch"),
     path('update/<int:num>/', views.update, name = "update"),

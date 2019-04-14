@@ -33,6 +33,47 @@ def index(request):
     return render(request, "projects/project.html", context)
 
 @login_required
+def projectcards(request):
+    user = request.user
+    # pulling all current projects
+    #
+    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
+    # test_proj = list_projects()
+    # for proj in test_proj:
+    #     imported_proj = Project(**proj)
+    #     imported_proj.save()
+    # -----------------------------------------------------------------------------------------------------------------
+    projects_list = Project.objects.all().exclude(iscurrent=False)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj
+    }
+    return render(request, "projects/project_cards.html", context)
+
+@login_required
+def myprojectcards(request):
+    user = request.user
+    # pulling all current projects
+    #
+    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
+    # test_proj = list_projects()
+    # for proj in test_proj:
+    #     imported_proj = Project(**proj)
+    #     imported_proj.save()
+    # # -----------------------------------------------------------------------------------------------------------------
+    projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
+    print(projects_list)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj
+    }
+    return render(request, "projects/myproject_cards.html", context)
+
+@login_required
 def myprojects(request):
     user = request.user
     # pulling all current projects
