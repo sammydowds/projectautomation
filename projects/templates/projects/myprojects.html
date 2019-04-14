@@ -22,6 +22,7 @@
 
             <th>Project Number</th>
             <th>Project Name</th>
+            <th>Next Deadline</th>
             <th>Off Track</th>
             <th>On Watch</th>
             <th>Update Project</th>
@@ -49,6 +50,8 @@
         <tr class="table-danger">
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
+          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.days_from_next_deadline }} Business Days Away</a></td>
+
           <td>
 
             {% if project.offtrack == False %}
@@ -237,6 +240,7 @@
         <tr class="table-success">
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }} <br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
+          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.days_from_next_deadline }} Business Days Away</a></td>
           <td>
 
             {% if project.offtrack == False %}
@@ -425,6 +429,7 @@
         <tr class="table-warning">
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
+          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.days_from_next_deadline }} Business Days Away</a></td>
           <td>
 
             {% if project.offtrack == False %}

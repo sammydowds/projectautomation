@@ -65,7 +65,7 @@
             <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
             {% endif %}
           </td>
-          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }}</td>
+          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.days_from_next_deadline }} Business Days Away</a></td>
 
           <td>{% if project.mechanicalreleasecomplete != True %}
             <div class="form-check custom-control-inline">

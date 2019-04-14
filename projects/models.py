@@ -156,7 +156,10 @@ class Project(models.Model):
     #returns business days between two dates
     def busdays_between(self, date1, date2):
         #TODO Create case for 0 business days between
-        return np.busday_count(date2,date1)
+        if isinstance(date1, date) and isinstance(date2, date):
+            return np.busday_count(date2,date1)
+        else:
+            return("[ERROR: Need Dates To Calc]")
 
 
 
