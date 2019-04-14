@@ -23,7 +23,7 @@ def index(request):
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
     # -----------------------------------------------------------------------------------------------------------------
-    projects_list = Project.objects.all()
+    projects_list = Project.objects.all().exclude(iscurrent=False)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -43,7 +43,8 @@ def myprojects(request):
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
     # # -----------------------------------------------------------------------------------------------------------------
-    projects_list = Project.objects.filter(projectmanager=request.user)
+    projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
+    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -63,18 +64,17 @@ def update(request, num):
         #pulling project from database
         proj_current = Project.objects.get(projectnumber=project_num)
         form = ProjectForm(initial = proj_current.__dict__)
-
-
         return render(request, "projects/update.html", {'form': form, 'project': proj_current})
     #if post request, post updates into the database and return back to the main projects page
     if request.method == "POST":
-
         proj_updating = Project.objects.get(projectnumber = num)
+        proj_updating.lastupdated = datetime.today()
+        proj_updating.save()
         form = ProjectForm(request.POST, instance=proj_updating)
 
         if form.is_valid():
             form.save()
-        return redirect('/projects')
+        return redirect('/projects/myprojects')
 
 
 #creating a project
@@ -215,7 +215,7 @@ def suggested(request, num):
 @login_required
 def tasks(request):
     if request.method == "GET":
-        projects = Project.objects.filter(projectmanager=request.user.username, iscurrent=True)
+        projects = Project.objects.filter(projectmanager=request.user, iscurrent=True)
         project_tasks = []
         for project in projects:
             project_tasks.append(suggest_schedule(project))

@@ -13,7 +13,7 @@
 
   <!-- TODO: allow to scroll in body only -->
   <div style="overflow: auto; font-size: 15px;">
-	<table style="width: 100%; height: 50%;"class = "table table-hover">
+	<table style="white-space: nowrap; width: 100%; height: 50%;"class = "table table-hover">
 
     <!-- TODO: Table head fixed -->
     <thead class="thead-dark">
@@ -48,7 +48,7 @@
         {% if project.offtrack == True %}
         <tr class="table-danger">
           <td> {{ project.projectnumber }} </td>
-          <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}</a></td>
+          <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td>
 
             {% if project.offtrack == False %}
@@ -236,7 +236,7 @@
         {% if project.onwatch == False and project.offtrack == False %}
         <tr class="table-success">
           <td> {{ project.projectnumber }} </td>
-          <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}</a></td>
+          <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }} <br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td>
 
             {% if project.offtrack == False %}
@@ -424,7 +424,7 @@
         {% if project.onwatch == True and project.offtrack != True %}
         <tr class="table-warning">
           <td> {{ project.projectnumber }} </td>
-          <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}</a></td>
+          <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td>
 
             {% if project.offtrack == False %}

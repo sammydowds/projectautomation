@@ -59,7 +59,8 @@ def suggest_schedule(project):
     project = project.milestones()
 
     #TODO Need to check if date is none in here
-    
+
+
     #creating a suggested schedule based on typical process of managing projects at Acieta
     suggested_sched[str(proj_number) + ': ' + 'Mechanical Design Review'] = project['mechanicalrelease'] - timedelta(weeks=1), "1 week is enough time to detail before Mechanical Release, need to send out approvals this day"
     suggested_sched[str(proj_number) + ': ' + 'Electrical Design Review'] = project['electricalrelease'] - timedelta(weeks=1), "1 week is enough time to detail before Electrical Release, need to send out approvals this day"

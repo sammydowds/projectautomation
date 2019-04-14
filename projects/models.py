@@ -44,6 +44,7 @@ class Project(models.Model):
     onwatch = models.BooleanField(default=True, null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
+    lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
 
 
     def __str__(self):

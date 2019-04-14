@@ -25,6 +25,7 @@
     </thead>
 
     <tbody>
+    {% if sorted_tasks != None %}
     {% for key, value in sorted_tasks.items %}
         <tr style="border: solid grey 2px;">
           <td> </td>
@@ -35,6 +36,7 @@
         </tr>
         {% endfor %}
       </tbody>
+      {% endif %}
 
     </table>
   </div>
