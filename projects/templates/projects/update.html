@@ -13,30 +13,27 @@
   </div>
 </div>
 
-
+<div style="width 50%;padding: 1rem 5rem 2rem; text-align: center">
 <!-- TODO: Style the form to match the base.html navbar?? -->
-<form action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
+<form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
   {% csrf_token %}
-<table style = "text-align: center;" class = "table table table-hover table-responsive table-bordered">
-      <tr>
-        <th> Current PM assigned </th>
-        <td> {{ project.projectmanager.first_name }} {{project.projectmanager.last_name}} </td>
-      </tr>
-      {% for field in form %}
-      <tr>
-          <th>{{ field.label }}</th>
-          <td>
-            {{ field }}
-          <br>
-          </td>
-      </tr>
+  <p> Current PM assigned: {{ project.projectmanager.first_name }} {{project.projectmanager.last_name}} </p>
+  {% for field in form %}
+    <p>
+      {{ field.label_tag }} {{ field }}
+      {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
       {% endfor %}
+    </p>
+  {% endfor %}
 
+  <input type="submit" value="Update Project">
 
-
-</table>
-  <button style = "text-align: left;" type="submit" class="btn btn-default">Submit</button>
 </form>
+</div>
 
 
 {% endblock %}
