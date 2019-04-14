@@ -44,6 +44,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/projects">Projects (List View)</a>
             <a class="dropdown-item" href="/projects/projectcards">Projects (Card View)</a>
+            <a class="dropdown-item" href="{% url 'capacity' %}">12 Month Capacity</a>
           </div>
         </li>
 
@@ -52,12 +53,10 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/projects/myprojects">My Projects (List View)</a>
             <a class="dropdown-item" href="/projects/myprojectcards"> My Projects (Card View)</a>
+            <a class="dropdown-item" href="{% url 'tasks' %}"> My Tasks </a>
           </div>
         </li>
         <!-- TODO: Will this look good as a yellow button? -->
-        <li class="nav-item">
-          <a style = "color: grey;" class="nav-link" href="{% url 'capacity' %}">Acieta's Capacity</a>
-        </li>
         <!-- TODO: Will this look good as a yellow button? -->
         <li class="nav-item">
           <a style = "color: grey;"class="nav-link" href="/projects/create">Create</a>

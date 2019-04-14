@@ -26,6 +26,7 @@
             <th>Off Track</th>
             <th>On Watch</th>
             <th>Update Project</th>
+            <th>Suggested Tasks</th>
             <th>Complete</th>
             <th>ME Release</th>
             <th>EE Release</th>
@@ -71,6 +72,7 @@
 
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
           </td>
+          <td><button name = "suggestedproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/suggested/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Suggested Tasks</button></td>
           <td>
               <!-- TODO Need to have op up message before closing project -->
               <button onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-danger">Close</button>
@@ -260,6 +262,7 @@
 
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
           </td>
+            <td><button name = "suggestedproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/suggested/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Suggested Tasks</button></td>
           <td>
 
               <button onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-danger">Close</button>
@@ -449,6 +452,7 @@
 
               <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
           </td>
+            <td><button name = "suggestedproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/suggested/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Suggested Tasks</button></td>
           <td>
 
               <button onclick = "location.href = 'http://127.0.0.1:8000/projects/close/{{project.projectnumber}}'" class="btn btn-danger">Close</button>
