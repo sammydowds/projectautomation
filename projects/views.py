@@ -22,7 +22,7 @@ def index(request):
     # for proj in test_proj:
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
-    # # -----------------------------------------------------------------------------------------------------------------
+    # -----------------------------------------------------------------------------------------------------------------
     projects_list = Project.objects.all()
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()

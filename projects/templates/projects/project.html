@@ -8,14 +8,15 @@
 
 
 <div style="width: 100%; font-size: 20px; padding: 5rem 2rem 0rem;">
-  <div style="text-align: center; font-size: 30px;"> All Projects </div>
   <div style="padding: 2rem 0rem 2rem; font-size: 20px;"> Acieta's Number of Active Projects: ({{ num_proj }})</div>
 
+
   <!-- TODO: allow to scroll in body only -->
-	<table style="width: 100%; height: 50%;"class = "table table-hover table-responsive">
+  <div style="overflow: auto; font-size: 15px;">
+	<table style="white-space: nowrap; width: 100%; height: 50%;"class = "table table-bordered table-hover">
 
     <!-- TODO: Table head fixed -->
-    <thead class="thead">
+    <thead class="thead-dark">
   		<tr style="height: 25px;">
 
             <th>Project Number</th>
@@ -64,7 +65,7 @@
             <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
             {% endif %}
           </td>
-          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }}</a> <a style="white-space: nowrap; font-size: 15px;"> ({{ project.days_from_next_deadline }} Business Days from Today)</a></td>
+          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }}</td>
 
           <td>{% if project.mechanicalreleasecomplete != True %}
             <div class="form-check custom-control-inline">
@@ -224,9 +225,11 @@
         </tr>
         {% endfor %}
       </tbody>
-
+    </div>
+    </div>
     </table>
-  </div>
+
+
 
 
 
