@@ -11,7 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-
+#TODO create project visualization page - which outputs suggested schedule and visualization of that schedule. Include the critical path of the project if possible. Graph of project - best visualization tool. Try to show critical path, and decisions.
+#TODO a calendar flow chart would be amazing. Look into doing this instead of a traditional graph?
+#TODO show % breakdown of the project by phase, how many days between each milestone. Sum total business hours per group, as well as days.
 @login_required
 def index(request):
     user = request.user

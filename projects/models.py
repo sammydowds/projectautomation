@@ -92,7 +92,11 @@ class Project(models.Model):
     def current_milestone(self):
         #first milestone appended is the next milestone
         this_milestone = list(self.milestones_remaining())
-        return this_milestone[0]
+        print(this_milestone)
+        if this_milestone != []:
+            return this_milestone[0]
+        else:
+            return None
 
     #returns days until next Deadline
     def days_from_next_deadline(self):
@@ -101,7 +105,10 @@ class Project(models.Model):
     #returns next deadline date for the project
     def current_milestone_deadline(self):
         proj = self.__dict__
-        return (proj[self.current_milestone()])
+        if self.current_milestone() != None:
+            return (proj[self.current_milestone()])
+        else:
+            return None
 
     #returning the current phase project and the progress as a percentage
     def current_phase(self):

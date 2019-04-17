@@ -28,19 +28,19 @@
 <body>
 
   <!-- TODO: Here is the navbar that will be on every page of the website. Ideal colors/scheme = Black and Red, with a little yellow -->
-  <nav style = "background-color: black;"class="navbar navbar-expand-md fixed-top">
-    <a style="color:red; font-style: italic; font-weight: bold;" class="navbar-brand" href="/projects/">ACIETA</a>
+  <nav style="font-family: sans-serif; " class="navbar navbar-expand-md">
+    <a style="color:red; font-style: italic; font-weight: bold;" class="navbar-brand" href="/projects/"><img src="/static/projects/logo.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div style="color:red; font-style: italic;" class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav">
         <!-- <li class="nav-item active">
           <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
         </li> -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">All Projects</a>
+          <a style="color: red;" class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">All Projects</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/projects">Projects (List View)</a>
             <a class="dropdown-item" href="/projects/projectcards">Projects (Card View)</a>
@@ -49,11 +49,12 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">My Projects</a>
+          <a style="color: red;" class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">My Projects</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/projects/myprojects">My Projects (List View)</a>
             <a class="dropdown-item" href="/projects/myprojectcards"> My Projects (Card View)</a>
             <a class="dropdown-item" href="{% url 'tasks' %}"> My Tasks </a>
+            <a class="dropdown-item" href="#"> Task Generation Settings </a>
           </div>
         </li>
         <!-- TODO: Will this look good as a yellow button? -->

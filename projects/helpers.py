@@ -6,6 +6,8 @@ import json
 
 #pulls projects by department and analyzes dates in each of the 12 months of the year
 #returns: 2 dictionaries = 1) {Phase: list(project number, project name, start date, end date)}, 2) {Phase: list({month: #of projects})}
+#TODO add days in between milestones to Dictionary 1
+#TODO add check if date is None
 def capacity_analysis():
 
     #creating dictionary of phases with list of projects and dates -------------------
@@ -53,6 +55,7 @@ def capacity_analysis():
     return capacity_company, capacity_analysis
 
 #returns a dictionary of suggested dates for tasks with key = description of task, values =  date, and assumption/comment
+#TODO add milestones to this mix
 def suggest_schedule(project):
     suggested_sched = {}
     proj_name, proj_number = project.projectname, project.projectnumber
@@ -96,8 +99,8 @@ def organize_tasks(projects_dict):
         #creating ordered list of dates and descriptions
         for k, v in project.items():
             item = [v[0], v[1], k]
-            if v[0] >= date.today():
-                list_all_tasks.append(item)
+            # if v[0] >= date.today():
+            list_all_tasks.append(item)
 
     sorted_tasks = sorted(list_all_tasks)
     sorted_tasks = dict((z, [x, y]) for x, y, z in sorted_tasks)
