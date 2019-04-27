@@ -11,12 +11,163 @@
   <div style="text-align: left; font-size: 20px;"> Project Manager: {{ user.first_name}} {{user.last_name}}</div>
   <div style="padding: 2rem 0rem 2rem; font-size: 15px;"> Table - All Projects ({{ num_proj }})</div>
 
+  <div class="container">
   <!-- TODO: allow to scroll in body only -->
-  <div style="overflow: auto; font-size: 12px;">
-	<table style="font-weight: bold; white-space: nowrap; width: 100%; height: 50%;"class = "table table-hover">
+
+  <div class="row justify-content-center">
+    <div style="text-align: center;" class="col-10">
+      <h4>Off Track</h4>
+      <table style="width: 100%; height: 300px;" class = "table table-responsive table-bordered">
+        <thead style="width: 100%;" class="thead-light">
+          <tr>
+            <th>Project Number</th>
+            <th>Project Name</th>
+            <th>Next Milestone</th>
+            <th>Deadline</th>
+            <th>Days Away</th>
+            <th>Off Track</th>
+            <th>On Watch</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody style="width: 100%;">
+          {% for project in projects_off %}
+          <tr>
+            <td>{{project.projectnumber}}</td>
+            <td>{{project.projectname}}</td>
+            <td>{{project.current_milestone.name}}</td>
+            <td>{{project.current_milestone.end}}</td>
+            <td>{{project.current_milestone.days_until}}</td>
+            <td>
+
+              {% if project.offtrack == False %}
+              <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+              {% else %}
+              <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+              {% endif %}
+            </td>
+            <td>
+              {% if project.onwatch == False %}
+              <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+              {% else %}
+              <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+              {% endif %}
+            </td>
+            <td>
+                <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
+            </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+    <div class="row justify-content-center">
+      <div style="text-align: center;" class="col-10">
+        <h4>On Watch</h4>
+        <table style="width: 100%; height: 300px;" class = "table table-responsive table-bordered">
+          <thead style="width: 100%;" class="thead-light">
+            <tr>
+              <th>Project Number</th>
+              <th>Project Name</th>
+              <th>Next Milestone</th>
+              <th>Deadline</th>
+              <th>Days Away</th>
+              <th>Off Track</th>
+              <th>On Watch</th>
+              <th>Update</th>
+            </tr>
+          </thead>
+          <tbody style="width: 100%;">
+            {% for project in projects_watch %}
+            <tr>
+              <td>{{project.projectnumber}}</td>
+              <td>{{project.projectname}}</td>
+              <td>{{project.current_milestone.name}}</td>
+              <td>{{project.current_milestone.end}}</td>
+              <td>{{project.current_milestone.days_until}}</td>
+              <td>
+
+                {% if project.offtrack == False %}
+                <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+                {% else %}
+                <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+                {% endif %}
+              </td>
+              <td>
+                {% if project.onwatch == False %}
+                <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+                {% else %}
+                <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+                {% endif %}
+              </td>
+              <td>
+                  <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
+              </td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  <div class="row justify-content-center">
+    <div style="text-align: center;" class="col-10">
+      <h4>Upcoming Milestones</h4>
+      <table style="width: 100%; height: 300px;" class = "table table-responsive table-bordered">
+        <thead style="width: 100%;" class="thead-light">
+          <tr>
+            <th>Project Number</th>
+            <th>Project Name</th>
+            <th>Next Milestone</th>
+            <th>Deadline</th>
+            <th>Days Away</th>
+            <th>Off Track</th>
+            <th>On Watch</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody style="width: 100%;">
+          {% for project in projects %}
+          <tr>
+            <td>{{project.projectnumber}}</td>
+            <td>{{project.projectname}}</td>
+            <td>{{project.current_milestone.name}}</td>
+            <td>{{project.current_milestone.end}}</td>
+            <td>{{project.current_milestone.days_until}}</td>
+            <td>
+
+              {% if project.offtrack == False %}
+              <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+              {% else %}
+              <input name = "offtrack" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+              {% endif %}
+            </td>
+            <td>
+              {% if project.onwatch == False %}
+              <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "No" class="btn btn-success" id = "{{ project.projectnumber }}"/>
+              {% else %}
+              <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
+              {% endif %}
+            </td>
+            <td>
+                <button name = "updateproj" type="button" onclick = "location.href = 'http://127.0.0.1:8000/projects/update/{{project.projectnumber}}'" class="btn btn-info" id = "{{ project.projectnumber }}">Update</button>
+            </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="padding: 2rem 0rem 2rem;" class = "row">
+	<table style="white-space: nowrap; width: 100%; height: 50%;"class = "table table-hover table-bordered table-responsive">
 
     <!-- TODO: Table head fixed -->
-    <thead style="text-align: center; font-size: 13px;" class="thead-dark">
+    <thead style="text-align: center; font-size: 20px;" class="thead-light">
   		<tr style="height: 25px;">
 
 
@@ -48,8 +199,8 @@
     {% for project in projects %}
 
         {% if project.offtrack == True %}
-        <tr class="table-danger">
-          <td> {{ project.projectnumber }} </td>
+        <tr>
+          <td class="table-danger"> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td> <a style="white-space: nowrap">{{project.current_milestone.name}}: {{project.current_milestone.end }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.current_milestone.days_until }} Business Days Away</a></td>
 
@@ -239,8 +390,8 @@
         {% endif %}
 
         {% if project.onwatch == False and project.offtrack == False %}
-        <tr class="table-success">
-          <td> {{ project.projectnumber }} </td>
+        <tr>
+          <td class="table-success"> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }} <br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td> <a style="white-space: nowrap">{{project.current_milestone.name}}: {{project.current_milestone.end }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.current_milestone.days_until }} Business Days Away</a></td>
           <td>
@@ -429,8 +580,8 @@
         {% endif %}
 
         {% if project.onwatch == True and project.offtrack != True %}
-        <tr class="table-warning">
-          <td> {{ project.projectnumber }} </td>
+        <tr>
+          <td class="table-warning"> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td> <a style="white-space: nowrap">{{project.current_milestone.name}}: {{project.current_milestone.end }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.current_milestone.days_until }} Business Days Away</a></td>
           <td>
@@ -622,7 +773,9 @@
 
     </table>
   </div>
-  </div>
+
+</div>
+</div>
 
 
 

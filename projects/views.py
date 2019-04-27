@@ -69,9 +69,14 @@ def myprojects(request):
     projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
+    projects_on_watch = Project.objects.filter(projectmanager=request.user).exclude(onwatch=False)
+    projects_off_track = Project.objects.filter(projectmanager=request.user).exclude(offtrack=False)
+
     context = {
         'projects': projects_list,
-        'num_proj': num_proj
+        'num_proj': num_proj,
+        'projects_watch': projects_on_watch,
+        'projects_off': projects_off_track
     }
     return render(request, "projects/myprojects.html", context)
 

@@ -57,59 +57,10 @@ def capacity_analysis():
 
 #returns a dictionary of suggested dates for tasks with key = description of task, values =  date, and assumption/comment
 #TODO add milestones to this mix
-def suggest_schedule(project):
-    suggested_sched = {}
-    proj_name, proj_number = project.projectname, project.projectnumber
-    project = project.milestones()
-
-    #TODO Need to check if date is none in here
-    gantt_data_suggested = []
-
-    #creating a suggested schedule based on typical process of managing projects at Acieta
-    suggested_sched[str(proj_number) + ': ' + 'Mechanical Design Review'] = project['Mechanical_Release'] - timedelta(weeks=1), "1 week is enough time to detail before Mechanical Release, need to send out approvals this day"
-    gantt_data_suggested.append(['ME Review', str(project['Mechanical_Release'] - timedelta(days=11)), str(project['Mechanical_Release']- timedelta(days=7))])
-    suggested_sched[str(proj_number) + ': ' + 'Electrical Design Review'] = project['Electrical_Release'] - timedelta(weeks=1), "1 week is enough time to detail before Electrical Release, need to send out approvals this day"
-    gantt_data_suggested.append(['EE Review', str(project['Electrical_Release'] - timedelta(weeks=1)), str(project['Electrical_Release'])])
-    suggested_sched[str(proj_number) + ': ' + 'SOW Finished and Sent to Customer'] = project['Mechanical_Release'] - timedelta(days=7), "Sent at the same time with mechanical approval drawings. No major changes or risks, and customer is aware of scope."
-    gantt_data_suggested.append(['Finish SOW', str(project['Mechanical_Release'] - timedelta(weeks=2)), str(project['Mechanical_Release'] - timedelta(weeks=1))])
-    suggested_sched[str(proj_number) + ': ' + 'Order the Robot'] = project['Assembly'] - timedelta(weeks=8), "6-8 Week lead time before the day Assembly starts"
-    gantt_data_suggested.append(['Order the Robot', str(project['Assembly'] - timedelta(weeks=8)), str(project['Assembly'] - timedelta(weeks=6))])
-    suggested_sched[str(proj_number) + ': ' + 'Manufacturing to Assembly Transition Meeting'] = project['Finishing'] - timedelta(weeks=1), "Allows for 1 week to review items that need to get done for Assembly"
-    gantt_data_suggested.append(['Manufacturing/Assembly Transition', str(project['Assembly'] - timedelta(weeks=1)), str(project['Assembly'] - timedelta(days=5))])
-    suggested_sched[str(proj_number) + ': ' + 'Assembly to Integration Transition Meeting'] = project['Assembly'] - timedelta(weeks=1), "Allows for 1 week to review items that need to be done for Programmers to start"
-    gantt_data_suggested.append(['Assembly/Integration Transition', str(project['Integration'] - timedelta(weeks=1)), str(project['Integration'] - timedelta(days=5))])
-    suggested_sched[str(proj_number) + ': ' + 'Prepare for Customer Visit'] = project['Customer_Runoff'] - timedelta(weeks=1), "Customer run off is 1 week after this date"
-    gantt_data_suggested.append(['Prepare for Customer Visit', str(project['Customer_Runoff'] - timedelta(days=9)), str(project['Customer_Runoff'] - timedelta(days=5))])
-    suggested_sched[str(proj_number) + ': ' + 'Prepare Acieta Run-Off Document'] = project['Customer_Runoff'] - timedelta(days=3), "For the customer to sign for run off at Acieta"
-    gantt_data_suggested.append(['Prepare Acieta Run-off Document', str(project['Internal_Runoff'] - timedelta(weeks=1)), str(project['Internal_Runoff'] - timedelta(days=5))])
-    suggested_sched[str(proj_number) + ': ' + 'Prepare Shipping Document'] = project['Ship'] - timedelta(weeks=2), "Gives 2 weeks lead time before Ship date"
-    gantt_data_suggested.append(['Prepare Shipping Document', str(project['Ship'] - timedelta(days=9)), str(project['Ship'] - timedelta(days=7))])
-    suggested_sched[str(proj_number) + ': ' + 'Prepare Final Run-Off Document'] = project['Install_Finish'] - timedelta(weeks=1), "1 week before install finish"
-    gantt_data_suggested.append(['Prepare Final Run-Off Document', str(project['Install_Finish'] - timedelta(weeks=1)), str(project['Install_Finish'] - timedelta(days=2))])
-    suggested_sched[str(proj_number) + ': ' + 'Prepare T&E Document and Expectations'] = project['Install_Start'] - timedelta(weeks=1), "1 week before install starts"
-    gantt_data_suggested.append(['Prepare T&E_Doc/Expectations', str(project['Install_Start'] - timedelta(weeks=1)), str(project['Install_Start'] - timedelta(days=5))])
-    suggested_sched[str(proj_number) + ': ' + 'Recieve Approvals on Drawings/SOW from Customer'] = project['Mechanical_Release'] - timedelta(days=5), "Follow up on getting drawings signed, at this point could cause delays to Manufacturing"
-    gantt_data_suggested.append(['Recieve Approvals', str(project['Mechanical_Release'] - timedelta(days=7)), str(project['Mechanical_Release'] - timedelta(days=5))])
-    suggested_sched[str(proj_number) + ': ' + 'Risk Assessment'] = project['engineering_start'] + timedelta(weeks=2), "2 weeks after engineering starts, risk assessment to determine if design changes need to occur"
-
-
-    #creating ordered list of dates and descriptions
-    list_suggested_schedule = []
-    for k, v in suggested_sched.items():
-        item = [v[0], v[1], k]
-        list_suggested_schedule.append(item)
-
-    print(list_suggested_schedule)
-    gantt_data_suggested = sorted(gantt_data_suggested, key=operator.itemgetter(1))
-    sorted_list_sugg_sched = sorted(list_suggested_schedule)
-
-    sorted_dict_sugg_sched = dict((z, [x, y]) for x, y, z in sorted_list_sugg_sched)
-
-
-
-
-    print(sorted_dict_sugg_sched)
-    return sorted_dict_sugg_sched, gantt_data_suggested
+# def suggest_schedule(project):
+#     suggested_sched = {}
+#
+#     return sorted_dict_sugg_sched, gantt_data_suggested
 
 def organize_tasks(projects_dict):
     list_all_tasks = []

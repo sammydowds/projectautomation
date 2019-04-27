@@ -35,14 +35,13 @@
 
 <!-- Overview stats  -->
   <div style="border-top: solid red 3px; border-bottom: solid red 3px;text-align: center; padding: 1rem 1rem 1rem;" class="container">
-
     <div class ="row">
       <div style="text-align: center;" class = "col">
         <h5 style="padding: 1rem 2rem 0rem;">Phase: {{phase.current_phase}} <br> <a style="font-size: 12px;">Ending: {{phase.end}}</a></h5>
         <p>{% if project.offtrack == False %}
           <p style ="font-size: 20px; color: green;"> Status - On Track </p>
         {% else %}
-          <p style ="font-size: 10px; color: red;"> Status - Off-Track </p>
+          <p style ="font-size: 20px; color: red;"> Status - Off-Track </p>
         {% endif %}
         </p>
             <div class="c100 p{{phase.progress}} red big">
@@ -71,21 +70,24 @@
     </div>
 
 <!-- Second Container - Detailed schedule and risks -->
-  <div style="padding: 3rem 0rem 0rem;" class="row">
-    <!-- <div class="col"></div> -->
-    <div class="col"></div>
-
+<div class = "container">
+  <div style="padding: 3rem 0rem 1rem;" class="row justify-content-center">
     <div class="col">
-      <h5 style="text-align: center;padding: 0rem 0rem 1rem;">Visulization Project Timeline</h5>
-      <div id="chart_div" style="width: 100% ; "></div>
+      <h5 style="text-align:center;">Dynamic Project Gantt</h5>
+      <div style="width: 1050px;" id="chart_div"></div>
     </div>
-    <div class="col"></div>
-    <!-- <div class="col"></div> -->
+    <!-- <div class = "col"></div>
+    <div class="col-8">
+      <h5 style="text-align: center;padding: 0rem 0rem 1rem;">Visulization Project Timeline</h5>
+      <div id="chart_div"></div>
+    </div>
+    <div class = "col"></div> -->
   </div>
 
 
+
     <!-- <div class="col-1"></div> -->
-  <div style="text-align: center; padding: 2rem 0rem 2rem;" class="row">
+  <div style="text-align: center; padding: 1rem 0rem 5rem;" class="row">
     <div class = "col"></div>
     <div class="col">
       <h5 style="text-align: center;"> Dates - Project Schedule </h5>
@@ -113,6 +115,8 @@
     <div class = "col"></div>
   </div>
   <div class = "row"></div>
+</div>
+</div>
 
     <!-- <div style="padding: 2rem 1rem 2rem;" class = "row">
       <div class = "col"></div>

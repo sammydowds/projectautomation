@@ -139,11 +139,17 @@ class Project(models.Model):
             duration = task[1][2]
             leadtime = task[1][1]
             milestone_deadline = this_project[task[1][0]]
-            #calculating dates
-            start = milestone_deadline - timedelta(weeks=leadtime)
-            end = milestone_deadline + timedelta(days=duration)
-            #saving task name and info to dictionary
-            suggested_schedule[task[0]] = {'start': start, 'end': end, 'duration': duration}
+
+            #testing to see if milestone is none
+            if milestone_deadline != None:
+                #calculating dates
+                start = milestone_deadline - timedelta(weeks=leadtime)
+                end = milestone_deadline + timedelta(days=duration)
+                #saving task name and info to dictionary
+                suggested_schedule[task[0]] = {'start': start, 'end': end, 'duration': duration}
+            else:
+                #saving None to start and end because there is no date entered for the reference milestone
+                suggested_schedule[task[0]] = {'start': None, 'end': None, 'duration': duration}
 
         return suggested_schedule
 
@@ -207,7 +213,7 @@ class Project(models.Model):
                         break
             #setting phase to unknown if there are no dates entered for all values
             else:
-                return {'current_phase': 'Unknown', 'progress': 0}
+                return {'current_phase': None, 'start': None, 'end': None, 'progress': 0}
 
         return status
 
