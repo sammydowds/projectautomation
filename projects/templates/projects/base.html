@@ -22,11 +22,14 @@
         }
       </style>
     <!-- Custom styles for this template -->
+    <script src="/static/projects/gantt.js"></script>
+    <script src="/static/projects/gantt_pm.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 
 
 <body>
-
   <!-- TODO: Here is the navbar that will be on every page of the website. Ideal colors/scheme = Black and Red, with a little yellow -->
   <nav style="font-family: sans-serif; " class="navbar navbar-expand-md">
     <a style="color:red; font-style: italic; font-weight: bold;" class="navbar-brand" href="/projects/"><img src="/static/projects/logo.png"></a>
@@ -80,8 +83,6 @@
     </div>
   </nav>
 </body>
-
-
 
 <main>
   {% block main %}{% endblock %}

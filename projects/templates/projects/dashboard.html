@@ -11,19 +11,22 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="/static/projects/circle.css">
+    <script src="/static/projects/gantt.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 <main role="main">
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
-  <div style="font-family: Arial;">
+  <div onclick="ganttCreator({{gantt_data}})" style="font-family: Arial;">
   <div style = "padding: 0rem 0rem 2rem; text-align: center; background-color: transparent;">
     <div class="container">
       <img src="/static/projects/logo.png">
-        <p style="font-size: 40px;">{{project.projectnumber}}: {{project.projectname}}</p>
+        <p style="font-size: 35px;">{{project.projectnumber}}: {{project.projectname}}</p>
         <p style ="font-size: 25px;">Report Date: {{ date_today }}</p>
     </div>
   </div>
+</div>
 
   <!-- <div style="padding: 2rem 2rem 2rem; text-align: center;" class="container">
     <div class="row">
@@ -31,19 +34,19 @@
   </div> -->
 
 <!-- Overview stats  -->
-  <div style="border-top: solid red 3px; border-bottom: solid red 3px;text-align: center; padding: 2rem 1rem 2rem;" class="container">
-    <p>{% if project.offtrack == False %}
-      <p style ="font-size: 30px; color: green;"> Status - On Track </p>
-    {% else %}
-      <p style ="font-size: 30px; color: red;"> Status - Off-Track </p>
-    {% endif %}
-    </p>
+  <div style="border-top: solid red 3px; border-bottom: solid red 3px;text-align: center; padding: 1rem 1rem 1rem;" class="container">
 
     <div class ="row">
       <div style="text-align: center;" class = "col">
-        <h2 style="padding: 2rem 2rem 2rem;">Phase: {{phase.Phase}}</h2>
-            <div class="c100 p{{phase.Progress}} red big">
-            <span>{{phase.Progress}}%</span>
+        <h5 style="padding: 1rem 2rem 0rem;">Phase: {{phase.current_phase}} <br> <a style="font-size: 12px;">Ending: {{phase.end}}</a></h5>
+        <p>{% if project.offtrack == False %}
+          <p style ="font-size: 20px; color: green;"> Status - On Track </p>
+        {% else %}
+          <p style ="font-size: 10px; color: red;"> Status - Off-Track </p>
+        {% endif %}
+        </p>
+            <div class="c100 p{{phase.progress}} red big">
+            <span>{{phase.progress}}%</span>
             <div class="slice">
               <div class="bar"></div>
               <div class="fill"></div>
@@ -52,67 +55,102 @@
         </div>
 
         <div style="text-align: center;" class = "col">
-          <h2 style="padding: 2rem 2rem 2rem;">Acieta Runoff:</h2>
-          <p style="font-size: 25px; font-family: Courier;">{{project.customerrunoff}}</p>
-          <h2 style="padding: 2rem 2rem 2rem;">Shipment:</h2>
-          <p style="text-align: center; font-size: 25px; font-family: Courier;">{{project.ship}}</p>
+          <h5 style="padding: 1rem 2rem 1rem;">Acieta Runoff:</h5>
+          <p style="font-size: 20px; font-family: Courier;">{{project.Customer_Runoff}}</p>
+          <h5 style="padding: 1rem 2rem 1rem;">Shipment:</h5>
+          <p style="text-align: center; font-size: 20px; font-family: Courier;">{{project.Ship}}</p>
         </div>
 
         <div style=" text-align: center;" class = "col">
-          <h2 style="padding: 2rem 2rem 2rem;">Install Start:</h2>
-          <p style="text-align: center; font-size: 25px; font-family: Courier;">{{project.installstart}}</p>
-          <h2 style="padding: 2rem 2rem 2rem;">Install Finish:</h2>
-          <p style="text-align: center; font-size: 25px; font-family: Courier;">{{project.installfinish}}</p>
+          <h5 style="padding: 1rem 2rem 1rem;">Install Start:</h5>
+          <p style="text-align: center; font-size: 20px; font-family: Courier;">{{project.Install_Start}}</p>
+          <h5 style="padding: 1rem 2rem 1rem;">Install Finish:</h5>
+          <p style="text-align: center; font-size: 20px; font-family: Courier;">{{project.Install_Finish}}</p>
         </div>
       </div>
     </div>
 
 <!-- Second Container - Detailed schedule and risks -->
-<div style="padding: 2rem 1rem 2rem;">
-  <div style="border-bottom: solid red 2px; text-align: center; padding: 2rem 2rem 2rem;" class="container">
-    <!-- Example row of columns -->
-    <div style="text-align: center;"class="row">
-      <div class="col">
-        <h1>Detailed Project Timeline</h1>
-        <table style="border: none; table-layout: fixed; width: 100%; font-size: 25px;"class="table borderless">
-          <!-- <thead>
-            <tr>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead> -->
+  <div style="padding: 3rem 0rem 0rem;" class="row">
+    <!-- <div class="col"></div> -->
+    <div class="col"></div>
 
-          {% for key,value in milestones.items %}
+    <div class="col">
+      <h5 style="text-align: center;padding: 0rem 0rem 1rem;">Visulization Project Timeline</h5>
+      <div id="chart_div" style="width: 100% ; "></div>
+    </div>
+    <div class="col"></div>
+    <!-- <div class="col"></div> -->
+  </div>
+
+
+    <!-- <div class="col-1"></div> -->
+  <div style="text-align: center; padding: 2rem 0rem 2rem;" class="row">
+    <div class = "col"></div>
+    <div class="col">
+      <h5 style="text-align: center;"> Dates - Project Schedule </h5>
+      <table style="white-space: nowrap; text-align: center; width: 100%; font-family: courier; font-size: 15px;" class="table-bordered">
+        <thead>
           <tr>
-            {%if value != None %}
-            <td style="border: none;"> | <br> {{ key }} <br> {{ value }}</td>
-            {%else%}
-            <td>{{ key }} <br> Not Scheduled</td>
-            {%endif%}
+            <th>Milestone</th>
+            <th>Estimated Start</th>
+            <th>Estimated Completion</th>
+            <th>Duration (Business Days)</th>
           </tr>
-          {% endfor %}
+        </thead>
+        <tbody>
+          {% for key, value in phases.items %}
+            <tr>
+              <td>{{key}}</td>
+              <td>{{value.start}}</td>
+              <td>{{value.end}}</td>
+              <td>{{value.duration}}</td>
+            </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+    <div class = "col"></div>
+  </div>
+  <div class = "row"></div>
 
-
+    <!-- <div style="padding: 2rem 1rem 2rem;" class = "row">
+      <div class = "col"></div>
+      <div class="col">
+        <h5 style="text-align: center;"> Dates - Internal Schedule </h5>
+        <table style="text-align: center; height: 100%; font-family: courier; font-size: 15px;" class="table-bordered">
+          <thead>
+            <tr>
+              <th>Milestone</th>
+              <th>Estimated Completion</th>
+              <th>Duration (Business Days)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for key, value in milestones.items %}
+              <tr>
+                <td>{{key}}</td>
+                <td>{{value.end}}</td>
+                <td>{{value.duration}}</td>
+              </tr>
+            {%endfor%}
+          </tbody>
         </table>
       </div>
-      <div style="padding: 1rem 1rem 1rem; text-align:" class="col">
-        <h1>Project Risks</h1>
-      </div>
-      </div>
-
-      </div>
-    </div>
+  <div class = "col"></div>
+  </div> -->
 
 
 
-</div>
+
+
 
 </main>
 
-<footer class="container">
+<!-- <footer class="container">
   <p>&copy; Acieta 2019</p>
-</footer>
-<script src="/static/index.js"></script>
+</footer> -->
+<script src="/static/projects/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

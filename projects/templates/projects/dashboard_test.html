@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{project.projectname}} · Acieta</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/static/projects/gantt.js"></script>
+
+  </head>
+
+
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div onclick="ganttCreator({{gantt_data}})" style="font-family: Arial;">
+  <div style = "padding: 0rem 0rem 2rem; text-align: center; background-color: transparent;">
+    <div class="container">
+      <img src="/static/projects/logo.png">
+        <p style="font-size: 40px;">{{project.projectnumber}}: {{project.projectname}}</p>
+        <p style ="font-size: 25px;">Report Date: {{ date_today }}</p>
+    </div>
+  </div>
+
+  <div id="chart_div" style="padding: 2rem 5rem 2rem;"></div>
+
+</main>
+
+<footer class="container">
+  <p>&copy; Acieta 2019</p>
+</footer>

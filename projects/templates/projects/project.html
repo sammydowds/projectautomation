@@ -13,7 +13,7 @@
 
   <!-- TODO: allow to scroll in body only -->
   <div style="font-size: 15px;">
-	<table style="white-space: nowrap; width: 100%; height: 50%;"class = "table table-bordered table-striped table-hover">
+	<table style="white-space: nowrap; width: 100%; height: 50%;"class = "table table-bordered table-striped table-responsive table-hover">
 
     <!-- TODO: Table head fixed -->
     <thead class="thead-dark">
@@ -22,9 +22,9 @@
             <th>Project Number</th>
             <th>Project Name</th>
             <th>Project Manager</th>
+            <th>Next Deadline</th>
             <th>Off Track</th>
             <th>On Watch</th>
-            <th>Next Deadline</th>
             <th>ME Release</th>
             <th>EE Release</th>
             <th>Manufacturing</th>
@@ -50,6 +50,7 @@
           <td> {{ project.projectnumber }} </td>
           <td><a href = "http://127.0.0.1:8000/projects/dashboard/{{project.projectnumber}}">{{ project.projectname }}<br><a style="font-size: 10px;"> Last Updated: {{project.lastupdated}}</a></a></td>
           <td> {{project.projectmanager.first_name}} {{project.projectmanager.last_name}} </td>
+            <td> <a style="white-space: nowrap">{{project.current_milestone.name}}: {{project.current_milestone.end }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.current_milestone.days_until }} Business Days Away</a></td>
           <td>
 
             {% if project.offtrack == False %}
@@ -65,17 +66,16 @@
             <input name = "onwatch" type="button" onClick = "changestatus(this)" value = "Yes" class="btn btn-warning" id = "{{ project.projectnumber }}" />
             {% endif %}
           </td>
-          <td> <a style="white-space: nowrap">{{project.current_milestone}}: {{project.current_milestone_deadline }} <br> <a style="font-size: 10px;white-space:nowrap;">{{ project.days_from_next_deadline }} Business Days Away</a></td>
 
           <td>{% if project.mechanicalreleasecomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value= "mechanicalrelease" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.mechanicalrelease }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Mechanical_Release }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value= "mechanicalrelease" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.mechanicalrelease }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Mechanical_Release }}</label>
             </div>
             {%endif%}
           </td>
@@ -83,12 +83,12 @@
           <td>{% if project.electricalreleasecomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="electricalrelease" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.electricalrelease }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Electrical_Release }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value= "electricalrelease" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.electricalrelease }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Electrical_Release }}</label>
             </div>
             {%endif%}
           </td>
@@ -96,12 +96,12 @@
           <td>{% if project.manufacturingcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="manufacturing" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.manufacturing }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Manufacturing }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="manufacturing" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.manufacturing }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Manufacturing }}</label>
             </div>
             {%endif%}
           </td>
@@ -109,12 +109,12 @@
           <td>{% if project.finishingcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="finishing" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.finishing }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Finishing }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="finishing" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.finishing }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Finishing }}</label>
             </div>
             {%endif%}
           </td>
@@ -122,12 +122,12 @@
           <td>{% if project.assemblycomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="assembly" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.assembly }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Assembly }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="assembly" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.assembly }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Assembly }}</label>
             </div>
             {%endif%}
           </td>
@@ -135,12 +135,12 @@
           <td>{% if project.integrationcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="integration" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.integration }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Integration }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="integration" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.integration }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Integration }}</label>
             </div>
             {%endif%}
           </td>
@@ -148,12 +148,12 @@
           <td>{% if project.internalrunoffcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="internalrunoff" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.internalrunoff }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Internal_Runoff }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="internalrunoff" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.internalrunoff }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Internal_Runoff }}</label>
             </div>
             {%endif%}
           </td>
@@ -161,12 +161,12 @@
           <td>{% if project.customerrunoffcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="customerrunoff" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.customerrunoff }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Customer_Runoff }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="customerrunoff" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.customerrunoff }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Customer_Runoff }}</label>
             </div>
             {%endif%}
           </td>
@@ -174,12 +174,12 @@
           <td>{% if project.shipcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="ship" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.ship }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Ship }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="ship" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.ship }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Ship }}</label>
             </div>
             {%endif%}
           </td>
@@ -187,12 +187,12 @@
           <td>{% if project.installstartcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="installstart" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.installstart }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Install_Start }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="installstart" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.installstart }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Install_Start }}</label>
             </div>
             {%endif%}
           </td>
@@ -200,12 +200,12 @@
           <td>{% if project.installfinishcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="installfinish" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.installfinish }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Install_Finish }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked = "checked" value="installfinish" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.installfinish }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Install_Finish }}</label>
             </div>
             {%endif%}
           </td>
@@ -213,12 +213,12 @@
           <td>{% if project.documentationcomplete != True %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" value="documentation" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.documentation }}</label>
+              <label name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Documentation }}</label>
             </div>
             {% else %}
             <div class="form-check custom-control-inline">
               <input type="checkbox" checked="checked" value="documentation" onclick="completemilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
-              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.documentation }}</label>
+              <label style="color: #D3D3D3;" name="lblmile" class="form-check-label" for="materialUnchecked">{{ project.Documentation }}</label>
             </div>
             {%endif%}
           </td>

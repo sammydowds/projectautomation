@@ -4,17 +4,34 @@
     Acieta: Active Projects
 {% endblock %}
 
+<script src="/static/projects/gantt.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 {% block main %}
 
 <!-- Div for engineering dates -->
+<div onclick="ganttCreator({{gantt_data}})" >Click Here to See Overall Project Gantt</div>
+<div onclick="ganttCreator({{suggested_gantt_data}})" >Click Here to See Suggested Tasks for Project</div>
 
-<div style="width: 50%; margin: 0 auto; padding: 5rem 1rem 2rem;">
+
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+      <div id="chart_div" style="width: 100%;"></div>
+  </div>
+  <div class="col-1"></div>
+</div>
+
+
+
+
+<!-- <div onclick="ganttCreator({{gantt_data}})"style="width: 50%; margin: 0 auto; padding: 5rem 1rem 2rem;">
   <h2 style="text-align: center;"> {{projectdetails.project_num}}: {{projectdetails.project_name}} <br> Suggested Planning</h2>
 
-  <!-- TODO: allow to scroll in body only -->
+
 	<table class = "table table-sm table-hover bordered">
 
-    <!-- TODO: Table head fixed -->
+
     <thead style="font-size: 20px;" class="thead-dark">
   		<tr>
 
@@ -36,7 +53,7 @@
       </tbody>
 
     </table>
-  </div>
+  </div> -->
 
 
 

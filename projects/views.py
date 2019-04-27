@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 #TODO create project visualization page - which outputs suggested schedule and visualization of that schedule. Include the critical path of the project if possible. Graph of project - best visualization tool. Try to show critical path, and decisions.
 #TODO a calendar flow chart would be amazing. Look into doing this instead of a traditional graph?
 #TODO show % breakdown of the project by phase, how many days between each milestone. Sum total business hours per group, as well as days.
+
+
 @login_required
 def index(request):
     user = request.user
@@ -37,14 +39,7 @@ def index(request):
 @login_required
 def projectcards(request):
     user = request.user
-    # pulling all current projects
-    #
-    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = list_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
-    # -----------------------------------------------------------------------------------------------------------------
+
     projects_list = Project.objects.all().exclude(iscurrent=False)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
@@ -57,16 +52,8 @@ def projectcards(request):
 @login_required
 def myprojectcards(request):
     user = request.user
-    # pulling all current projects
-    #
-    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = list_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
-    # # -----------------------------------------------------------------------------------------------------------------
+
     projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
-    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -78,16 +65,8 @@ def myprojectcards(request):
 @login_required
 def myprojects(request):
     user = request.user
-    # pulling all current projects
-    #
-    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = list_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
-    # # -----------------------------------------------------------------------------------------------------------------
+
     projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
-    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -213,8 +192,15 @@ def dashboard(request,num):
     if request.method == "GET":
         #pulling information from database for the project number
         proj = Project.objects.get(projectnumber=num)
+        phases_proj = proj.phases()
+        gantt_data = []
+        #TODO re-build models to include algorithm to separate data differently - and impliment it into the other algorithms
+        for k in phases_proj.items():
+            print(k)
+            gantt_data.append([k[0], str(k[1]['start']), str(k[1]['end']), k[1]['duration']])
+
         #plug it into the template, and render it
-        return render(request, 'projects/dashboard.html', {'project': proj, 'milestones': proj.milestones_remaining(), 'date_today': date.today(), 'phase': proj.current_phase()})
+        return render(request, 'projects/dashboard.html', {'project': proj, 'milestones': proj.milestones(), 'date_today': date.today(), 'phase': proj.current_phase(), 'phases': proj.phases(), 'gantt_data': gantt_data})
 
 #handles AJAX request to mark a milestone complete in the database
 @login_required
@@ -249,10 +235,20 @@ def capacity(request):
 def suggested(request, num):
     if request.method == "GET":
         project=Project.objects.get(projectnumber=num)
-        suggested_schedule_an = suggest_schedule(project)
+        phases_project = project.phase_durations()
+        gantt_data = []
+        data = suggest_schedule(project)
+        for k in phases_project.items():
+            gantt_data.append([k[0], str(k[1][1]), str(k[1][2])])
+
+        gantt_data = sorted(gantt_data, key=operator.itemgetter(1))
+        suggested_gantt_data = sorted(data[1], key=operator.itemgetter(1))
+
+
+        suggested_schedule_an = data[0]
         project_details = {"project_num": project.projectnumber, "project_name": project.projectname}
 
-        return render(request, 'projects/suggested.html', {'suggested_schedule_analysis': suggested_schedule_an, "projectdetails": project_details })
+        return render(request, 'projects/suggested.html', {'suggested_schedule_analysis': suggested_schedule_an, "projectdetails": project_details, "gantt_data": gantt_data, "suggested_gantt_data": suggested_gantt_data })
 
 #renders suggested schedule based on suggest_schedule algorithm  for each of the projects in the database
 @login_required
@@ -261,7 +257,7 @@ def tasks(request):
         projects = Project.objects.filter(projectmanager=request.user, iscurrent=True)
         project_tasks = []
         for project in projects:
-            project_tasks.append(suggest_schedule(project))
+            project_tasks.append(suggest_schedule(project)[0])
         ordered_tasks = organize_tasks(project_tasks)
         return render(request, 'projects/tasks.html', {'sorted_tasks': ordered_tasks, 'number_tasks': len(ordered_tasks)})
 
