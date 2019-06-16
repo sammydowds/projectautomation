@@ -52,18 +52,6 @@ def projectcards(request):
     }
     return render(request, "projects/main_page.html", context)
 
-@login_required
-def myprojectcards(request):
-    user = request.user
-
-    projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
-    # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    num_proj = projects_list.count()
-    context = {
-        'projects': projects_list,
-        'num_proj': num_proj
-    }
-    return render(request, "projects/myproject_cards.html", context)
 
 @login_required
 def myprojects(request):

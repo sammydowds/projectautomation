@@ -20,7 +20,7 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="{% url 'index' %}">All Projects</a>
-      <a class="nav-item nav-link" href="{% url 'myprojectcards' %}">My Projects</a>
+      <a class="nav-item nav-link" href="{% url 'myprojects' %}">My Projects</a>
       <a class="nav-item nav-link" href="{% url 'create' %}">Create</a>
       {% if user.is_authenticated %}
         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
