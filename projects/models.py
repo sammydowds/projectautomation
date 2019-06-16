@@ -15,10 +15,10 @@ from django.contrib.auth.models import User
 
 class Project(models.Model):
     STATUS_CHOICES = (
-        ('OT', 'Off Track'),
-        ('OW','On Watch'),
-        ('OH','On Hold'),
-        ('U', 'Update')
+        ('offtrack', 'Off Track'),
+        ('onwatch','On Watch'),
+        ('onhold','On Hold'),
+        ('update', 'Update')
     )
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
@@ -47,7 +47,7 @@ class Project(models.Model):
     installfinishcomplete = models.BooleanField(default=False)
     Documentation = models.DateField(blank=True, null = True)
     documentationcomplete = models.BooleanField(default=False)
-    Status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='OT')
+    Status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OT')
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)

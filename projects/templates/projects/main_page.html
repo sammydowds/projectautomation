@@ -21,7 +21,7 @@
       <tbody>
         {% for project in projects %}
           <tr>
-            {% if project.offtrack %}
+            {% if project.Status == 'offtrack' %}
               <td style="background-color: #ff4c4c; vertical-align:middle"></td>
             {%elif project.onwatch%}
               <td style="background-color: #ffc966; vertical-align:middle"></td>
