@@ -1,11 +1,10 @@
-.main-table td {
+.main-table td  {
   border: 5px solid white;
   background-color: #F0F0F0;
   text-align: center;
 }
 
 .maintable th {
-  font-size: 20px;
   font-weight: normal;
   text-align: center;
 }
@@ -18,7 +17,6 @@
 
 table.maintable {
   width: 90%;
-  padding-top: 100px;
 }
 
 
