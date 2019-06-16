@@ -5,13 +5,11 @@ from django.db import models
 from projects.models import *
 from projects.forms import *
 import datetime
-from projects.helpers import *
-from projects.import_proj import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from projects.helpers_2 import *
+from projects.helpers import *
 
 #TODO create project visualization page - which outputs suggested schedule and visualization of that schedule. Include the critical path of the project if possible. Graph of project - best visualization tool. Try to show critical path, and decisions.
 #TODO a calendar flow chart would be amazing. Look into doing this instead of a traditional graph?
@@ -315,3 +313,5 @@ def mymonth(request):
                 proj_month.append({'proj_name': project, 'proj_num': project.projectnumber, 'milestone': milestone, 'tasks': tasks})
     print(proj_month)
     return render(request, 'projects/mymonth.html', {'projects': proj_month})
+
+# In memory: Stretchy - my stepfather. Lost him March 20th, 2019 during this project.

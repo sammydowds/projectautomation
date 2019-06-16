@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 
 
 
-# Create your models here.
-class Employee(models.Model):
-    name = models.CharField(max_length=20)
-    email = models.EmailField()
-
-    def __str__(self):
-        return self.name
+# # Create your models here.
+# class Employee(models.Model):
+#     name = models.CharField(max_length=20)
+#     email = models.EmailField()
+#
+#     def __str__(self):
+#         return self.name
 
 class Project(models.Model):
     projectnumber = models.IntegerField()
@@ -259,7 +259,7 @@ class InitialProject(models.Model):
     offtrack = models.BooleanField(null = True)
     onwatch = models.BooleanField(null = True)
     iscurrent = models.BooleanField(null = True)
-    employees = models.ManyToManyField(Employee)
+    # employees = models.ManyToManyField(Employee)
 
     def __str__(self):
         return self.projectname
