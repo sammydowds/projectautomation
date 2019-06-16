@@ -1,0 +1,38 @@
+.main-table td {
+  border: 5px solid white;
+  background-color: #F0F0F0;
+  text-align: center;
+}
+
+.maintable th {
+  font-size: 20px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.maintable tr {
+  height: 100px;
+  width: 100%;
+  border-spacing: 5rem;
+}
+
+table.maintable {
+  width: 90%;
+  padding-top: 100px;
+}
+
+
+th.milestonecolumn {
+  font-size: 12px;
+  text-align: center;
+}
+
+td.milestoneval {
+  background-color: #F8F8F8;
+  font-size: 12px;
+}
+
+a.maintable {
+  font-size: 10px;
+  text-align: center;
+}

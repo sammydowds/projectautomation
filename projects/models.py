@@ -241,14 +241,6 @@ class Project(models.Model):
         else:
             return("[ERROR: Need Dates To Calc]")
 
-
-
-
-
-
-
-
-
 class InitialProject(models.Model):
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
