@@ -1,0 +1,53 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Project
+{% endblock %}
+
+{% block main %}
+
+<!-- TODO: Possible to format these buttons to match the table head and navbar? -->
+<div style = "height:200px;" class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-7">Delivering tomorrow's automation, today.</h1>
+    <p class="lead">Please enter the next Project below</p>
+  </div>
+</div>
+
+<div style="width 50%;padding: 1rem 5rem 2rem; text-align: center"class = "container">
+<!-- TODO: Possible to format these buttons to match the table head and navbar? -->
+
+  <form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="/projects/create/" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      {% for field in form %}
+      <div style="width: 20rem; padding: 2rem 0.5rem 2rem;" class="card-deck justify-content-center">
+        <div style="text-align: center;" class="card animated shadow-lg">
+          <div style="color: white;" class="card-header bg-dark"
+            <p class="card-title">
+              {{ field.label_tag }}
+            </p>
+          </div>
+          <div class="card-body">
+            <p> {{ field }}
+              {% if field.help_text %}
+                <small style="color: grey">{{ field.help_text }}</small>
+              {% endif %}
+              {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+
+
+  <input type="submit" value="Create Project">
+  <input type="hidden" name="next" value="{{ next }}">
+</form>
+</div>
+
+{% endblock %}

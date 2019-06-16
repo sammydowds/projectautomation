@@ -1,0 +1,79 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: Active Projects
+{% endblock %}
+
+{% block main %}
+
+    <table class="table main-table">
+      <thead class="thead">
+        <tr>
+          <th></th>
+          <th style="color: #ff4c4c;">#</th>
+          <th>Project Info</th>
+          <th>Current Milestone</th>
+          <th>Deadline</th>
+          <th>Update</th>
+          <th colspan="10">Milestones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for project in projects %}
+          <tr>
+            {% if project.offtrack %}
+              <td style="background-color: #ff4c4c; vertical-align:middle"></td>
+            {%elif project.onwatch%}
+              <td style="background-color: #ffc966; vertical-align:middle"></td>
+            {%else%}
+              <td style="background-color: #2E8B57; vertical-align:middle"></td>
+
+            {%endif%}
+            <td style="text-align: left; vertical-align:middle">{{project.projectnumber}}</td>
+            <td>{{project.projectname}}
+              <!-- <p><div style="vertical-align: bottom;" class="progress">
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: {{project.progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.progress}}%</div>
+                  </div>
+              </p> -->
+            </td>
+            <td>{{project.current_milestone.name}}
+              <p></p>
+              <p></p>
+              <div style="vertical-align: bottom;" class="progress">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: {{project.current_phase.progress}}% ;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.current_phase.progress}}%</div>
+              </div></td>
+            <td>in {{project.current_milestone.days_until}} Days</td>
+            <td style="vertical-align: middle;">
+              <div class="dropdown">
+                <button class="btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Status
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Off-Track</a>
+                  <a class="dropdown-item" href="#">On-Watch</a>
+                  <a class="dropdown-item" href="#">On-Hold</a>
+                  <a class="dropdown-item" href="#">Update</a>
+                </div>
+              </td>
+            {% if project.mechanicalreleasecomplete %}
+              <td class="milestoneval" style="background-color: #2E8B57; vertical-align:middle"><a class="cellheader">ME Release</a><br>{{project.Mechanical_Release}}</td>
+            {%else%}
+              <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><br>{{project.Mechanical_Release}}</td>
+            {% endif %}
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><br>{{project.Electrical_Release}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Paint</a><br>{{project.Finishing}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Assembly</a><br>{{project.Assembly}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Int. Runoff</a><br>{{project.Internal_Runoff}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Cust. Runoff</a><br>{{project.Customer_Runoff}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Ship</a><br>{{project.Ship}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Install Strt</a><br>{{project.Install_Start}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Install Fin</a><br>{{project.Install_Finish}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Docu.</a><br>{{project.Documentation}}</td>
+          </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+
+
+
+{% endblock %}
