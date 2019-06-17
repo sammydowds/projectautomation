@@ -5,22 +5,20 @@
 {% endblock %}
 
 {% block main %}
-<!-- <div style="height: 150px;" class="jumbotron jumbotron-fluid">
-  <div class="container-fluid">
-    <h1 class="display-7">Active Projects</h1>
-    <p class="lead">All Active Projects Listed Below</p>
-  </div>
-</div> -->
-<span class="border">
+<div class="jumbotron text-center bg-white">
+  <h1 class="display-4">Active Projects</h1>
+  <hr class="my-4">
+  <p class="lead">All Active Projects Listed Below</p>
+</div>
     <table class="table main-table table-bordered">
       <thead style="font-size: 12px;" class="thead">
         <tr>
           <th style="width: 3px;"></th>
           <th style="color: #ff4c4c;">#</th>
           <th>Project Info</th>
-          <th>Status</th>
           <th>Next Milestone</th>
           <th>Deadline</th>
+          <th>Status</th>
           <th colspan="10">Milestones</th>
         </tr>
       </thead>
@@ -28,11 +26,11 @@
         {% for project in projects %}
           <tr>
             {% if project.Status == 'offtrack' %}
-              <td style="width: 3px; background-color: #ff4c4c; vertical-align:middle"></td>
+              <td style="width: 3px; background-color: #ff8454; vertical-align:middle"></td>
             {%elif project.Status == 'onwatch' %}
               <td style="width: 3px; background-color: #ffc966; vertical-align:middle"></td>
             {%else%}
-              <td style="width: 3px; background-color: #2E8B57; vertical-align:middle"></td>
+              <td style="width: 3px; background-color: #7ec47d; vertical-align:middle"></td>
 
             {%endif%}
             <td style="text-align: left; vertical-align:middle">{{project.projectnumber}}</td>
@@ -42,6 +40,13 @@
                   </div>
               </p> -->
             </td>
+            <td>{{project.current_milestone.name}}
+              <p></p>
+              <p></p>
+              <div style="vertical-align: bottom;" class="progress">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: {{project.current_phase.progress}}% ;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.current_phase.progress}}%</div>
+              </div></td>
+            <td>in {{project.current_milestone.days_until}} Days</td>
             <td style="white-space:nowrap;">{{project.get_Status_display}}
               <div class="dropdown">
                 <p></p>
@@ -56,13 +61,6 @@
                 </div>
 
             </td>
-            <td>{{project.current_milestone.name}}
-              <p></p>
-              <p></p>
-              <div style="vertical-align: bottom;" class="progress">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: {{project.current_phase.progress}}% ;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.current_phase.progress}}%</div>
-              </div></td>
-            <td>in {{project.current_milestone.days_until}} Days</td>
             {% if project.mechanicalreleasecomplete %}
               <td class="milestoneval" style="background-color: #2E8B57; vertical-align:middle"><a class="cellheader">ME Release</a><br>{{project.Mechanical_Release}}</td>
             {%else%}
@@ -81,7 +79,7 @@
         {%endfor%}
       </tbody>
     </table>
-  </span>
+
 
 
 
