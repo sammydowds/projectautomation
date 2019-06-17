@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block main %}
+<div class="container-fluid justify-content-center">
+
 <div class="jumbotron text-center bg-white">
   <h1 class="display-4">Active Projects</h1>
   <hr class="my-4">
   <p class="lead">All Active Projects Listed Below</p>
 </div>
-    <table class="table main-table table-bordered">
+    <table class="table main-table">
       <thead style="font-size: 12px;" class="thead">
         <tr>
           <th style="width: 3px;"></th>
@@ -79,6 +81,7 @@
         {%endfor%}
       </tbody>
     </table>
+  </div>
 
 
 
