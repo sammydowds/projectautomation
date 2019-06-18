@@ -66,17 +66,17 @@
             {% if project.mechanicalreleasecomplete %}
               <td class="milestoneval" style="background-color: #2E8B57; vertical-align:middle"><a class="cellheader">ME Release</a><br>{{project.Mechanical_Release}}</td>
             {%else%}
-              <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><br>{{project.Mechanical_Release}}</td>
+              <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><br><br>{{project.Mechanical_Release}}</td>
             {% endif %}
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><br>{{project.Electrical_Release}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Paint</a><br>{{project.Finishing}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Assembly</a><br>{{project.Assembly}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Int. Runoff</a><br>{{project.Internal_Runoff}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Cust. Runoff</a><br>{{project.Customer_Runoff}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Ship</a><br>{{project.Ship}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Install Strt</a><br>{{project.Install_Start}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Install Fin</a><br>{{project.Install_Finish}}</td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Docu.</a><br>{{project.Documentation}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><br><br>{{project.Electrical_Release}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Paint</a><br><br>{{project.Finishing}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Assembly</a><br><br>{{project.Assembly}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Int. Runoff</a><br><br>{{project.Internal_Runoff}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Cust. Runoff</a><br><br>{{project.Customer_Runoff}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Ship</a><br><br>{{project.Ship}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Install Strt</a><br><br>{{project.Install_Start}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Install Fin</a><br><br>{{project.Install_Finish}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Docu.</a><br><br>{{project.Documentation}}</td>
           </tr>
         {%endfor%}
       </tbody>
