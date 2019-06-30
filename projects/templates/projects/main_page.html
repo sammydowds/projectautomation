@@ -21,7 +21,7 @@
           <th>Next Milestone</th>
           <th>Deadline</th>
           <th>Status</th>
-          <!-- <th>Update</th> -->
+          <th>Update</th>
           <th colspan="10">Milestones</th>
         </tr>
       </thead>
@@ -55,7 +55,7 @@
                 <p></p>
                 <br>
                 <button class="btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Update
+                  Change Status
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">Off-Track</a>
@@ -65,25 +65,12 @@
                 </div>
 
             </td>
-            <!-- <td><button class="btn-sm btn-primary btn-block" type="button">Update</button>
-            </td> -->
-
-
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader"><button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-              ME Release
-            </a><hr>{{project.Mechanical_Release}}</button></td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader"><button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-              EE Release
-            </a><hr>{{project.Electrical_Release}}</button></td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader"><button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-              Paint
-            </a><hr>{{project.Finishing}}</button></td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader"><button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-              Assembly
-            </a><hr>{{project.Assembly}}</button></td>
-            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader"><button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-              ME Release
-            </a><hr>{{project.Mechanical_Release}}</button></td>
+            <td><button class="btn-sm btn-primary btn-block" type="button">Update</button>
+            </td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><hr>{{project.Mechanical_Release}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><hr>{{project.Electrical_Release}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Paint</a><hr>{{project.Finishing}}</td>
+            <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Assembly</a><hr>{{project.Assembly}}</td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Int. Runoff</a><hr>{{project.Internal_Runoff}}</td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Cust. Runoff</a><hr>{{project.Customer_Runoff}}</td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">Ship</a><hr>{{project.Ship}}</td>
