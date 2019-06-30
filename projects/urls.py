@@ -18,6 +18,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', views.register, name = "register"),
     path('pastprojects', views.pastprojects, name = "pastprojects"),
+    path('offtrack', views.offtrack, name = "offtrack"),
+    path('onwatch', views.onwatch, name = "onwatch"),
 
 
 ]

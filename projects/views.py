@@ -59,6 +59,40 @@ def pastprojects(request):
     return render(request, "projects/main_page.html", context)
 
 @login_required
+def offtrack(request):
+    user = request.user
+    projects_list = Project.objects.all().filter(iscurrent=True, Status='offtrack')
+    print(projects_list)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'status': 'Current'
+
+    }
+    print(context['projects'])
+    return render(request, "projects/main_page.html", context)
+
+@login_required
+def onwatch(request):
+    user = request.user
+    projects_list = Project.objects.all().filter(iscurrent=True, Status='onwatch')
+    print(projects_list)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'status': 'Current'
+
+    }
+    print(context['projects'])
+    return render(request, "projects/main_page.html", context)
+
+@login_required
 def projectcards(request):
     user = request.user
 
