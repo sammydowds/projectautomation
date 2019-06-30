@@ -34,7 +34,26 @@ def index(request):
     context = {
         'projects': projects_list,
         'num_proj': num_proj,
-        'today': date.today()
+        'today': date.today(),
+        'status': 'Current'
+    }
+    print(context['projects'])
+    return render(request, "projects/main_page.html", context)
+
+
+@login_required
+def pastprojects(request):
+    user = request.user
+    projects_list = Project.objects.all().exclude(iscurrent=True)
+    print(projects_list)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'status': 'Past'
+
     }
     print(context['projects'])
     return render(request, "projects/main_page.html", context)
@@ -173,11 +192,11 @@ def switch(request):
 
 #closing out a project based on a get request - note need to update this method.
 @login_required
-def delete(request, num):
+def activation(request, num):
     if request.method == "GET":
         project_close = num
         proj = Project.objects.get(projectnumber=num)
-        proj.iscurrent = False
+        proj.iscurrent = not proj.iscurrent
         proj.save()
         return redirect('/projects')
 

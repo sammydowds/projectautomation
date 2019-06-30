@@ -8,9 +8,9 @@
 <div class="container-fluid justify-content-center">
 
 <div class="jumbotron text-center bg-white">
-  <h1 class="display-4">Active Projects</h1>
+  <h1 class="display-4">{{status}} Projects</h1>
   <hr class="my-4">
-  <p class="lead">All Active Projects Listed Below</p>
+  <p class="lead">All {{status}} Projects Listed Below</p>
 </div>
     <table class="table main-table">
       <thead style="font-size: 18px;" class="thead">
@@ -57,7 +57,13 @@
                 <a href='{% url 'update' num=project.projectnumber %}' class="btn btn-primary" role="button">Update</a>
               </p>
               <br>
-              <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-primary" role="button">Delete</a>
+              {% if project.iscurrent == True %}
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Completed</a>
+              {% else %}
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Activate</a>
+              {% endif %}
+
+
             </td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><hr>{{project.Mechanical_Release}}</td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><hr>{{project.Electrical_Release}}</td>
