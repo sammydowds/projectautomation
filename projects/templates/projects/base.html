@@ -12,25 +12,20 @@
 
 
 <body>
-  <div class="text-center">
-    <img height="150px" width="175px" class="rounded" src="/static/projects/Acieta.png">
-  </div>
-    <nav class="navbar nav-tabs sticky-top navbar-expand-lg navbar-light" style="background-color: #f8e955;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a style="color: #383838;" class="nav-item nav-link" href="{% url 'index' %}">All Projects</a>
-        <a style="color: #383838;" class="nav-item nav-link" href="{% url 'myprojects' %}">My Projects</a>
-        <a style="color: #383838;" class="nav-item nav-link" href="{% url 'create' %}">Create</a>
-        {% if user.is_authenticated %}
-          <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-          <p style = "color: black; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>
-        {% endif %}
 
-      </div>
-    </div>
+  <!-- <div class="jumbotron text-center bg-white">
+    <h1 class="display-6">Project Management</h1>
+    <hr class="my-4">
+    <p class="lead">Delivering Tomorrow, Today</p>
+  </div> -->
+    <nav class="nav sticky-top" style="background-color: #f8e955;">
+      <a style="color: #383838;" class="nav-item nav-link" href="{% url 'index' %}">All Projects</a>
+      <!-- <a style="color: #383838;" class="nav-item nav-link" href="{% url 'myprojects' %}">My Projects</a> -->
+      <a style="color: #383838;" class="nav-item nav-link" href="{% url 'create' %}">Create</a>
+      {% if user.is_authenticated %}
+        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+        <p style = "color: black; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>
+      {% endif %}
     </nav>
 
 </body>
