@@ -173,7 +173,7 @@ def switch(request):
 
 #closing out a project based on a get request - note need to update this method.
 @login_required
-def close(request, num):
+def delete(request, num):
     if request.method == "GET":
         project_close = num
         proj = Project.objects.get(projectnumber=num)

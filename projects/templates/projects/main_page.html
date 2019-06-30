@@ -52,7 +52,12 @@
                 <a class="dropdown-item" href="#">On-Hold</a>
                 <a class="dropdown-item" href="#">Update</a>
               </div></td>
-            <td style="text-align: left; vertical-align:middle"><button class="btn-sm btn-primary btn-block" type="button" href='{% url 'update' num=project.projectnumber %}'>Update</button>
+            <td style="text-align: left; vertical-align:middle">
+              <p>
+                <a href='{% url 'update' num=project.projectnumber %}' class="btn btn-primary" role="button">Update</a>
+              </p>
+              <br>
+              <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-primary" role="button">Delete</a>
             </td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><hr>{{project.Mechanical_Release}}</td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><hr>{{project.Electrical_Release}}</td>
