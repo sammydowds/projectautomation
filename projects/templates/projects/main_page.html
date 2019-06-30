@@ -12,6 +12,12 @@
   <hr class="my-4">
   <p class="lead">All {{status}} Projects Listed Below</p>
 </div>
+{% if status == 'Current' %}
+  <div class = "container" style="padding-bottom: 5rem; justify-content: center; width: 25%">
+    <a href = '{% url 'create' %}' class="btn btn-success btn-lg btn-block" role="button">+ Project</a>
+  </div>
+{% endif %}
+
     <table class="table main-table">
       <thead style="font-size: 18px;" class="thead">
         <tr>
@@ -27,7 +33,7 @@
         {% for project in projects %}
           <tr>
             {% if project.Status == 'offtrack' %}
-              <td style="width: 3px; background-color: #ff8454; vertical-align:middle"></td>
+              <td style="width: 3px; background-color: #ff4d4d; vertical-align:middle"></td>
             {%elif project.Status == 'onwatch' %}
               <td style="width: 3px; background-color: #ffc966; vertical-align:middle"></td>
             {%else%}
@@ -62,8 +68,6 @@
               {% else %}
                 <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Activate</a>
               {% endif %}
-
-
             </td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><hr>{{project.Mechanical_Release}}</td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">EE Release</a><hr>{{project.Electrical_Release}}</td>
@@ -80,31 +84,6 @@
       </tbody>
     </table>
 
-
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Update Milestone</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group row">
-            <label for="example-date-input" class="col-2 col-form-label">Date</label>
-            <div class="col-10">
-              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
