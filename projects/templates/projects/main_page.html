@@ -52,13 +52,13 @@
                 <a class="dropdown-item" href="#">On-Hold</a>
                 <a class="dropdown-item" href="#">Update</a>
               </div></td>
-            <td style="text-align: left; vertical-align:middle">
+            <td style="text-align: center; vertical-align:middle">
               <p>
                 <a href='{% url 'update' num=project.projectnumber %}' class="btn btn-primary" role="button">Update</a>
               </p>
               <br>
               {% if project.iscurrent == True %}
-                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Completed</a>
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Complete</a>
               {% else %}
                 <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Activate</a>
               {% endif %}
