@@ -6,6 +6,7 @@
 
 {% block main %}
 
+
 <!-- TODO: Currently this jumbotron is pretty lame, could it be spiced up?-->
 <div style = "height:200px;" class="jumbotron jumbotron-fluid">
   <div class="container">
@@ -18,34 +19,31 @@
 <form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="http://127.0.0.1:8000/projects/update/{{ project.projectnumber}}/" method="POST">
   {% csrf_token %}
   <div class="row">
-    {% for field in form %}
-    <div style="width: 20rem; padding: 2rem 0.5rem 2rem;" class="card-deck justify-content-center">
-      <div style="text-align: center;" class="card animated shadow-lg">
-        <div style="color: white;" class="card-header bg-dark"
-          <p class="card-title">
-            {{ field.label_tag }}
-          </p>
-        </div>
-        <div class="card-body">
-          <p> {{ field }}
-            {% if field.help_text %}
-              <small style="color: grey">{{ field.help_text }}</small>
-            {% endif %}
-            {% for error in field.errors %}
-              <p style="color: red">{{ error }}</p>
+    <table class="table-sm table-hover">
+            {% for field in form %}
+            <tr>
+              <th> {{field.label_tag}}</th>
+              <td>
+                <p> {{ field }}
+                  {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                  {% endfor %}
+                </p>
+              </td>
+              </tr>
             {% endfor %}
-          </p>
-        </div>
-      </div>
-    </div>
-
-  {% endfor %}
+      </table>
+  </div>
 </div>
 
   <input type="submit" value="Update Project">
 
 </form>
 </div>
+
 
 
 {% endblock %}

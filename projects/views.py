@@ -139,13 +139,13 @@ def update(request, num):
     #if post request, post updates into the database and return back to the main projects page
     if request.method == "POST":
         proj_updating = Project.objects.get(projectnumber = num)
-        proj_updating.lastupdated = datetime.today()
+        proj_updating.lastupdated = date.today()
         proj_updating.save()
         form = ProjectForm(request.POST, instance=proj_updating)
 
         if form.is_valid():
             form.save()
-        return redirect('/projects/myprojects')
+        return redirect('/projects/')
 
 
 #creating a project
@@ -190,8 +190,9 @@ def create(request):
                                   Install_Start = form.cleaned_data["Install_Start"],\
                                   Install_Finish = form.cleaned_data["Install_Finish"],\
                                   Documentation = form.cleaned_data["Documentation"], \
-                                  offtrack = True, \
-                                  onwatch = True)
+                                  Status = 'onwatch', \
+                                  )
+
             #adding the new project to the database
             new_project.save()
             initial_project.save()

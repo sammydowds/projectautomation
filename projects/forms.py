@@ -8,21 +8,22 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        exclude = ('lastupdated',)
+        exclude = ('projectmanager','lastupdated','Status', 'iscurrent')
         widgets = {
+                    'projectname': forms.TextInput(attrs={'class': 'special','size': '50'}),
                     'engineering_start': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'mechanicalrelease': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'electricalrelease': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'manufacturing': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'finishing': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'assembly': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'integration': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'internalrunoff': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'customerrunoff': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'ship': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'installstart': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'installfinish': forms.DateInput(attrs={'class': 'datepicker'}),
-                    'documentation': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Mechanical_Release': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Electrical_Release': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Manufacturing': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Finishing': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Assembly': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Integration': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Internal_Runoff': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Customer_Runoff': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Ship': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Install_Start': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Install_Finish': forms.DateInput(attrs={'class': 'datepicker'}),
+                    'Documentation': forms.DateInput(attrs={'class': 'datepicker'}),
                     }
 class RegisterExtendedForm(UserCreationForm):
     first_name = forms.CharField(label="First Name")
