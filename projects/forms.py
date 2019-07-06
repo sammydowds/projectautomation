@@ -8,7 +8,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        exclude = ('projectmanager','lastupdated','Status', 'iscurrent')
+        exclude = ('lastupdated','Status', 'iscurrent')
         widgets = {
                     'projectname': forms.TextInput(attrs={'class': 'special','size': '50'}),
                     'engineering_start': forms.DateInput(attrs={'class': 'datepicker'}),

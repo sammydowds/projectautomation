@@ -21,7 +21,7 @@
   </div>
 {% endif %}
 
-    <table class="table main-table">
+    <table class="table table-hover main-table">
       <thead style="font-size: 18px;" class="thead">
         <tr>
           <th style="width: 3px;"></th>
@@ -46,11 +46,11 @@
             <td style="text-align: left; vertical-align:middle">{{project.projectnumber}}</td>
             <td style="text-align: left; vertical-align:middle" class="container;">{{project.projectname}}
             </td>
-            <td style="text-align: left; vertical-align:middle">{{project.current_milestone.name}} in {{project.current_milestone.days_until}} Days
+            <td style="text-align: center; vertical-align:middle">{{project.current_milestone.name}} in {{project.current_milestone.days_until}} Days
               <p></p>
               <p></p>
-              <div style="vertical-align: bottom;" class="progress">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: {{project.current_phase.progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.current_phase.progress}}%</div>
+              <div style="vertical-align: bottom; height: 20px;" class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: {{project.current_phase.progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.current_phase.progress}}%</div>
               </div><br>
               <button class="btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Change Status
