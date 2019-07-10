@@ -235,6 +235,12 @@ class Project(models.Model):
             return("[ERROR: Need Dates To Calc]")
 
 class InitialProject(models.Model):
+    STATUS_CHOICES = (
+        ('offtrack', 'Off Track'),
+        ('onwatch','On Watch'),
+        ('onhold','On Hold'),
+        ('update', 'Update')
+    )
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
     Mechanical_Release = models.DateField(null = True)
@@ -249,9 +255,10 @@ class InitialProject(models.Model):
     Install_Start = models.DateField(null = True)
     Install_Finish= models.DateField(null = True)
     Documentation = models.DateField(null = True)
-    offtrack = models.BooleanField(null = True)
-    onwatch = models.BooleanField(null = True)
-    iscurrent = models.BooleanField(null = True)
+    Status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OT')
+    iscurrent = models.BooleanField(default=True, null = True)
+    projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
+    lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
     # employees = models.ManyToManyField(Employee)
 
     def __str__(self):
