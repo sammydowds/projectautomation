@@ -21,7 +21,7 @@ class Project(models.Model):
         ('update', 'Update')
     )
     projectnumber = models.IntegerField()
-    projectname = models.CharField(max_length=100)
+    projectname = models.CharField(max_length=50)
     engineering_start = models.DateField(blank=True, null = True)
     Mechanical_Release = models.DateField(blank=True, null = True)
     Electrical_Release = models.DateField(blank=True, null = True)
