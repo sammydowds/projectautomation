@@ -172,7 +172,7 @@ def create(request):
                                   Install_Start = form.cleaned_data["Install_Start"],\
                                   Install_Finish = form.cleaned_data["Install_Finish"],\
                                   Documentation = form.cleaned_data["Documentation"], \
-                                  Status = form.cleaned_data["Status"], \
+                                  Status = 'onwatch', \
                                   projectmanager=form.cleaned_data["projectmanager"] )
             #adding the new project to the initial project table
             #note: there has to be a better way to convert a form directly to an object below....!
