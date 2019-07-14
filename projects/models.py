@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date, datetime, timedelta
 import numpy as np
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+
 
 
 
@@ -35,7 +37,7 @@ class Project(models.Model):
     Install_Start = models.DateField(blank=True, null = True)
     Install_Finish = models.DateField(blank=True, null = True)
     Documentation = models.DateField(blank=True, null = True)
-    Status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OT', null = True)
+    Status = ArrayField(models.CharField(max_length=10, choices=STATUS_CHOICES, default='OT', null = True))
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
