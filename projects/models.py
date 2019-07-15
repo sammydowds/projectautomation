@@ -2,10 +2,6 @@ from django.db import models
 from datetime import date, datetime, timedelta
 import numpy as np
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
-
-
-
 
 # # Create your models here.
 # class Employee(models.Model):
@@ -37,7 +33,7 @@ class Project(models.Model):
     Install_Start = models.DateField(blank=True, null = True)
     Install_Finish = models.DateField(blank=True, null = True)
     Documentation = models.DateField(blank=True, null = True)
-    Status = ArrayField(models.CharField(max_length=10, choices=STATUS_CHOICES, default='offtrack', null = True))
+    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='offtrack', null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
@@ -257,7 +253,7 @@ class InitialProject(models.Model):
     Install_Start = models.DateField(null = True)
     Install_Finish= models.DateField(null = True)
     Documentation = models.DateField(null = True)
-    Status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OT')
+    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='offtrack', null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
