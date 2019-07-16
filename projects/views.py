@@ -183,6 +183,13 @@ def create(request):
         form = ProjectForm()
         return render(request, "projects/create.html", {'form': form})
 
+@login_required
+def status(request, num, stat):
+    if request.method == "GET":
+        proj = Project.objects.get(projectnumber=num)
+        proj.Status = stat
+        proj.save()
+        return redirect('/projects')
 
 @login_required
 def delete(request, num):

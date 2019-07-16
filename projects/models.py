@@ -239,7 +239,7 @@ class InitialProject(models.Model):
         ('onwatch','On Watch'),
         ('onhold','On Hold'),
         ('update', 'Update'),
-        ('ontrack', 'On Track')
+        ('ontrack', 'On Track'),
     )
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
