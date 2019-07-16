@@ -106,25 +106,6 @@ def projectcards(request):
     return render(request, "projects/main_page.html", context)
 
 
-# @login_required
-# def myprojects(request):
-#     user = request.user
-#
-#     projects_list = Project.objects.filter(projectmanager=request.user).order_by('-lastupdated').exclude(iscurrent=False)
-#     # projects_list = reversed(projects_list.exclude(iscurrent=False))
-#     num_proj = projects_list.count()
-#     projects_on_watch = Project.objects.filter(projectmanager=request.user).exclude(onwatch=False)
-#     projects_off_track = Project.objects.filter(projectmanager=request.user).exclude(offtrack=False)
-#
-#     context = {
-#         'projects': projects_list,
-#         'num_proj': num_proj,
-#         'projects_watch': projects_on_watch,
-#         'projects_off': projects_off_track
-#     }
-#     return render(request, "projects/myprojects.html", context)
-
-
 #page for updating a project
 @login_required
 def update(request, num):
@@ -172,7 +153,7 @@ def create(request):
                                   Install_Start = form.cleaned_data["Install_Start"],\
                                   Install_Finish = form.cleaned_data["Install_Finish"],\
                                   Documentation = form.cleaned_data["Documentation"], \
-                                  Status={"onwatch"},\
+                                  Status="onwatch",\
                                   projectmanager=form.cleaned_data["projectmanager"] )
             #adding the new project to the initial project table
             #note: there has to be a better way to convert a form directly to an object below....!
@@ -202,28 +183,13 @@ def create(request):
         form = ProjectForm()
         return render(request, "projects/create.html", {'form': form})
 
-#handles AJAX request to switch a project from on watch to off, or on track to off
+
 @login_required
-def switch(request):
-    #switching value in database when button is clicked for certain project number
-    #saving request data to var for query
-    projectnumber = request.POST['projectnumber']
-    type = request.POST['type']
-
-    #query the database for matching project
-    project = Project.objects.get(projectnumber=projectnumber)
-
-    #switching value
-    if type == "onwatch":
-        project.onwatch = not project.onwatch
-    else:
-        project.offtrack = not project.offtrack
-
-    #submitting switched values to the database
-    project.save()
-
-    #switch value base on current value
-    return redirect("/projects/")
+def delete(request, num):
+    if request.method == "GET":
+        proj = Project.objects.get(projectnumber=num)
+        proj.delete()
+        return redirect('/projects/pastprojects')
 
 #closing out a project based on a get request - note need to update this method.
 @login_required
@@ -233,28 +199,6 @@ def activation(request, num):
         proj = Project.objects.get(projectnumber=num)
         proj.iscurrent = not proj.iscurrent
         proj.save()
-        return redirect('/projects')
-
-
-#handles AJAX request to mark a milestone complete in the database
-@login_required
-def milestonescomplete(request):
-    if request.method == "POST":
-        #saving request data
-        projectnumber = request.POST['projectnumber']
-        milestone = request.POST['milestone']
-        milestone_status = milestone + 'complete'
-
-        #query the database for matching project
-        project = Project.objects.get(projectnumber=projectnumber)
-
-        #pull current boolean/status of the milestone
-        current = getattr(project, milestone_status)
-
-        #updating the milestone status to be the opposite of the current one
-        setattr(project, milestone_status, not current)
-
-        project.save()
         return redirect('/projects')
 
 def logout(request):

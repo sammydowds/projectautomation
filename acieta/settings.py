@@ -83,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'acieta',
-        'USER': 'ptfciqjnegzfbn',
-        'PASSWORD': '5f2098f31fd02b5410e6f1fac58e13aa92f342f075d6423bf3e8646ce41c96f5',
-        'HOST': 'ec2-107-20-173-2.compute-1.amazonaws.com',
+        'USER': 'postgres',
+        'PASSWORD': 'mjprince1984',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

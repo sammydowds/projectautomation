@@ -67,9 +67,15 @@
               </p>
               <br>
               {% if project.iscurrent == True %}
-                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Complete</a>
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-warning" role="button">Complete</a>
               {% else %}
-                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-primary" role="button">Activate</a>
+              <p>
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-warning" role="button">Activate</a>
+              </p>
+                <br>
+              <p>
+                <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-danger" role="button">Delete</a>
+              </p>
               {% endif %}
             </td>
             <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">ME Release</a><hr>{{project.Mechanical_Release}}</td>
