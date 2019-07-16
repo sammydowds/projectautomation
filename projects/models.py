@@ -235,11 +235,11 @@ class Project(models.Model):
 
 class InitialProject(models.Model):
     STATUS_CHOICES = (
+        ('ontrack', 'On Track'),
         ('offtrack', 'Off Track'),
         ('onwatch','On Watch'),
         ('onhold','On Hold'),
         ('update', 'Update'),
-        ('ontrack', 'On Track'),
     )
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
