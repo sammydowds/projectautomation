@@ -16,7 +16,8 @@ class Project(models.Model):
         ('offtrack', 'Off Track'),
         ('onwatch','On Watch'),
         ('onhold','On Hold'),
-        ('update', 'Update')
+        ('update', 'Update'),
+
     )
     projectnumber = models.IntegerField()
     projectname = models.TextField()
@@ -237,7 +238,8 @@ class InitialProject(models.Model):
         ('offtrack', 'Off Track'),
         ('onwatch','On Watch'),
         ('onhold','On Hold'),
-        ('update', 'Update')
+        ('update', 'Update'),
+        ('ontrack', 'On Track')
     )
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
