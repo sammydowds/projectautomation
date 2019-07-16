@@ -22,15 +22,10 @@
 
 <body>
 
-  <!-- <div class="jumbotron text-center bg-white">
-    <h1 class="display-6">Project Management</h1>
-    <hr class="my-4">
-    <p class="lead">Delivering Tomorrow, Today</p>
-  </div> -->
-    <nav class="navbar sticky-top" style="font-weight: bold; background-color: #f8e955;">
-      <a style="color: #383838;" class="nav-item nav-link" href="{% url 'index' %}">All Projects</a>
-      <a style="color: #383838;" class="nav-item nav-link" href="{% url 'pastprojects' %}">Past Projects</a>
-      <a style="color: #383838;" class="nav-item nav-link" href="{% url 'create' %}">Create</a>
+    <nav class="navbar navbar-expand-lg sticky-top" style="font-weight: bold; background-color: #f8e955;">
+      <a class="navbar-brand" style="color: black;" href="{% url 'index' %}">Projects</a>
+      <a style="color: #383838;" class="nav-link" href="{% url 'pastprojects' %}">Past Projects</a>
+      <a style="color: #383838;" class="nav-link" href="{% url 'create' %}">Create</a>
       {% if user.is_authenticated %}
         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
         <p style = "color: black; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>

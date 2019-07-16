@@ -79,7 +79,6 @@ WSGI_APPLICATION = 'acieta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-<<<<<<< HEAD
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -90,8 +89,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-=======
->>>>>>> 7c2af96b557606f066603c8c7249b187fdff7920
+
 
 
 # Password validation
