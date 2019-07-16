@@ -39,8 +39,12 @@
               <td style="width: 3px; background-color: #ff4d4d; vertical-align:middle"></td>
             {%elif project.Status == 'onwatch' %}
               <td style="width: 3px; background-color: #ffc966; vertical-align:middle"></td>
-            {%else%}
+            {%elif project.Status == 'ontrack' %}
               <td style="width: 3px; background-color: #7ec47d; vertical-align:middle"></td>
+            {%elif project.Status == 'update' %}
+              <td style="width: 3px; background-color: blue; vertical-align:middle"></td>
+            {%elif project.Status == 'onhold' %}
+              <td style="width: 3px; background-color: purple; vertical-align:middle"></td>
 
             {%endif%}
             <td style="text-align: left; vertical-align:middle">{{project.projectnumber}}</td>
@@ -52,7 +56,7 @@
               <div style="vertical-align: bottom; height: 20px;" class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: {{project.current_phase.progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{project.current_phase.progress}}%</div>
               </div><br>
-              <button class="btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn-lg btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ project.get_Status_display }}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
