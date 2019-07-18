@@ -10,13 +10,13 @@ from django.contrib.auth.models import User
 #
 #     def __str__(self):
 #         return self.name
-
+#TODO maybe current deploy error is due to using single quotes?
 class Project(models.Model):
     STATUS_CHOICES = (
-        ('offtrack', 'Off Track'),
-        ('onwatch','On Watch'),
-        ('onhold','On Hold'),
-        ('update', 'Update'),
+        ("offtrack", "Off Track"),
+        ("onwatch","On Watch"),
+        ("onhold","On Hold"),
+        ("update", "Update"),
 
     )
     projectnumber = models.IntegerField()
@@ -34,7 +34,7 @@ class Project(models.Model):
     Install_Start = models.DateField(blank=True, null = True)
     Install_Finish = models.DateField(blank=True, null = True)
     Documentation = models.DateField(blank=True, null = True)
-    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='offtrack', null = True)
+    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="offtrack", null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
@@ -237,11 +237,11 @@ class Project(models.Model):
 
 class InitialProject(models.Model):
     STATUS_CHOICES = (
-        ('ontrack', 'On Track'),
-        ('offtrack', 'Off Track'),
-        ('onwatch','On Watch'),
-        ('onhold','On Hold'),
-        ('update', 'Update'),
+        ("offtrack", "Off Track"),
+        ("onwatch","On Watch"),
+        ("onhold","On Hold"),
+        ("update", "Update"),
+
     )
     projectnumber = models.IntegerField()
     projectname = models.CharField(max_length=100)
@@ -257,7 +257,7 @@ class InitialProject(models.Model):
     Install_Start = models.DateField(null = True)
     Install_Finish= models.DateField(null = True)
     Documentation = models.DateField(null = True)
-    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='offtrack', null = True)
+    Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="offtrack", null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
