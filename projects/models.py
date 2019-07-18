@@ -167,6 +167,7 @@ class Project(models.Model):
 
         #first milestone appended is the next milestone
         project = self.milestones()
+        # TODO change to central time or time of laptop?
         today = date.today()
         milestone = {}
 
@@ -175,6 +176,7 @@ class Project(models.Model):
             if value['end'] != None:
                 value['days_until'] = self.busdays_between(value['end'], today)
                 value['name'] = key
+
                 if value['end'] > today:
                     return value
 

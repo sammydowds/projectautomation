@@ -28,7 +28,6 @@ def index(request):
     #     imported_proj.save()
     # -----------------------------------------------------------------------------------------------------------------
     projects_list = Project.objects.all().exclude(iscurrent=False)
-    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -37,7 +36,6 @@ def index(request):
         'today': date.today(),
         'status': 'Current'
     }
-    print(context['projects'])
     return render(request, "projects/main_page.html", context)
 
 
@@ -45,7 +43,6 @@ def index(request):
 def pastprojects(request):
     user = request.user
     projects_list = Project.objects.all().exclude(iscurrent=True)
-    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -62,7 +59,6 @@ def pastprojects(request):
 def offtrack(request):
     user = request.user
     projects_list = Project.objects.all().filter(iscurrent=True, Status='offtrack')
-    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -79,7 +75,6 @@ def offtrack(request):
 def onwatch(request):
     user = request.user
     projects_list = Project.objects.all().filter(iscurrent=True, Status='onwatch')
-    print(projects_list)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
