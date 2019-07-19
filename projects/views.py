@@ -27,7 +27,7 @@ def index(request):
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
     # -----------------------------------------------------------------------------------------------------------------
-    projects_list = Project.objects.all().exclude(iscurrent=False)
+    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
@@ -128,6 +128,7 @@ def update(request, num):
 
 @login_required
 def create(request):
+    #TODO do not allow duplicate project numbers to be entered
     #Processing POST method (form to create a project)
     if request.method == "POST":
         #need to add filter to ensure project does not already exist with the same projec number
