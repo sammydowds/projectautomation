@@ -11,13 +11,13 @@
   <h1 class="display-4">{{status}} Projects</h1>
   <hr class="my-4">
   {% if status == 'Current' %}
-    <p class="lead">Project Filter:</p>
-    <div class = "container" style="padding-bottom: 5rem; justify-content: center; width: 25%">
-      <a href = '{% url 'create' %}' class="btn btn-success btn-lg btn-block" role="button">+ Project</a>
-      <a href = '{% url 'offtrack' %}' class="btn btn-danger btn-lg btn-block" role="button">Off-Track</a>
-      <a href = '{% url 'onwatch' %}' class="btn btn-warning btn-lg btn-block" role="button">On-Watch</a>
-      <a href = '{% url 'index' %}' class="btn btn-info btn-lg btn-block" role="button">All</a>
-    </div>
+  <p>Add Project or Filter</p>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <a href = '{% url 'create' %}' class="btn btn-lg btn-success" role="button">Add Project</a>
+    <a href = '{% url 'offtrack' %}' class="btn btn-lg btn-danger" role="button">View Off-Track</a>
+    <a href = '{% url 'onwatch' %}' class="btn btn-lg btn-warning" role="button">View On-Watch</a>
+    <a href = '{% url 'index' %}' class="btn btn-lg btn-info" role="button">View All</a>
+  </div>
   {% endif %}
 </div>
 
