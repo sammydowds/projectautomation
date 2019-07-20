@@ -28,7 +28,7 @@ th.milestonecolumn {
   text-align: center;
 }
 
-td.milestoneval {
+.main-table td.milestoneval {
   /* background-color: #F8F8F8; */
   font-size: 12px;
 }
