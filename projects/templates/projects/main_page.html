@@ -11,7 +11,6 @@
   <h1 class="display-4">{{status}} Projects</h1>
   <hr class="my-4">
   {% if status == 'Current' %}
-  <p>Add Project or Filter</p>
   <div class="btn-group" role="group" aria-label="Basic example">
     <a href = '{% url 'index' %}' class="btn btn-lg btn-info" role="button">View All</a>
     <a href = '{% url 'offtrack' %}' class="btn btn-lg btn-danger" role="button">View Off-Track</a>
@@ -98,7 +97,7 @@
                         <p class="card-text milestone"> {{values.end}}</p>
                       </div>
                       <div class="card-footer">
-                        <small class="text-muted">in {{project.current_milestone.days_until}} day(s)</small>
+                        <small class="text-danger">in {{project.current_milestone.days_until}} day(s)</small>
                       </div>
                     </div>
                   </div>
