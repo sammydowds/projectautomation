@@ -19,7 +19,7 @@ class Project(models.Model):
         ("update", "Update"),
 
     )
-    projectnumber = models.IntegerField()
+    projectnumber = models.IntegerField(unique=True)
     projectname = models.TextField()
     engineering_start = models.DateField(blank=True, null = True)
     Mechanical_Release = models.DateField(blank=True, null = True)
