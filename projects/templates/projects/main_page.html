@@ -39,30 +39,30 @@
             <td class="first-cell">
               {% if project.iscurrent == True %}
               <p>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='ontrack' %}">On-Track</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='offtrack' %}">Off-Track</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onwatch' %}">On-Watch</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onhold' %}">On-Hold</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update' %}">Update</a>
-                </div>
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ project.get_Status_display }}
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='ontrack' %}">On-Track</a>
+                    <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='offtrack' %}">Off-Track</a>
+                    <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onwatch' %}">On-Watch</a>
+                    <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onhold' %}">On-Hold</a>
+                    <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update' %}">Update</a>
+                  </div>
+                </button>
               </p>
               <p>
-                <a style="width: 120px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-lg btn-primary" role="button">Update</a>
+                <a style="width: 120px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-md btn-primary" role="button">Update</a>
               </p>
-              <p> <a style="width: 120px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-lg btn-warning" role="button">Complete</a> </p>
+              <p> <a style="width: 120px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-md btn-warning" role="button">Complete</a> </p>
               {% else %}
               <p>
-                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-lg btn-warning" role="button">Activate</a>
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-md btn-warning" role="button">Activate</a>
               </p>
                 <br>
               <p>
-                <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-lg btn-danger" role="button">Delete</a>
+                <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-md btn-danger" role="button">Delete</a>
               </p>
               {% endif %}
-              <button class="btn-lg btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ project.get_Status_display }}
-              </button>
             </td>
             {% if project.Status == 'offtrack' %}
               <td style="width: 3px; background-color: #ff4d4d; vertical-align:middle"></td>
@@ -78,12 +78,14 @@
             {%endif%}
 
             <td style="text-align: center; vertical-align:middle">
-              <h4>{{project.projectnumber}}</h4>
+              <h5>{{project.projectnumber}}</h5>
             </td>
             <td style="text-align: left; vertical-align:middle" class="container;">
-              <h4>{{project.projectname}}</h4>
+              <h5>{{project.projectname}}</h5>
             </td>
-            <td style="text-align: center; vertical-align:middle">{{project.current_milestone.name}} in {{project.current_milestone.days_until}} Days
+            <td style="text-align: center; vertical-align:middle">
+              <h5>{{project.current_milestone.name}}</h5>
+              <p>in {{project.current_milestone.days_until}} Day(s)</p>
               <p></p>
               <p></p>
               <div style="vertical-align: bottom; height: 20px;" class="progress">
