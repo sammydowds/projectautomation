@@ -16,7 +16,7 @@
 
 <div style="width 50%;padding: 1rem 5rem 2rem; text-align: center" class="container">
 <!-- TODO: Style the form to match the base.html navbar?? -->
-<form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="{% url 'update' num: project.projectnumber %}" method="POST">
+<form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="{% url 'update' num=project.projectnumber %}" method="POST">
   {% csrf_token %}
   <div class="row">
     <table class="table-sm table-hover">
