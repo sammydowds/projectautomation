@@ -11,6 +11,7 @@ class ProjectForm(forms.ModelForm):
         exclude = ('lastupdated','Status', 'iscurrent')
         widgets = {
                     'projectname': forms.TextInput(attrs={'class': 'special','size': '50'}),
+                    'Summary': forms.Textarea(attrs={"rows":5, "cols":40}),
                     'engineering_start': forms.DateInput(attrs={'class': 'datepicker'}),
                     'Mechanical_Release': forms.DateInput(attrs={'class': 'datepicker'}),
                     'Electrical_Release': forms.DateInput(attrs={'class': 'datepicker'}),

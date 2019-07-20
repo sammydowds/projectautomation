@@ -1,3 +1,9 @@
+.main-table td.first-cell {
+  background-color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
 .main-table td  {
   border-top: 20px solid white;
   border-bottom: 20px solid white;
@@ -7,19 +13,13 @@
   text-align: center;
 }
 
-.maintable th {
-  font-weight: normal;
+.main-table th {
+  font-weight: bold;
   text-align: center;
 }
 
-.maintable tr {
-  height: 200px;
+table.main-table {
   width: 100%;
-  border-spacing: 5rem;
-}
-
-table.maintable {
-  width: 90%;
 }
 
 
