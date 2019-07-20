@@ -21,13 +21,14 @@
   {% endif %}
 </div>
 
-    <table class="table table-hover main-table table-responsive">
+  <div class="table-responsive">
+    <table class="table main-table">
       <thead style="font-size: 18px;" class="thead">
         <tr>
-          <th style="width: 3px;"></th>
-          <th style="color: #ff4c4c;">#</th>
-          <th>Project Info</th>
-          <th>Action</th>
+          <th></th>
+          <th scope="col" style="color: #ff4c4c;">#</th>
+          <th scope="col" class="projectname">Project Info</th>
+          <th scope="col">Action</th>
           <th colspan="12">Milestones</th>
         </tr>
       </thead>
@@ -51,13 +52,13 @@
             <td style="text-align: center; vertical-align:middle">
               <h5>{{project.projectnumber}}</h5>
             </td>
-            <td style="text-align: left; vertical-align:middle" class="container;">
-              <h5>{{project.projectname}}</h5>
+            <td style="text-align: left; vertical-align:middle">
+              <p class="projectname lead">{{project.projectname}}</p>
             </td>
             <td>
               {% if project.iscurrent == True %}
               <div class="dropdown">
-                <button style = "width: 110px;" class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button style = "width: 110px;" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ project.get_Status_display }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -71,16 +72,16 @@
               <p>
               </p>
               <p>
-                <a style="width: 110px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-md btn-secondary" role="button">Update</a>
+                <a style="width: 110px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-sm btn-secondary" role="button">Update</a>
               </p>
-              <p> <a style="width: 110px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-md btn-warning" role="button">Complete</a> </p>
+              <p> <a style="width: 110px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Complete</a> </p>
               {% else %}
               <p>
-                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-md btn-warning" role="button">Activate</a>
+                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Activate</a>
               </p>
                 <br>
               <p>
-                <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-md btn-danger" role="button">Delete</a>
+                <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-sm btn-danger" role="button">Delete</a>
               </p>
               {% endif %}
             </td>
@@ -88,13 +89,13 @@
             <!-- TODO put loop in here to loop through milestones, so we can put indication of next milestone -->
             {% for milestone, values in project.milestones.items %}
               {% if milestone == project.current_milestone.name %}
-                <td class="milestoneval" style="font-weight: bold; vertical-align:middle"><a class="cellheader">
+                <td style="font-weight: bold; vertical-align:middle"><a class="cellheader">
                   <div class = "shadow">
                     <div class="card">
                       <div class="card-header">{{milestone}}</div>
                       <div class="card-body">
                         <!-- <h8 class="card-title">{{milestone}}</h8> -->
-                        <p class="card-text"> {{values.end}}</p>
+                        <p class="card-text milestone"> {{values.end}}</p>
                       </div>
                       <div class="card-footer">
                         <small class="text-muted">in {{project.current_milestone.days_until}} day(s)</small>
@@ -102,15 +103,20 @@
                     </div>
                   </div>
                 </td>
-              {%else%}
-                <td class="milestoneval" style="vertical-align:middle"><a class="cellheader">{{milestone}}</a><hr>{{values.end}}</td>
+
+              {% else %}
+                <td style="vertical-align:middle"><p>{{milestone}}<hr>{{values.end}}</p></td>
               {% endif %}
 
             {% endfor %}
           </tr>
         {%endfor%}
+      </div>
       </tbody>
     </table>
+  </div>
+
+</div>
 
 
 

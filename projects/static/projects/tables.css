@@ -1,16 +1,25 @@
-.main-table td.first-cell {
-  background-color: white;
+.maint-table table {
+  table-layout: fixed;
+}
+p {
   text-align: center;
-  vertical-align: middle;
+  width: 125px;
 }
 
+.projectname {
+  width: 175px;
+}
 .main-table td  {
+  font-size: 12px;
+  width: 7%;
   border-top: 20px solid white;
   border-bottom: 20px solid white;
   border-left: 2px solid white;
   border-right: 2px solid white;
   background-color: #F0F0F0;
   text-align: center;
+  height: 100px;
+  vertical-align: middle; 
 }
 
 .main-table th {
@@ -18,22 +27,6 @@
   text-align: center;
 }
 
-table.main-table {
-  width: 100%;
-}
-
-
-th.milestonecolumn {
+.card {
   font-size: 12px;
-  text-align: center;
-}
-
-.main-table td.milestoneval {
-  /* background-color: #F8F8F8; */
-  font-size: 12px;
-}
-
-a.maintable {
-  font-size: 10px;
-  text-align: center;
 }

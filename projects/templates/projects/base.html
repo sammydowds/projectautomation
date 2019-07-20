@@ -28,7 +28,7 @@
       <a style="color: #383838;" class="nav-link" href="{% url 'create' %}">Create</a>
       {% if user.is_authenticated %}
         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-        <p style = "color: black; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>
+        <p class="greeting" style = "color: black; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>
       {% endif %}
     </nav>
 
