@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div class="container-fluid justify-content-center">
+<div class="container-fluid justify-content-center main">
 
 <div class="jumbotron text-center bg-white">
   <h1 class="display-4">{{status}} Projects</h1>
@@ -85,7 +85,6 @@
               {% endif %}
             </td>
 
-            <!-- TODO put loop in here to loop through milestones, so we can put indication of next milestone -->
             {% for milestone, values in project.milestones.items %}
               {% if milestone == project.current_milestone.name %}
                 <td style="font-weight: bold; vertical-align:middle"><a class="cellheader">
@@ -110,7 +109,6 @@
             {% endfor %}
           </tr>
         {%endfor%}
-      </div>
       </tbody>
     </table>
   </div>

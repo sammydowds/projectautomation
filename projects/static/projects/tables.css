@@ -1,9 +1,9 @@
 .maint-table table {
   table-layout: fixed;
 }
-p {
+.main p {
   text-align: center;
-  width: 125px;
+  width: 150px;
 }
 
 .projectname {
@@ -19,7 +19,7 @@ p {
   background-color: #F0F0F0;
   text-align: center;
   height: 100px;
-  vertical-align: middle; 
+  vertical-align: middle;
 }
 
 .main-table th {
