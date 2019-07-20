@@ -38,9 +38,12 @@
           <tr>
             <td class="first-cell">
               {% if project.iscurrent == True %}
+              <p>Actions</p>
               <p>
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ project.get_Status_display }}
+                <div class="dropdown">
+                  <button style = "width: 120px;" class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ project.get_Status_display }}
+                  </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='ontrack' %}">On-Track</a>
                     <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='offtrack' %}">Off-Track</a>
@@ -48,10 +51,10 @@
                     <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onhold' %}">On-Hold</a>
                     <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update' %}">Update</a>
                   </div>
-                </button>
+                </div>
               </p>
               <p>
-                <a style="width: 120px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-md btn-primary" role="button">Update</a>
+                <a style="width: 120px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-md btn-secondary" role="button">Update</a>
               </p>
               <p> <a style="width: 120px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-md btn-warning" role="button">Complete</a> </p>
               {% else %}
