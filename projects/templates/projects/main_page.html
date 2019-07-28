@@ -51,8 +51,31 @@
             <td style="text-align: center; vertical-align:middle">
               <h5>{{project.projectnumber}}</h5>
             </td>
-            <td style="text-align: left; vertical-align:middle">
+            <td style="text-align: center; vertical-align:middle">
               <p class="projectname lead">{{project.projectname}}</p>
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal{{project.projectnumber}}">
+                Comments
+              </button>
+
+              <div class="modal fade" id="modal{{project.projectnumber}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{project.projectnumber}} {{project.projectname}} Comments</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      {{project.Comments}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
             </td>
             <td>
               {% if project.iscurrent == True %}
@@ -85,6 +108,7 @@
               {% endif %}
             </td>
 
+            <!-- TODO put loop in here to loop through milestones, so we can put indication of next milestone -->
             {% for milestone, values in project.milestones.items %}
               {% if milestone == project.current_milestone.name %}
                 <td style="font-weight: bold; vertical-align:middle"><a class="cellheader">
@@ -96,7 +120,7 @@
                         <p class="card-text"> {{values.end}}</p>
                       </div>
                       <div class="card-footer">
-                        <small class="text-danger">in {{project.current_milestone.days_until}} day(s)</small>
+                        <small class="text-danger">in {{project.current_milestone.days_until}} business day(s)</small>
                       </div>
                     </div>
                   </div>

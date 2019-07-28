@@ -21,7 +21,7 @@ class Project(models.Model):
     )
     projectnumber = models.IntegerField(unique=True)
     projectname = models.TextField()
-    Summary = models.CharField(max_length=255, default="Enter Project Comments.", null = True)
+    Comments = models.CharField(max_length=255, default="Enter Project Comments.", null = True)
     engineering_start = models.DateField(blank=True, null = True)
     Mechanical_Release = models.DateField(blank=True, null = True)
     Electrical_Release = models.DateField(blank=True, null = True)
