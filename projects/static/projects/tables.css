@@ -1,9 +1,9 @@
 /* .maint-table table {
   table-layout: fixed;
 } */
-.main p {
+/* .main p {
   width: 150px;
-}
+} */
 
 .main-table tr {
   overflow:scroll;

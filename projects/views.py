@@ -36,7 +36,29 @@ def index(request):
         'today': date.today(),
         'status': 'Current'
     }
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/main_page_condensed.html", context)
+
+
+@login_required
+def condensed(request):
+    user = request.user
+    # pulling all current projects
+    #
+    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
+    # test_proj = import_all_projects()
+    # for proj in test_proj:
+    #     imported_proj = Project(**proj)
+    #     imported_proj.save()
+    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'status': 'Current'
+    }
+    return render(request, "projects/main_page_condensed.html", context)
 
 
 @login_required
@@ -69,7 +91,7 @@ def offtrack(request):
 
     }
     print(context['projects'])
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/main_page_condensed.html", context)
 
 @login_required
 def onwatch(request):
@@ -85,7 +107,7 @@ def onwatch(request):
 
     }
     print(context['projects'])
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/main_page_condensed.html", context)
 
 @login_required
 def projectcards(request):
@@ -121,7 +143,7 @@ def update(request, num):
 
         if form.is_valid():
             form.save()
-        return redirect('/projects/')
+        return redirect('/projects/condensed')
 
 
 #creating a project
@@ -185,7 +207,7 @@ def status(request, num, stat):
         proj = Project.objects.get(projectnumber=num)
         proj.Status = stat
         proj.save()
-        return redirect('/projects')
+        return redirect('/projects/condensed')
 
 @login_required
 def delete(request, num):
@@ -202,11 +224,11 @@ def activation(request, num):
         proj = Project.objects.get(projectnumber=num)
         proj.iscurrent = not proj.iscurrent
         proj.save()
-        return redirect('/projects')
+        return redirect('/projects/condensed')
 
 def logout(request):
     logout(request)
-    return redirect('/projects')
+    return redirect('/projects/condensed')
 
 #TODO need to add where if the username already exists in the system it throws an error
 def register(request):
@@ -222,7 +244,7 @@ def register(request):
                                          last_name=form.cleaned_data['last_name'])
 
             user.save()
-            return redirect('/projects')
+            return redirect('/projects/condensed')
 
 
 # In memory: Stretchy - my stepfather. Lost him March 20th, 2019 during this project.

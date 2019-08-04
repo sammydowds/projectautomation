@@ -8,11 +8,12 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name = "index"),
+    path('condensed', views.condensed, name = "condensed"),
     path('create/', views.create, name = "create"),
     path('delete/<int:num>/', views.delete, name = "delete"),
     path('update/<int:num>/', views.update, name = "update"),
     path('activation/<int:num>/', views.activation, name = "activation"),
-    path('status/<int:num>/<str:stat>', views.status, name = "status"),
+    path('status/<int:num>/<str:stat>/', views.status, name = "status"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', views.register, name = "register"),
     path('pastprojects', views.pastprojects, name = "pastprojects"),

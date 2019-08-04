@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div class="container-fluid justify-content-center main">
+<div class="container-fluid w-75 justify-content-center main">
 
 <div class="jumbotron text-center bg-white">
   <h1 class="display-4">{{status}} Projects ({{num_proj}})</h1>
@@ -13,18 +13,18 @@
   {% if status == 'Current' %}
   <p>
     <div class="btn-group" role="group" aria-label="Basic example">
-      <a href = '{% url 'index' %}' class="btn btn-lg btn-info" role="button">View All</a>
+      <a href = '{% url 'condensed' %}' class="btn btn-lg btn-info" role="button">View All</a>
       <a href = '{% url 'offtrack' %}' class="btn btn-lg btn-danger" role="button">View Off-Track</a>
       <a href = '{% url 'onwatch' %}' class="btn btn-lg btn-warning" role="button">View On-Watch</a>
       <a href = '{% url 'create' %}' class="btn btn-lg btn-success" role="button">Add Project</a>
     </div>
   </p>
-  <p>
+  <!-- <p>
     <div class="btn-group" role="group" aria-label="Basic example">
       <a href = '{% url 'index' %}' class="btn btn-lg btn-primary" role="button">All Dates View</a>
       <a href = '{% url 'condensed' %}' class="btn btn-lg btn-info" role="button">Condensed View</a>
     </div>
-  </p>
+  </p> -->
 
   {% endif %}
 </div>
@@ -36,7 +36,9 @@
           <th scope="col" style="color: #ff4c4c;">#</th>
           <th scope="col" class="projectname">Project Info</th>
           <th scope="col">Action</th>
-          <th colspan="12">Milestones</th>
+          <th scope="col">Milestones</th>
+          <th scope="col-2"> Comments </th>
+          <!-- <th style="width: 10px;" scope="col"></th> -->
         </tr>
       </thead>
 
@@ -65,12 +67,8 @@
               </td>
 
             {%endif%}
-
             <td style="text-align: center; vertical-align:middle">
-              <p class="projectname lead">{{project.projectname}}</p>
-              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal{{project.projectnumber}}">
-                Comments
-              </button>
+              <p class="lead">{{project.projectname}}</p>
 
               <div class="modal fade" id="modal{{project.projectnumber}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -95,23 +93,24 @@
             <td>
               {% if project.iscurrent == True %}
               <div class="dropdown">
-                <button style = "width: 110px;" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button style = "width: 110px;" class="btn btn-md btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ project.get_Status_display }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='ontrack' %}">On-Track</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='offtrack'%}">Off-Track</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onwatch'%}">On-Watch</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onhold'%}">On-Hold</a>
-                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update'%}">Update</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='offtrack' %}">Off-Track</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onwatch' %}">On-Watch</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onhold' %}">On-Hold</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update' %}">Update</a>
                 </div>
               </div>
-              <p>
+              <p style="font-size: 25px;">
               </p>
-              <p>
-                <a style="width: 110px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-sm btn-secondary" role="button">Update</a>
-              </p>
-              <p> <a style="width: 110px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Complete</a> </p>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <a href = '{% url 'update' num=project.projectnumber %}' class="btn btn-sm btn-secondary" role="button">Update</a>
+                <a href = '{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Complete</a>
+              </div>
+
               {% else %}
               <p>
                 <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Activate</a>
@@ -124,28 +123,24 @@
             </td>
 
             <!-- TODO put loop in here to loop through milestones, so we can put indication of next milestone -->
-            {% for milestone, values in project.milestones.items %}
-              {% if milestone == project.current_milestone.name %}
-                <td style="font-weight: bold; vertical-align:middle"><a class="cellheader">
-                  <div class = "shadow">
-                    <div class="card">
-                      <div class="card-header text-danger">Next Milestone</div>
-                      <div class="card-body">
-                        <h8 class="card-title">{{milestone}}</h8>
-                        <p class="card-text"> {{values.end}}</p>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-danger">in {{project.current_milestone.days_until}} business day(s)</small>
-                      </div>
+            {% if project.current_milestone.name %}
+              <td style="font-weight: bold; vertical-align:middle"><a class="cellheader">
+                <div class = "shadow">
+                  <div class="card">
+                    <div class="card-header text-danger">Next Milestone</div>
+                    <div class="card-body">
+                      <h8 class="card-title">{{project.current_milestone.name}}</h8>
+                      <p class="card-text"> {{project.current_milestone.end}}</p>
+                    </div>
+                    <div class="card-footer">
+                      <small class="text-danger">in {{project.current_milestone.days_until}} business day(s)</small>
                     </div>
                   </div>
-                </td>
+                </div>
+              </td>
+              {%endif%}
+            <td>{{project.Comments}}</td>
 
-              {% else %}
-                <td style="vertical-align:middle"><p>{{milestone}}<hr>{{values.end}}</p></td>
-              {% endif %}
-
-            {% endfor %}
           </tr>
         {%endfor%}
       </tbody>
