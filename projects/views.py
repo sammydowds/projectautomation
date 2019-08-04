@@ -23,10 +23,10 @@ def index(request):
     # pulling all current projects
     #
     # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = import_all_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
+    test_proj = import_all_projects()
+    for proj in test_proj:
+        imported_proj = Project(**proj)
+        imported_proj.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
