@@ -32,17 +32,17 @@ def import_all_projects():
             real_project.append(proj)
 
     #assembling a dictionary for each project, and giving a key to each value
-    object_vars = ['projectnumber', 'projectname', 'projectmanager', 'Mechanical_Release', 'Electrical_Release', 'Manufacturing', 'Finishing', 'Assembly', 'Internal_Runoff', 'Customer_Runoff', 'Ship', 'Install_Start', 'Install_Finish', 'Documentation']
+    object_vars = ['projectnumber', 'projectname', 'Mechanical_Release', 'Electrical_Release', 'Manufacturing', 'Finishing', 'Assembly', 'Internal_Runoff', 'Customer_Runoff', 'Ship', 'Install_Start', 'Install_Finish', 'Documentation']
     object_dictionary = []
     for p in real_project:
         temp_dict = {}
         print(p[0])
         temp_dict[object_vars[0]] = p[0]
         temp_dict[object_vars[1]] = p[1]
-        print('HERE IT IS RIGHT HERRRRRRRRRE')
-        print(p[3])
-        if p[3] != '' or p[3] != None:
-            temp_dict[object_vars[3]] = p[3]
+        # print('HERE IT IS RIGHT HERRRRRRRRRE')
+        # print(p[3])
+        # if p[3] != '' or p[3] != None:
+        #     temp_dict[object_vars[3]] = p[3]
         for i in range(2, 13):
             #removing blank dates
             if isinstance(p[i], tuple):
