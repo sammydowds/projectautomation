@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from import_projects import import_all_projects
 
 
 #TODO create project visualization page - which outputs suggested schedule and visualization of that schedule. Include the critical path of the project if possible. Graph of project - best visualization tool. Try to show critical path, and decisions.
@@ -22,11 +23,10 @@ def index(request):
     # pulling all current projects
     #
     # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = list_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
-    # -----------------------------------------------------------------------------------------------------------------
+    test_proj = import_all_projects()
+    for proj in test_proj:
+        imported_proj = Project(**proj)
+        imported_proj.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
