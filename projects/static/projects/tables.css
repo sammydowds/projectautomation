@@ -1,9 +1,12 @@
 /* .maint-table table {
   table-layout: fixed;
 } */
-.main p {
+
+.main-table-card p {
+  text-align: center;
   width: 150px;
 }
+
 
 .main-table tr {
   overflow:scroll;
