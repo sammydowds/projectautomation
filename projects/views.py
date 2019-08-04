@@ -60,6 +60,26 @@ def condensed(request):
     }
     return render(request, "projects/main_page_condensed.html", context)
 
+@login_required
+def myprojects(request):
+    user = request.user
+    # pulling all current projects
+    #
+    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
+    # test_proj = import_all_projects()
+    # for proj in test_proj:
+    #     imported_proj = Project(**proj)
+    #     imported_proj.save()
+    projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user)
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'status': 'Current'
+    }
+    return render(request, "projects/main_page_condensed.html", context)
 
 @login_required
 def pastprojects(request):

@@ -19,6 +19,7 @@ urlpatterns = [
     path('pastprojects', views.pastprojects, name = "pastprojects"),
     path('offtrack', views.offtrack, name = "offtrack"),
     path('onwatch', views.onwatch, name = "onwatch"),
+    path('myprojects', views.myprojects, name = "myprojects"),
 
 
 ]
