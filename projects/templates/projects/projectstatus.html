@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title> {% block title %} {% endblock %} </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type = "text/css" href="/static/projects/tables.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- for datepicker -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+       $('.datepicker').datepicker();
+    });
+  </script>
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-lg box-shadow shadow-md sticky-top" style="font-weight: bold; background-color: #f8e955;">
+    <a class="navbar-brand text-center" style="color: black;" href="{% url 'index' %}"></a>
+  </nav>
+</body>
+
+<main>
+
+<div style="padding-top: 20px;" class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-6">
+      <div class="card text-center">
+        <div class="card-header">{{project.projectname}}</div>
+        <div class="card-body">
+          <h2 class="card-title">{{project.projectname}}</h2>
+          <h4 class="card-subtitle mb-2 text-muted">{{project.projectnumber}}</h4>
+          <h5 class="display-6">Current Milestone Deadline:</h5>
+          <p class="lead">{{project.current_milestone.name}} - {{project.current_milestone.end}}</p>
+          <p class="card-text">{{project.Comments}}</p>
+          <a href="{% url 'update' num=project.projectnumber %}" class="card-link">Update Project</a>
+          <a href="{% url 'update' num=project.projectnumber %}" class="card-link">Update Action List</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+</html>

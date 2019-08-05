@@ -221,14 +221,13 @@ def create(request):
         form = ProjectForm()
         return render(request, "projects/create.html", {'form': form})
 
-@login_required
-def whereitat(request, num):
+def projectstatus(request, num):
     if request.method == "GET":
         proj = Project.objects.get(projectnumber=num)
         context = {
             'project': proj
             }
-        return render(request, 'projects/whereitat.html', context)
+        return render(request, 'projects/projectstatus.html', context)
 
 @login_required
 def status(request, num, stat):

@@ -20,7 +20,7 @@ urlpatterns = [
     path('offtrack', views.offtrack, name = "offtrack"),
     path('onwatch', views.onwatch, name = "onwatch"),
     path('myprojects', views.myprojects, name = "myprojects"),
-    path('whereitat/<int:num>/', views.whereitat, name = "whereitat"),
+    path('projectstatus/<int:num>/', views.projectstatus, name = "projectstatus"),
 
 
 
