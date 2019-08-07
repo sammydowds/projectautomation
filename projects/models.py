@@ -37,7 +37,7 @@ class Project(models.Model):
     Documentation = models.DateField(blank=True, null = True)
     Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="offtrack", null = True)
     iscurrent = models.BooleanField(default=True, null = True)
-    projectmanager = models.ForeignKey(User, null=True, on_delete = models.SET_NULL)
+    projectmanager = models.ForeignKey(User, blank=True, null=True, on_delete = models.SET_NULL)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
 
 

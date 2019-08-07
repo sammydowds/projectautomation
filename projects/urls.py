@@ -21,6 +21,7 @@ urlpatterns = [
     path('onwatch', views.onwatch, name = "onwatch"),
     path('myprojects', views.myprojects, name = "myprojects"),
     path('projectstatus/<int:num>/', views.projectstatus, name = "projectstatus"),
+    path('myprojects/', views.myprojects, name = "myprojects"),
 
 
 

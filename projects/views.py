@@ -38,7 +38,6 @@ def index(request):
     }
     return render(request, "projects/main_page.html", context)
 
-
 @login_required
 def condensed(request):
     user = request.user
@@ -79,7 +78,7 @@ def myprojects(request):
         'today': date.today(),
         'status': 'Current'
     }
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/main_page_my_projects.html", context)
 
 @login_required
 def pastprojects(request):

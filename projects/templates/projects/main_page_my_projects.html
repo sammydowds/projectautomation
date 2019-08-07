@@ -1,0 +1,148 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: {{status}} Projects
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid justify-content-center main">
+
+<div class="jumbotron text-center bg-white">
+  <h1 class="display-4">My {{status}} Projects ({{num_proj}})</h1>
+  <hr class="my-4">
+  <a href = "{% url 'create' %}" class="btn btn-lg btn-success" role="button">Add Project</a>
+
+</div>
+
+  <div class="table-responsive">
+    <table class="table main-table">
+      <thead style="font-size: 18px;" class="thead">
+        <tr>
+          <th scope="col" style="color: #ff4c4c;">#</th>
+          <th scope="col" class="projectname">Project Info</th>
+          <th scope="col" class="projectname">Next Milestone</th>
+          <th scope="col">Action</th>
+          <th colspan="12">Milestones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for project in projects %}
+          <tr>
+            {% if project.Status == 'offtrack' %}
+              <td style="border-left: 12px solid red; text-align: center; vertical-align:middle">
+                <h5>{{project.projectnumber}}</h5>
+              </td>
+            {%elif project.Status == 'onwatch' %}
+              <td style="border-left: 12px solid yellow; text-align: center; vertical-align:middle">
+                <h5>{{project.projectnumber}}</h5>
+              </td>
+            {%elif project.Status == 'ontrack' %}
+              <td style="border-left: 12px solid green; text-align: center; vertical-align:middle">
+                <h5>{{project.projectnumber}}</h5>
+              </td>
+            {%elif project.Status == 'update' %}
+              <td style="border-left: 12px solid blue; text-align: center; vertical-align:middle">
+                <h5>{{project.projectnumber}}</h5>
+              </td>
+            {%elif project.Status == 'onhold' %}
+              <td style="border-left: 12px solid purple; text-align: center; vertical-align:middle">
+                <h5>{{project.projectnumber}}</h5>
+              </td>
+
+            {% endif %}
+
+            <td style="text-align: center; vertical-align:middle">
+              <p class="projectname lead">{{project.projectname}}</p>
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal{{project.projectnumber}}">
+                Comments
+              </button>
+
+              <div class="modal fade" id="modal{{project.projectnumber}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{project.projectnumber}} {{project.projectname}} Comments</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      {{project.Comments}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="lead"> {{project.current_milestone.name}}: <br> {{project.current_milestone.end}} <br></p>
+              <p class="text-danger"> in {{project.current_milestone.days_until}} business days </p>
+            </td>
+            <td>
+              {% if project.iscurrent == True %}
+              <div class="dropdown">
+                <button style = "width: 110px;" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ project.get_Status_display }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='ontrack' %}">On-Track</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='offtrack'%}">Off-Track</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onwatch'%}">On-Watch</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='onhold'%}">On-Hold</a>
+                  <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update'%}">Update</a>
+                </div>
+              </div>
+              <br>
+              <p>
+                <a style="width: 110px;" href="{% url 'update' num=project.projectnumber %}" class="btn btn-sm btn-secondary" role="button">Update</a>
+              </p>
+              <p> <a style="width: 110px;" href="{% url 'activation' num=project.projectnumber %}" class="btn btn-sm btn-warning" role="button">Complete</a> </p>
+              {% else %}
+              <p>
+                <a href="{% url 'activation' num=project.projectnumber %}"class="btn btn-sm btn-warning" role="button">Activate</a>
+              </p>
+              <p>
+                <a href="{% url 'delete' num=project.projectnumber %}" class="btn btn-sm btn-danger" role="button">Delete</a>
+              </p>
+              {%endif%}
+            </td>
+
+            <!-- TODO put loop in here to loop through milestones, so we can put indication of next milestone -->
+            {% for milestone, values in project.milestones.items %}
+              {% if milestone == project.current_milestone.name %}
+                <td style="font-weight: bold; vertical-align:middle"><a class="cellheader">
+                  <div class = "shadow">
+                    <div class="card main-table-card">
+                      <div class="card-header text-danger">Next Milestone</div>
+                      <div class="card-body">
+                        <h8 class="card-title">{{milestone}}</h8>
+                        <p class="card-text"> {{values.end}}</p>
+                      </div>
+                      <div class="card-footer">
+                        <small class="text-danger">in {{project.current_milestone.days_until}} business day(s)</small>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                {% else %}
+                  <td style="vertical-align:middle"><p>{{milestone}}<hr>{{values.end}}</p></td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
