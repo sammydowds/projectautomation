@@ -13,10 +13,10 @@
   {% if status == 'Current' %}
   <p>
     <div class="btn-group" role="group" aria-label="Basic example">
-      <a href = '{% url 'index' %}' class="btn btn-lg btn-info" role="button">View All</a>
-      <a href = '{% url 'offtrack' %}' class="btn btn-lg btn-danger" role="button">View Off-Track</a>
-      <a href = '{% url 'onwatch' %}' class="btn btn-lg btn-warning" role="button">View On-Watch</a>
-      <a href = '{% url 'create' %}' class="btn btn-lg btn-success" role="button">Add Project</a>
+      <a href = "{% url 'index' %}" class="btn btn-lg btn-info" role="button">View All</a>
+      <a href = "{% url 'offtrack' %}" class="btn btn-lg btn-danger" role="button">View Off-Track</a>
+      <a href = "{% url 'onwatch' %}" class="btn btn-lg btn-warning" role="button">View On-Watch</a>
+      <a href = "{% url 'create' %}" class="btn btn-lg btn-success" role="button">Add Project</a>
     </div>
   </p>
   <p>
@@ -36,6 +36,7 @@
         <tr>
           <th scope="col" style="color: #ff4c4c;">#</th>
           <th scope="col" class="projectname">Project Info</th>
+          <th scope="col" class="projectname">Next Milestone</th>
           <th scope="col">Action</th>
           <th colspan="12">Milestones</th>
         </tr>
@@ -65,7 +66,7 @@
                 <h5>{{project.projectnumber}}</h5>
               </td>
 
-            {%endif%}
+            {% endif %}
 
             <td style="text-align: center; vertical-align:middle">
               <p class="projectname lead">{{project.projectname}}</p>
@@ -94,6 +95,10 @@
               </div>
             </td>
             <td>
+              <p class="lead"> {{project.current_milestone.name}}: <br> {{project.current_milestone.end}} <br></p>
+              <p class="text-danger"> in {{project.current_milestone.days_until}} business days </p>
+            </td>
+            <td>
               {% if project.iscurrent == True %}
               <div class="dropdown">
                 <button style = "width: 110px;" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,21 +112,19 @@
                   <a class="dropdown-item" href="{% url 'status' num=project.projectnumber stat='update'%}">Update</a>
                 </div>
               </div>
+              <br>
               <p>
+                <a style="width: 110px;" href="{% url 'update' num=project.projectnumber %}" class="btn btn-sm btn-secondary" role="button">Update</a>
               </p>
-              <p>
-                <a style="width: 110px;" href='{% url 'update' num=project.projectnumber %}' class="btn btn-sm btn-secondary" role="button">Update</a>
-              </p>
-              <p> <a style="width: 110px;" href='{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Complete</a> </p>
+              <p> <a style="width: 110px;" href="{% url 'activation' num=project.projectnumber %}" class="btn btn-sm btn-warning" role="button">Complete</a> </p>
               {% else %}
               <p>
-                <a href='{% url 'activation' num=project.projectnumber %}' class="btn btn-sm btn-warning" role="button">Activate</a>
+                <a href="{% url 'activation' num=project.projectnumber %}"class="btn btn-sm btn-warning" role="button">Activate</a>
               </p>
-                <br>
               <p>
-                <a href='{% url 'delete' num=project.projectnumber %}' class="btn btn-sm btn-danger" role="button">Delete</a>
+                <a href="{% url 'delete' num=project.projectnumber %}" class="btn btn-sm btn-danger" role="button">Delete</a>
               </p>
-              {% endif %}
+              {%endif%}
             </td>
 
             <!-- TODO put loop in here to loop through milestones, so we can put indication of next milestone -->
@@ -142,10 +145,9 @@
                   </div>
                 </td>
 
-              {% else %}
-                <td style="vertical-align:middle"><p>{{milestone}}<hr>{{values.end}}</p></td>
+                {% else %}
+                  <td style="vertical-align:middle"><p>{{milestone}}<hr>{{values.end}}</p></td>
               {% endif %}
-
             {% endfor %}
           </tr>
         {%endfor%}
