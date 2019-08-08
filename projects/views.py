@@ -97,6 +97,30 @@ def pastprojects(request):
     return render(request, "projects/main_page.html", context)
 
 @login_required
+def bymilestone(request):
+    user = request.user
+    today = date.today()
+    #note, probably better way to do the following
+    parsed_milestones = []
+    parsed_milestones.append({'Mechanical Engineering': list(Project.objects.all().exclude(iscurrent=False, Mechanical_Release__lte=today).order_by('Mechanical_Release').values('projectnumber','projectname','Mechanical_Release'))})
+    parsed_milestones.append({'Electrical Engineering': list(Project.objects.all().exclude(iscurrent=False, Electrical_Release__lte=today).order_by('Electrical_Release').values('projectnumber','projectname','Electrical_Release'))})
+    parsed_milestones.append({'Manufacturing': list(Project.objects.all().exclude(iscurrent=False, Manufacturing__lte=today).order_by('Manufacturing').values('projectnumber','projectname','Manufacturing'))})
+    parsed_milestones.append({'Finishing': list(Project.objects.all().exclude(iscurrent=False, Finishing__lte=today).order_by('Finishing').values('projectnumber','projectname','Finishing'))})
+    parsed_milestones.append({'Assembly': list(Project.objects.all().exclude(iscurrent=False, Assembly__lte=today).order_by('Assembly').values('projectnumber','projectname','Assembly'))})
+    parsed_milestones.append({'Ship': list(Project.objects.all().exclude(iscurrent=False, Ship__lte=today).order_by('Ship').values('projectnumber','projectname','Ship'))})
+    parsed_milestones.append({'Integration': list(Project.objects.all().exclude(iscurrent=False, Customer_Runoff__lte=today).order_by('Customer_Runoff').values('projectnumber','projectname', 'Internal_Runoff', 'Customer_Runoff'))})
+
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    print(parsed_milestones)
+    context = {
+        'info': parsed_milestones,
+        'today': date.today(),
+        'status': 'Past'
+
+    }
+    return render(request, "projects/main_page_by_milestone.html", context)
+
+@login_required
 def offtrack(request):
     user = request.user
     projects_list = Project.objects.all().filter(iscurrent=True, Status='offtrack')

@@ -1,0 +1,38 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: {{status}} Projects
+{% endblock %}
+
+{% block main %}
+<div class="container justify-content-center main">
+  {% for milestone in info %}
+    {% for name, projects in milestone.items %}
+      <div style="padding-top: 20px;" class="row">
+        <div class="col-10">
+          <h3>{{name}}</h3>
+          <table class="table table-responsive-sm table-bordered">
+            <thead>
+              <tr>
+                {% for info_name in projects.0 %}
+                  <th scope="col">{{info_name}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for project in projects %}
+                <tr>
+                  {% for key, value in project.items %}
+                    <td>{{value}}</td>
+                  {%endfor%}
+                </tr>
+              {%endfor%}
+            </tbody>
+        </table>
+        </div>
+      </div>
+    {%endfor%}
+{%endfor%}
+</div>
+
+{% endblock %}
