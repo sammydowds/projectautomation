@@ -102,13 +102,13 @@ def bymilestone(request):
     today = date.today()
     #note, probably better way to do the following
     parsed_milestones = []
-    parsed_milestones.append({'Mechanical Engineering': list(Project.objects.all().exclude(iscurrent=False, Mechanical_Release__lte=today).order_by('Mechanical_Release').values('projectnumber','projectname','Mechanical_Release'))})
-    parsed_milestones.append({'Electrical Engineering': list(Project.objects.all().exclude(iscurrent=False, Electrical_Release__lte=today).order_by('Electrical_Release').values('projectnumber','projectname','Electrical_Release'))})
-    parsed_milestones.append({'Manufacturing': list(Project.objects.all().exclude(iscurrent=False, Manufacturing__lte=today).order_by('Manufacturing').values('projectnumber','projectname','Manufacturing'))})
-    parsed_milestones.append({'Finishing': list(Project.objects.all().exclude(iscurrent=False, Finishing__lte=today).order_by('Finishing').values('projectnumber','projectname','Finishing'))})
-    parsed_milestones.append({'Assembly': list(Project.objects.all().exclude(iscurrent=False, Assembly__lte=today).order_by('Assembly').values('projectnumber','projectname','Assembly'))})
-    parsed_milestones.append({'Ship': list(Project.objects.all().exclude(iscurrent=False, Ship__lte=today).order_by('Ship').values('projectnumber','projectname','Ship'))})
-    parsed_milestones.append({'Integration': list(Project.objects.all().exclude(iscurrent=False, Customer_Runoff__lte=today).order_by('Customer_Runoff').values('projectnumber','projectname', 'Internal_Runoff', 'Customer_Runoff'))})
+    parsed_milestones.append({'Mechanical Engineering': list(Project.objects.all().exclude(iscurrent=False, Mechanical_Release__lte=today).order_by('Mechanical_Release').values('projectnumber','projectname','Mechanical_Release', 'Status'))})
+    parsed_milestones.append({'Electrical Engineering': list(Project.objects.all().exclude(iscurrent=False, Electrical_Release__lte=today).order_by('Electrical_Release').values('projectnumber','projectname','Electrical_Release', 'Status'))})
+    parsed_milestones.append({'Manufacturing': list(Project.objects.all().exclude(iscurrent=False, Manufacturing__lte=today).order_by('Manufacturing').values('projectnumber','projectname','Manufacturing', 'Status'))})
+    parsed_milestones.append({'Finishing': list(Project.objects.all().exclude(iscurrent=False, Finishing__lte=today).order_by('Finishing').values('projectnumber','projectname','Finishing', 'Status'))})
+    parsed_milestones.append({'Assembly': list(Project.objects.all().exclude(iscurrent=False, Assembly__lte=today).order_by('Assembly').values('projectnumber','projectname','Assembly', 'Status'))})
+    parsed_milestones.append({'Ship': list(Project.objects.all().exclude(iscurrent=False, Ship__lte=today).order_by('Ship').values('projectnumber','projectname','Ship', 'Status'))})
+    parsed_milestones.append({'Integration': list(Project.objects.all().exclude(iscurrent=False, Customer_Runoff__lte=today).order_by('Customer_Runoff').values('projectnumber','projectname', 'Internal_Runoff', 'Customer_Runoff', 'Status'))})
 
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     print(parsed_milestones)

@@ -23,12 +23,11 @@ class Project(models.Model):
     projectname = models.TextField()
     Comments = models.CharField(max_length=255, default="Enter Project Comments.", null = True)
     engineering_start = models.DateField(blank=True, null = True)
-    Mechanical_Release = models.DateField(blank=True, null = True)
-    Electrical_Release = models.DateField(blank=True, null = True)
+    Mechanical_Release = models.DateField('Mech Rel', blank=True, null = True)
+    Electrical_Release = models.DateField('Electrical Release', blank=True, null = True)
     Manufacturing = models.DateField(blank=True, null = True)
     Finishing = models.DateField(blank=True, null = True)
     Assembly = models.DateField(blank=True, null = True)
-    Integration = models.DateField(blank=True, null = True)
     Internal_Runoff = models.DateField(blank=True, null = True)
     Customer_Runoff = models.DateField(blank=True, null = True)
     Ship = models.DateField(blank=True, null = True)
@@ -61,7 +60,6 @@ class Project(models.Model):
         'Manufacturing',\
         'Finishing',\
         'Assembly',\
-        'Integration',\
         'Internal_Runoff', \
         'Customer_Runoff', \
         'Ship', \
