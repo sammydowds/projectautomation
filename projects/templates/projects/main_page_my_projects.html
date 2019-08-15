@@ -6,6 +6,36 @@
 
 {% block main %}
 <div class = "container-fluid text-center justify-content-center">
+  <div style= "padding: 2rem 5rem 2rem" class = "row  bg-light shadow-sm">
+    <p class="lead">Milesones Coming Up:</p>
+    <table class="table text-center table-responsive table-borderless">
+        <tr>
+          <td>
+            <ul class="list-group list-group-horizontal">
+              {% for project in projects %}
+                {% for milestone, values in project.milestones.items %}
+                  {% if milestone == project.current_milestone.name %}
+                  <div style="width: 230px;" class="container">
+                    <li class="list-group-item flex-fill shadow">
+                      <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+                      <p class="lead">{{milestone}}</p>
+                      <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span>
+                      <hr>
+                      {{values.end}}
+                      <p class="text-muted"><small>Initial: +8</small></p>
+                      <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+
+                    </li>
+                  </div>
+                {% endif %}
+              {%endfor%}
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+      </table>
+  </div>
+
   {% for project in projects %}
     <div style= "padding: 2rem 0rem 2rem" class = "row  bg-light shadow-sm">
       <div class="col">
