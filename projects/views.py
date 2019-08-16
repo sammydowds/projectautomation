@@ -58,10 +58,8 @@ def thisweek(request):
     for project in projects_list:
         if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
             var = project.current_milestone()['end']
-            print(var)
-            print(var.isocalendar()[1])
             projects_list_week.append(project)
-    print(projects_list_week)
+
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
         'projects': projects_list_week,
@@ -82,10 +80,7 @@ def myprojects(request):
     for project in projects_list:
         if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
             var = project.current_milestone()['end']
-            print(var)
-            print(var.isocalendar()[1])
             projects_list_week.append(project)
-    print(projects_list_week)
 
     context = {
         'projects': projects_list,
@@ -108,7 +103,6 @@ def pastprojects(request):
         'status': 'Past'
 
     }
-    print(context['projects'])
     return render(request, "projects/main_page.html", context)
 
 @login_required
@@ -126,7 +120,6 @@ def planner(request):
     parsed_milestones.append({'Integration': list(Project.objects.all().exclude(iscurrent=False, Customer_Runoff__lte=today).order_by('Customer_Runoff').values('projectnumber','projectname', 'Internal_Runoff', 'Customer_Runoff', 'Status'))})
 
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    print(parsed_milestones)
     context = {
         'info': parsed_milestones,
         'today': date.today(),
@@ -148,7 +141,6 @@ def offtrack(request):
         'status': 'Current'
 
     }
-    print(context['projects'])
     return render(request, "projects/main_page.html", context)
 
 @login_required
@@ -164,7 +156,6 @@ def onwatch(request):
         'status': 'Current'
 
     }
-    print(context['projects'])
     return render(request, "projects/main_page.html", context)
 
 @login_required
