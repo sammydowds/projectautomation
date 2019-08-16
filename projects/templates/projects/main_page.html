@@ -7,7 +7,8 @@
 {% block main %}
 <div class="bg-light">
   <div class="pricing-header py-5 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-     <h4 class="display-4">Projects</h4>
+     <h4 class="display-4">All Projects</h4>
+     <p class="lead">Delivering Tomorrow, today.</p>
      <div class="btn-group" role="group" aria-label="Basic example">
       <a href="#" class="btn btn-outline-secondary" role="button">On Track <span class="badge badge-pill badge-success">{{num_on}}</span></a>
       <a href="#" class="btn btn-outline-secondary" role="button">On Watch <span class="badge badge-pill badge-warning">{{num_watch}}</span></a>
@@ -16,14 +17,14 @@
       <a href="#" class="btn btn-outline-secondary" role="button"> Print View </a>
     </div>
   </div>
-  <div style="max-width: 1425px;" class = "container bg-light text-center">
+  <div style="max-width: 1900px;" class = "container bg-light text-center">
     {% for project in projects %}
-    <div style= "padding: 2rem 0rem 2remj" class="row justify-content-center bg-light shadow-sm">
+    <div style= "padding: 2rem 0rem 2remj" class="row py-3 justify-content-center bg-light shadow-sm">
       <div class="col">
         <table class="table bg-light table-borderless">
             <tr>
               <td class="text-left"><h4>{{project.projectnumber}} - {{project.projectname}}  <span class="badge badge-danger">Off Track</span></h4>
-                <p class="lead text-muted">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{project.current_milestone.days_until}} day(s)</span></p>
+                <p class="lead">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{project.current_milestone.days_until}} day(s)</span></p>
               </td>
               <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
               <td class="text-right">
@@ -40,17 +41,17 @@
                 <ul class="list-group list-group-horizontal">
                   {% for milestone, values in project.milestones.items %}
                     {% if milestone == project.current_milestone.name %}
-                    <div style="width: 230px;" class="container">
+                    <div style="width: 235px;" class="container">
                       <li class="list-group-item flex-fill shadow">
                         <h4><span class="badge badge-pill badge-light">Next Milestone</span></h4>
                         <p class="lead">{{milestone}}</p>
-                        <hr>
                         {{values.end}}
+                        <hr>
                         <p class="text-muted"><small>Initial: +8</small></p>
                       </li>
                     </div>
                     {% else %}
-                      <li style="font-size: 9px; width: 115px; height: 100px;" class="list-group-item bg-light flex-fill disabled">{{milestone}}<hr>{{values.end}}</li>
+                      <li style="font-size: 15px; width: 160px; height: 150px;" class="list-group-item bg-light px-3 flex-fill">{{milestone}}<hr>{{values.end}}</li>
                     {% endif %}
                   {%endfor%}
                 </ul>

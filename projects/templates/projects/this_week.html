@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block main %}
+
 <div class="bg-light">
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
      <h2 class="display-4">This Week At Acieta</h2>
-     <p class="lead"></p>
+     <p class="lead"> Delivering tomorrow, this week. </p>
   </div>
   <div style="max-width: 1425px;" class = "container bg-light text-center justify-content-center">
-    <div style= "padding: 2rem 5rem 2rem" class = "row  bg-light shadow-sm">
+    <div style= "padding: 2rem 5rem 2rem" class = "row bg-light shadow-sm">
       <p class="lead">Milesones This Week:</p>
       <table class="table text-center table-responsive table-borderless">
           <tr>
@@ -22,12 +23,13 @@
                     {% if milestone == project.current_milestone.name %}
                     <div style="width: 300px;" class="container">
                       <li class="list-group-item flex-fill shadow">
-                        <small>{{project.projectname}}</small>
                         <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+                        <small class="overflow-hidden text-nowrap">{{project.projectname}}</small>
+                        <hr>
                         <p class="lead">{{milestone}}</p>
+                        <p>{{values.end}}</p>
                         <span class="badge badge-warning">in {{project.current_milestone.days_until}} day(s)</span>
                         <hr>
-                        <p>{{values.end}}</p>
                         <p class="text-muted"><small>Initial: +8</small></p>
                         <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
                       </li>
@@ -40,6 +42,51 @@
           </tr>
         </table>
       </div>
+
+
+    {% for project in projects %}
+    <div style= "padding: 2rem 0rem 2remj" class="row justify-content-center bg-light shadow-sm">
+      <div class="col">
+        <table class="table bg-light table-borderless">
+            <tr>
+              <td class="text-left"><h4>{{project.projectnumber}} - {{project.projectname}}  <span class="badge badge-danger">Off Track</span></h4>
+                <p class="lead">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{project.current_milestone.days_until}} day(s)</span></p>
+              </td>
+              <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
+              <td class="text-right">
+                <button type="button" class="btn btn-outline-success">On Track</button>
+                <button type="button" class="btn btn-outline-danger">On Watch</button>
+                <button type="button" class="btn btn-outline-warning">Off Track</button>
+                <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+              </td>
+            </tr>
+        </table>
+        <table class="table text-center table-responsive table-borderless">
+            <tr>
+              <td class="col">
+                <ul class="list-group list-group-horizontal">
+                  {% for milestone, values in project.milestones.items %}
+                    {% if milestone == project.current_milestone.name %}
+                    <div style="width: 235px;" class="container">
+                      <li class="list-group-item flex-fill shadow">
+                        <h4><span class="badge badge-pill badge-light">Next Milestone</span></h4>
+                        <p class="lead">{{milestone}}</p>
+                        {{values.end}}
+                        <hr>
+                        <p class="text-muted"><small>Initial: +8</small></p>
+                      </li>
+                    </div>
+                    {% else %}
+                      <li style="font-size: 15px; width: 160px; height: 150px;" class="list-group-item bg-light px-3 flex-fill disabled">{{milestone}}<hr>{{values.end}}</li>
+                    {% endif %}
+                  {%endfor%}
+                </ul>
+              </td>
+            </tr>
+        </table>
+      </div>
     </div>
+  {% endfor %}
   </div>
+</div>
 {% endblock %}

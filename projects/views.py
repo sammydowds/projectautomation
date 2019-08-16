@@ -72,19 +72,24 @@ def thisweek(request):
 @login_required
 def myprojects(request):
     user = request.user
-    # pulling all current projects
-    #
-    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = import_all_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
+    #saving current week number
+    week_number = date.today().isocalendar()[1]
+    #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user)
-    # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    num_proj = projects_list.count()
+    #empty array to save projects which have a milestone this week
+    projects_list_week = []
+    #looping through project list
+    for project in projects_list:
+        if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
+            var = project.current_milestone()['end']
+            print(var)
+            print(var.isocalendar()[1])
+            projects_list_week.append(project)
+    print(projects_list_week)
+
     context = {
         'projects': projects_list,
-        'num_proj': num_proj,
+        'projects_this_week': projects_list_week,
         'today': date.today(),
         'status': 'Current'
     }
