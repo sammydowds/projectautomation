@@ -30,34 +30,44 @@ def index(request):
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
+    num_off = projects_list.filter(Status="offtrack").count()
+    num_watch = projects_list.filter(Status="onwatch").count()
+    num_on = projects_list.filter(Status="ontrack").count()
     context = {
         'projects': projects_list,
         'num_proj': num_proj,
         'today': date.today(),
+        'num_off': num_off,
+        'num_watch': num_watch,
+        'num_on': num_on,
         'status': 'Current'
     }
     return render(request, "projects/main_page.html", context)
 
 @login_required
-def condensed(request):
+def thisweek(request):
     user = request.user
-    # pulling all current projects
-    #
-    # -----------------Here is the code to upload all projects from an excel sheet below ------------------------------
-    # test_proj = import_all_projects()
-    # for proj in test_proj:
-    #     imported_proj = Project(**proj)
-    #     imported_proj.save()
-    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
+
+    #saving current week number
+    week_number = date.today().isocalendar()[1]
+    #pulling all active projects
+    projects_list = Project.objects.all().exclude(iscurrent=False)
+    #empty array to save projects which have a milestone this week
+    projects_list_week = []
+    #looping through project list
+    for project in projects_list:
+        if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
+            var = project.current_milestone()['end']
+            print(var)
+            print(var.isocalendar()[1])
+            projects_list_week.append(project)
+    print(projects_list_week)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    num_proj = projects_list.count()
     context = {
-        'projects': projects_list,
-        'num_proj': num_proj,
+        'projects': projects_list_week,
         'today': date.today(),
-        'status': 'Current'
     }
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/this_week.html", context)
 
 @login_required
 def myprojects(request):
@@ -97,7 +107,7 @@ def pastprojects(request):
     return render(request, "projects/main_page.html", context)
 
 @login_required
-def bymilestone(request):
+def planner(request):
     user = request.user
     today = date.today()
     #note, probably better way to do the following

@@ -1,0 +1,45 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: {{status}} Projects
+{% endblock %}
+
+{% block main %}
+<div class="bg-light">
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+     <h2 class="display-4">This Week At Acieta</h2>
+     <p class="lead"></p>
+  </div>
+  <div style="max-width: 1425px;" class = "container bg-light text-center justify-content-center">
+    <div style= "padding: 2rem 5rem 2rem" class = "row  bg-light shadow-sm">
+      <p class="lead">Milesones This Week:</p>
+      <table class="table text-center table-responsive table-borderless">
+          <tr>
+            <td>
+              <ul class="list-group list-group-horizontal">
+                {% for project in projects %}
+                  {% for milestone, values in project.milestones.items %}
+                    {% if milestone == project.current_milestone.name %}
+                    <div style="width: 300px;" class="container">
+                      <li class="list-group-item flex-fill shadow">
+                        <small>{{project.projectname}}</small>
+                        <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+                        <p class="lead">{{milestone}}</p>
+                        <span class="badge badge-warning">in {{project.current_milestone.days_until}} day(s)</span>
+                        <hr>
+                        <p>{{values.end}}</p>
+                        <p class="text-muted"><small>Initial: +8</small></p>
+                        <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+                      </li>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

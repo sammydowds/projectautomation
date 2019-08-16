@@ -8,7 +8,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name = "index"),
-    path('condensed', views.condensed, name = "condensed"),
     path('create/', views.create, name = "create"),
     path('delete/<int:num>/', views.delete, name = "delete"),
     path('update/<int:num>/', views.update, name = "update"),
@@ -21,7 +20,8 @@ urlpatterns = [
     path('onwatch', views.onwatch, name = "onwatch"),
     path('projectstatus/<int:num>/', views.projectstatus, name = "projectstatus"),
     path('myprojects/', views.myprojects, name = "myprojects"),
-    path('bymilestone/', views.bymilestone, name = "bymilestone"),
+    path('planner/', views.planner, name = "planner"),
+    path('thisweek/', views.thisweek, name = "thisweek"),
 
 
 

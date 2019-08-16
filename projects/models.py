@@ -17,6 +17,7 @@ class Project(models.Model):
         ("onwatch","On Watch"),
         ("onhold","On Hold"),
         ("update", "Update"),
+        ("ontrack", "On Track")
 
     )
     projectnumber = models.IntegerField(unique=True)
@@ -176,7 +177,7 @@ class Project(models.Model):
                 value['days_until'] = self.busdays_between(value['end'], today)
                 value['name'] = key
 
-                if value['end'] > today:
+                if value['end'] >= today:
                     return value
 
         #if date is in the past or no dates exits
