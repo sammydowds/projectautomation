@@ -48,14 +48,22 @@ def index(request):
 def thisweek(request):
     user = request.user
 
-    #saving current week number
-    week_number = date.today().isocalendar()[1]
+    #saving current week number, if it is saturday or sunday we select it as the next week
+    if date.today().isocalendar()[2] >=6:
+        week_number = date.today().isocalendar()[1] + 1
+    else:
+        week_number = date.today().isocalendar()[1]
     #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False)
     #empty array to save projects which have a milestone this week
     projects_list_week = []
     #looping through project list
     for project in projects_list:
+        if isinstance(project.current_milestone()['end'], datetime.date):
+            print("CHECKING")
+            print(project.projectname)
+            print(project.current_milestone()['end'].isocalendar()[1])
+            print(week_number)
         if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
             var = project.current_milestone()['end']
             projects_list_week.append(project)
@@ -65,13 +73,17 @@ def thisweek(request):
         'projects': projects_list_week,
         'today': date.today(),
     }
+    print(projects_list_week)
     return render(request, "projects/this_week.html", context)
 
 @login_required
 def myprojects(request):
     user = request.user
     #saving current week number
-    week_number = date.today().isocalendar()[1]
+    if date.today().isocalendar()[2] >=6:
+        week_number = date.today().isocalendar()[1] + 1
+    else:
+        week_number = date.today().isocalendar()[1]
     #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user)
     #empty array to save projects which have a milestone this week
