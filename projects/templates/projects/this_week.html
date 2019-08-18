@@ -21,19 +21,21 @@
                 {% for project in projects %}
                   {% for milestone, values in project.milestones.items %}
                     {% if milestone == project.current_milestone.name %}
-                    <div style="width: 300px;" class="container overflow-hidden">
-                      <li class="list-group-item flex-fill shadow text-nowrap">
-                        <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
-                        <small>{{project.projectname}}</small>
-                        <hr>
-                        <p class="lead">{{milestone}}</p>
-                        <p>{{values.end}}</p>
-                        <span class="badge badge-warning">in {{project.current_milestone.days_until}} day(s)</span>
-                        <hr>
-                        <p class="text-muted"><small>Initial: +8</small></p>
-                        <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-                      </li>
-                    </div>
+                      <div style="width: 300px;" class="container">
+                        <li class="list-group-item flex-fill shadow text-nowrap">
+                          <div class="col overflow-hidden">
+                            <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+                            <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
+                            <hr>
+                            <p class="lead">{{milestone}}</p>
+                            <p>{{values.end}}</p>
+                            <span class="badge badge-warning">in {{project.current_milestone.days_until}} day(s)</span>
+                            <hr>
+                            <p class="text-muted"><small>Initial: +8</small></p>
+                            <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+                          </div>
+                        </li>
+                      </div>
                   {% endif %}
                 {% endfor %}
               {% endfor %}
