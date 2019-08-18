@@ -21,8 +21,8 @@
                 {% for project in projects %}
                   {% for milestone, values in project.milestones.items %}
                     {% if milestone == project.current_milestone.name %}
-                    <div style="width: 300px;" class="container">
-                      <li class="list-group-item flex-fill shadow overflow-hidden text-nowrap">
+                    <div style="width: 300px;" class="container overflow-hidden">
+                      <li class="list-group-item flex-fill shadow text-nowrap">
                         <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
                         <small>{{project.projectname}}</small>
                         <hr>
