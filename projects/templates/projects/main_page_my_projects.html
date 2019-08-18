@@ -28,10 +28,10 @@
                   {% for project in projects_this_week %}
                     {% for milestone, values in project.milestones.items %}
                       {% if milestone == project.current_milestone.name %}
-                        <div style="width: 300px;" class="container">
-                          <li class="list-group-item flex-fill shadow">
+                      <div style="width: 300px;" class="container">
+                        <li class="list-group-item flex-fill shadow text-nowrap">
                             <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
-                            <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
+                            <small style="overflow-hidden"><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
                             <hr>
                             <p class="lead">{{milestone}}</p>
                             <p>{{values.end}}</p>
@@ -59,10 +59,10 @@
                   {% for project in projects %}
                     {% for milestone, values in project.milestones.items %}
                       {% if milestone == project.current_milestone.name %}
-                      <div style="width: 300px;" class="container overflow-hidden">
+                      <div style="width: 300px;" class="container">
                         <li class="list-group-item flex-fill shadow text-nowrap">
                           <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
-                          <small>{{project.projectname}}</small>
+                          <small style="overflow-hidden">{{project.projectname}}</small>
                           <hr>
                           <p class="lead">{{milestone}}</p>
                           <p>{{values.end}}</p>
