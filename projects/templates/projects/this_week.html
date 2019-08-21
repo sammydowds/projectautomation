@@ -54,6 +54,9 @@
               <td class="text-left"><h4>{{project.projectnumber}} - {{project.projectname}}  <span class="badge badge-danger">Off Track</span></h4>
                 <p class="lead">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{project.current_milestone.days_until}} day(s)</span></p>
               </td>
+              <td>
+                <p class="lead small text-muted">{{project.Comments}} </p>
+              </td>
               <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
               <td class="text-right">
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#id{{project.projectnumber}}">
