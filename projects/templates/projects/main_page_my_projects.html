@@ -99,30 +99,6 @@
 
                 <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
                 <td class="text-right">
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#id{{project.projectnumber}}">
-                    Comments
-                  </button>
-
-                  <!-- Modal -->
-                  <div class="modal fade text-center" id="id{{project.projectnumber}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">{{project.projectnumber}}: {{project.projectname}} Comments</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          {{project.Comments}}
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <button type="button" class="btn btn-outline-success">On Track</button>
                   <button type="button" class="btn btn-outline-danger">On Watch</button>
                   <button type="button" class="btn btn-outline-warning">Off Track</button>
