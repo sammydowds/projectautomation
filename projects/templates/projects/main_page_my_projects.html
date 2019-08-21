@@ -99,12 +99,12 @@
                 <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
                 <td class="text-right">
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#id{{project.projectnumber}}">
                     Comments
                   </button>
 
                   <!-- Modal -->
-                  <div class="modal fade text-center" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade text-center" id="id{{project.projectnumber}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
