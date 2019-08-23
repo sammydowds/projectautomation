@@ -7,6 +7,7 @@ from projects.forms import *
 import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from import_projects import import_all_projects
@@ -19,6 +20,7 @@ import numpy as np
 
 
 @login_required
+@never_cache
 def index(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
@@ -53,6 +55,7 @@ def index(request):
     return render(request, "projects/main_page.html", context)
 
 @login_required
+@never_cache
 def thisweek(request):
     user = request.user
 
@@ -85,6 +88,7 @@ def thisweek(request):
     return render(request, "projects/this_week.html", context)
 
 @login_required
+@never_cache
 def myprojects(request):
     user = request.user
     #saving current week number
@@ -111,6 +115,7 @@ def myprojects(request):
     return render(request, "projects/main_page_my_projects.html", context)
 
 @login_required
+@never_cache
 def pastprojects(request):
     user = request.user
     projects_list = Project.objects.all().exclude(iscurrent=True)
@@ -126,6 +131,7 @@ def pastprojects(request):
     return render(request, "projects/main_page.html", context)
 
 @login_required
+@never_cache
 def planner(request):
     user = request.user
     today = date.today()
@@ -149,6 +155,7 @@ def planner(request):
     return render(request, "projects/main_page_by_milestone.html", context)
 
 @login_required
+@never_cache
 def offtrack(request):
     user = request.user
     projects_list = Project.objects.all().filter(iscurrent=True, Status='offtrack')
@@ -179,6 +186,7 @@ def onwatch(request):
     return render(request, "projects/main_page.html", context)
 
 @login_required
+@never_cache
 def projectcards(request):
     user = request.user
 
@@ -194,6 +202,7 @@ def projectcards(request):
 
 #page for updating a project
 @login_required
+@never_cache
 def update(request, num):
     #if get request, render form with initial values of the project plugged ing
     if request.method == "GET":
@@ -218,6 +227,7 @@ def update(request, num):
 #creating a project
 
 @login_required
+@never_cache
 def create(request):
     #TODO do not allow duplicate project numbers to be entered
     #Processing POST method (form to create a project)
@@ -279,6 +289,7 @@ def projectstatus(request, num):
         return render(request, 'projects/projectstatus.html', context)
 
 @login_required
+@never_cache
 def status(request, num, stat):
     if request.method == "GET":
         proj = Project.objects.get(projectnumber=num)
@@ -287,6 +298,7 @@ def status(request, num, stat):
         return redirect('/projects')
 
 @login_required
+@never_cache
 def delete(request, num):
     if request.method == "GET":
         proj = Project.objects.get(projectnumber=num)
@@ -295,6 +307,7 @@ def delete(request, num):
 
 #closing out a project based on a get request - note need to update this method.
 @login_required
+@never_cache
 def activation(request, num):
     if request.method == "GET":
         project_close = num
