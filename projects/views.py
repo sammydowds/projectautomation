@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from import_projects import import_all_projects
+import numpy as np
 
 
 #TODO create project visualization page - which outputs suggested schedule and visualization of that schedule. Include the critical path of the project if possible. Graph of project - best visualization tool. Try to show critical path, and decisions.
@@ -19,6 +20,7 @@ from import_projects import import_all_projects
 
 @login_required
 def index(request):
+    #TODO: condense all HTML views to run through this one
     user = request.user
     # pulling all current projects
     #
@@ -28,12 +30,18 @@ def index(request):
     #     imported_proj = Project(**proj)
     #     imported_proj.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
+
+    #TODO update for analyzing slippage
+    initial_projects = InitialProject.objects.all()
+    slippage = []
+
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     num_off = projects_list.filter(Status="offtrack").count()
     num_watch = projects_list.filter(Status="onwatch").count()
     num_on = projects_list.filter(Status="ontrack").count()
     context = {
+        'initial_projects': initial_projects,
         'projects': projects_list,
         'num_proj': num_proj,
         'today': date.today(),

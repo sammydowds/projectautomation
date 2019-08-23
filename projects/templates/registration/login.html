@@ -8,42 +8,71 @@
 
 {% block main %}
 
+<div class="container">
+  <div class="row py-5">
+    <div style="max-width: 40rem;" class="col text-left">
+      <p style="font-size: 30px;" class="lead">Let's Deliver Tomorrow, Today.</p>
+      <hr>
+      <p class="px-2">
+        <img src="/static/projects/robot_arm.svg" width="25px" height = "25px" alt="">
+        <a style="font-size: 20px;" class="lead">Customer First - <a class="text-muted">We think of our customer as ourselves.</a></a>
+      </p>
+      <p class="px-2">
+        <img src="/static/projects/robot_arm.svg" width="25px" height = "25px" alt="">
+        <a style="font-size: 20px;" class="lead">Trustworthy - <a class="text-muted">Our commitment is our bond.</a></a>
+      </p>
+      <p class="px-2">
+        <img src="/static/projects/robot_arm.svg" width="25px" height = "25px" alt="">
+        <a style="font-size: 20px;" class="lead">Positive Attitude - <a class="text-muted">We are fix-focused, no excuses, and lead by example.</a></a>
+      </p>
+      <p class="px-2">
+        <img src="/static/projects/robot_arm.svg" width="25px" height = "25px" alt="">
+        <a style="font-size: 20px;" class="lead">Ownership - <a class="text-muted">It is my responsibility, I will get it done.</a></a>
+      </p>
+      <p class="px-2">
+        <img src="/static/projects/robot_arm.svg" width="25px" height = "25px" alt="">
+        <a style="font-size: 20px;" class="lead">Passion/Hunger -
+        <a class="text-muted">A relentless pursuit of excellence.</a>
+      </p>
+    </div>
+    <div style="max-width: 30rem;" class="col text-center border-left">
+        <p style="font-size: 25px;" class="lead">Lets Build:</p>
+        {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
 
-<div style="width: 50%; margin: 0px auto; text-align: center; margin-top: 50px">
-  {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+            {% else %}
+            <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+          <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+            <table class="table table-borderless table-sm">
+              <tr>
+                  <td>{{ form.username.label_tag }}</td>
+                  <td>{{ form.username }}</td>
+              </tr>
+              <tr>
+                  <td>{{ form.password.label_tag }}</td>
+                  <td>{{ form.password }}</td>
+              </tr>
+            </table>
 
-  {% if next %}
-      {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-      {% else %}
-      <p>Please login to see this page.</p>
-      {% endif %}
-  {% endif %}
+            <input class="btn btn-primary" type="submit" value="Login">
+            <input type="hidden" name="next" value="{{ next }}">
 
+          </form>
 
-  <form method="post" action="{% url 'login' %}">
-  {% csrf_token %}
-    <table class="table table-sm">
-      <tr>
-          <td>{{ form.username.label_tag }}</td>
-          <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.password.label_tag }}</td>
-          <td>{{ form.password }}</td>
-      </tr>
-    </table>
-
-    <input type="submit" value="login">
-    <input type="hidden" name="next" value="{{ next }}">
-
-  </form>
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-  <p><a href="{% url 'register' %}">Not Registered?</a></p>
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <br>
+        <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        <p><a href="{% url 'register' %}">New User?</a></p>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
