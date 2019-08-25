@@ -6,6 +6,11 @@
 
 {% block main %}
 <div class="container justify-content-center main">
+  <div class="px-5 py-5 row text-center">
+    <div class="col">
+      <h4> Projects as of {{time}}</h4>
+    </div>
+  </div>
   {% for milestone in info %}
     {% for name, projects in milestone.items %}
       <div style="padding-top: 20px;" class="row">
