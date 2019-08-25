@@ -21,22 +21,23 @@
           </thead>
           <tbody>
               <tr class="lead">
-                <td style="max-width: 150px;">{{project.projectnumber}}</td>
-                <td style="max-width: 150px;">{{project.projectname}}<br><a style="font-size: 10px;" class="text-muted">Last Updated:{{project.lastupdated}}</a></td>
-                <td style="max-width: 150px;" class="text-left">{{project.current_milestone.name}}: <br><a class="text-center">{{project.current_milestone.end}}</a><br><small class="text-center">Status: {{project.Status}}</small></td>
-                <td style="max-width: 150px;">
-                  Project Team:
-                  <ul style="font-size: 12px;">
-                    <li>PM: {{project.projectmanager}}</li>
-                    <li>ME: {{project.mechanicalengineer}}</li>
-                    <li>EE: {{project.electricalengineer}}</li>
-                    <li>Pr: {{project.programmer}}</li>
-                  <ul>
+                <td style="max-width: 150px;" class="align-middle text-center">{{project.projectnumber}}</td>
+                <td style="max-width: 150px;" class="align-middle text-center">{{project.projectname}}<br><a style="font-size: 10px;" class="text-muted">Last Updated:{{project.lastupdated}}</a></td>
+                <td style="max-width: 150px;" class="align-middle text-center">{{project.current_milestone.name}}: <br><a class="text-center">{{project.current_milestone.end}}</a><br><small class="text-center">Status: {{project.Status}}</small></td>
+                <td style="max-width: 150px;" class="align-middle text-center">
+                  <p class="text-left">Project Team:
+                    <ul style="font-size: 12px;" class="text-left">
+                      <li>PM: {{project.projectmanager}}</li>
+                      <li>ME: {{project.mechanicalengineer}}</li>
+                      <li>EE: {{project.electricalengineer}}</li>
+                      <li>Pr: {{project.programmer}}</li>
+                    <ul>
+                  </p>
                 </td>
               </tr>
               <tr>
-                <td colspan="4">
-                  <div class="col">
+                <td colspan="4" class="align-middle">
+                  <div class="col align-items-middle">
                     <table style="font-size: 10px;" class="table table-sm table-bordered text-center table-responsive">
                       <tbody>
                         <tr>
