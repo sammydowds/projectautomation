@@ -38,6 +38,9 @@ class Project(models.Model):
     Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="offtrack", null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, blank=True, null=True, on_delete = models.SET_NULL)
+    mechanicalengineer = models.CharField(max_length=20, default="Not Entered", null = True)
+    electricalengineer = models.CharField(max_length=20, default="Not Entered", null = True)
+    programmer = models.CharField(max_length=20, default="Not Entered", null = True)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
 
 

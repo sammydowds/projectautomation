@@ -119,11 +119,14 @@ def myprojects(request):
 def printable(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
-    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('-projectnumber')
+    filtered_projects = []
+    filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
+    filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
+    filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
     now = datetime.datetime.now()
     context = {
-        'projects': projects_list,
-        'time': now
+        'filtered_projects': filtered_projects,
+        'time': now,
     }
     return render(request, "projects/printable.html", context)
 
