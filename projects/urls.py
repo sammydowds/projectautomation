@@ -21,6 +21,7 @@ urlpatterns = [
     path('projectstatus/<int:num>/', views.projectstatus, name = "projectstatus"),
     path('myprojects/', views.myprojects, name = "myprojects"),
     path('planner/', views.planner, name = "planner"),
+    path('printable/', views.printable, name = "printable"),
     path('thisweek/', views.thisweek, name = "thisweek"),
 
 

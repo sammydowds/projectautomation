@@ -116,6 +116,19 @@ def myprojects(request):
 
 @login_required
 @never_cache
+def printable(request):
+    #TODO: condense all HTML views to run through this one
+    user = request.user
+    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('-projectnumber')
+    now = datetime.datetime.now()
+    context = {
+        'projects': projects_list,
+        'time': now
+    }
+    return render(request, "projects/printable.html", context)
+
+@login_required
+@never_cache
 def pastprojects(request):
     user = request.user
     projects_list = Project.objects.all().exclude(iscurrent=True)
