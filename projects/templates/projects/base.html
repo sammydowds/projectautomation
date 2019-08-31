@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="/static/projects/index.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
        $('.datepicker').datepicker();
@@ -34,17 +35,6 @@
       {% endif %}
     </nav>
   </div>
-
-  <!-- <nav class="navbar navbar-expand-lg box-shadow shadow-md sticky-top" style="font-weight: bold; background-color: #f8e955;">
-    <a class="navbar-brand" style="color: black;" href="{% url 'index' %}">Projects</a>
-    <a style="color: #383838;" class="nav-link" href="{% url 'myprojects' %}">My Projects</a>
-    <a style="color: #383838;" class="nav-link" href="{% url 'pastprojects' %}">Past Projects</a>
-    <a style="color: #383838;" class="nav-link" href="{% url 'create' %}">Create</a>
-    {% if user.is_authenticated %}
-      <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-      <p class="greeting" style = "color: black; font-size: 10px" class="nav-link my-1">Welcome {{ user.first_name }}, Last Login: {{ user.last_login }}</p>
-    {% endif %}
-  </nav> -->
 
 </body>
 

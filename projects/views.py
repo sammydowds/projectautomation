@@ -59,16 +59,11 @@ def thisweek(request):
     else:
         week_number = date.today().isocalendar()[1]
     #pulling all active projects
-    projects_list = Project.objects.all().exclude(iscurrent=False)
+    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
     #empty array to save projects which have a milestone this week
     projects_list_week = []
     #looping through project list
     for project in projects_list:
-        if isinstance(project.current_milestone()['end'], datetime.date):
-            print("CHECKING")
-            print(project.projectname)
-            print(project.current_milestone()['end'].isocalendar()[1])
-            print(week_number)
         if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
             var = project.current_milestone()['end']
             projects_list_week.append(project)
@@ -91,7 +86,7 @@ def myprojects(request):
     else:
         week_number = date.today().isocalendar()[1]
     #pulling all active projects
-    projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user)
+    projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user).order_by('projectnumber')
     #empty array to save projects which have a milestone this week
     projects_list_week = []
     #looping through project list
@@ -262,6 +257,40 @@ def delete(request, num):
         proj = Project.objects.get(projectnumber=num)
         proj.delete()
         return redirect('/projects/pastprojects')
+
+#updating project ontrack
+@login_required
+@never_cache
+def ontrack(request):
+    if request.method == "POST":
+        num = request.POST['projectnumber']
+        proj = Project.objects.get(projectnumber=num)
+        proj.Status = "ontrack"
+        proj.save()
+    else:
+        return redirect('/projects/')
+#updating project offtrack
+@login_required
+@never_cache
+def offtrack(request):
+    if request.method == "POST":
+        num = request.POST['projectnumber']
+        proj = Project.objects.get(projectnumber=num)
+        proj.Status = "offtrack"
+        proj.save()
+    else:
+        return redirect('/projects/')
+#updating project onwatch
+@login_required
+@never_cache
+def onwatch(request):
+    if request.method == "POST":
+        num = request.POST['projectnumber']
+        proj = Project.objects.get(projectnumber=num)
+        proj.Status = "onwatch"
+        proj.save()
+    else:
+        return redirect('/projects/')
 
 #closing out a project based on a get request - note need to update this method.
 @login_required

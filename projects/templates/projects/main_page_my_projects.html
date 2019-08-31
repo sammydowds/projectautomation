@@ -64,7 +64,9 @@
                       <div style="width: 300px;" class="container">
                         <li class="list-group-item flex-fill shadow text-nowrap">
                           <div class="col overflow-hidden">
-                            <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+                            <h4>
+                              <span class="badge badge-pill badge-light">{{project.projectnumber}}</span>
+                            </h4>
                             <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
                             <hr>
                             <p class="lead">{{milestone}}</p>
@@ -92,7 +94,17 @@
           <table class="table bg-light table-borderless">
               <tr>
 
-                <td class="text-left"><h4>{{project.projectnumber}} - {{project.projectname}} -  <span class="badge badge-danger">Off Track</span></h4>
+                <td class="text-left">
+                  <h4>
+                    {{project.projectnumber}} - {{project.projectname}}
+                    {% if project.Status == "offtrack" %}
+                      <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-danger">Off Track</span>
+                    {% elif project.Status == "ontrack" %}
+                      <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span>
+                    {% elif project.Status == "onwatch" %}
+                      <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span>
+                    {% endif %}
+                  </h4>
                   <p class="lead">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{project.current_milestone.days_until}} day(s)</span></p>
                   <p style="max-width: 400px;" class="lead strong text-muted">{{project.Comments}} </p>
                   <ul style="font-size: 9px;" class="list-group list-group-horizontal text-nowrap list-responsive bg-light">
@@ -106,9 +118,9 @@
 
                 <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
                 <td class="text-right">
-                  <button type="button" class="btn btn-outline-success">On Track</button>
-                  <button type="button" class="btn btn-outline-danger">On Watch</button>
-                  <button type="button" class="btn btn-outline-warning">Off Track</button>
+                  <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-outline-success">On Track</button>
+                  <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
+                  <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
                   <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
                 </td>
               </tr>
