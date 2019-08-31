@@ -13,12 +13,7 @@ from django.contrib.auth.models import User
 from import_projects import import_all_projects
 import numpy as np
 
-
-#TODO create project visualization page - which outputs suggested schedule and visualization of that schedule. Include the critical path of the project if possible. Graph of project - best visualization tool. Try to show critical path, and decisions.
-#TODO a calendar flow chart would be amazing. Look into doing this instead of a traditional graph?
-#TODO show % breakdown of the project by phase, how many days between each milestone. Sum total business hours per group, as well as days.
-
-
+#main page
 @login_required
 @never_cache
 def index(request):
@@ -58,7 +53,6 @@ def index(request):
 @never_cache
 def thisweek(request):
     user = request.user
-
     #saving current week number, if it is saturday or sunday we select it as the next week
     if date.today().isocalendar()[2] >=6:
         week_number = date.today().isocalendar()[1] + 1
@@ -78,7 +72,6 @@ def thisweek(request):
         if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
             var = project.current_milestone()['end']
             projects_list_week.append(project)
-
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
         'projects': projects_list_week,
@@ -87,6 +80,7 @@ def thisweek(request):
     print(projects_list_week)
     return render(request, "projects/this_week.html", context)
 
+#project manager dashboard
 @login_required
 @never_cache
 def myprojects(request):
@@ -114,6 +108,7 @@ def myprojects(request):
     }
     return render(request, "projects/main_page_my_projects.html", context)
 
+#printable version of projects
 @login_required
 @never_cache
 def printable(request):
@@ -130,6 +125,7 @@ def printable(request):
     }
     return render(request, "projects/printable.html", context)
 
+#past projects main page
 @login_required
 @never_cache
 def pastprojects(request):
@@ -142,10 +138,10 @@ def pastprojects(request):
         'num_proj': num_proj,
         'today': date.today(),
         'status': 'Past'
-
     }
     return render(request, "projects/main_page.html", context)
 
+#breaking down projects by milestones and deadlines
 @login_required
 @never_cache
 def planner(request):
@@ -169,52 +165,6 @@ def planner(request):
 
     }
     return render(request, "projects/main_page_by_milestone.html", context)
-
-@login_required
-@never_cache
-def offtrack(request):
-    user = request.user
-    projects_list = Project.objects.all().filter(iscurrent=True, Status='offtrack')
-    # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    num_proj = projects_list.count()
-    context = {
-        'projects': projects_list,
-        'num_proj': num_proj,
-        'today': date.today(),
-        'status': 'Current'
-
-    }
-    return render(request, "projects/main_page.html", context)
-
-@login_required
-def onwatch(request):
-    user = request.user
-    projects_list = Project.objects.all().filter(iscurrent=True, Status='onwatch')
-    # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    num_proj = projects_list.count()
-    context = {
-        'projects': projects_list,
-        'num_proj': num_proj,
-        'today': date.today(),
-        'status': 'Current'
-
-    }
-    return render(request, "projects/main_page.html", context)
-
-@login_required
-@never_cache
-def projectcards(request):
-    user = request.user
-
-    projects_list = Project.objects.all().exclude(iscurrent=False)
-    # projects_list = reversed(projects_list.exclude(iscurrent=False))
-    num_proj = projects_list.count()
-    context = {
-        'projects': projects_list,
-        'num_proj': num_proj
-    }
-    return render(request, "projects/main_page.html", context)
-
 
 #page for updating a project
 @login_required
@@ -241,7 +191,6 @@ def update(request, num):
 
 
 #creating a project
-
 @login_required
 @never_cache
 def create(request):
@@ -296,6 +245,7 @@ def create(request):
         form = ProjectForm()
         return render(request, "projects/create.html", {'form': form})
 
+#view for people not logged in to see status of project
 def projectstatus(request, num):
     if request.method == "GET":
         proj = Project.objects.get(projectnumber=num)
@@ -304,15 +254,7 @@ def projectstatus(request, num):
             }
         return render(request, 'projects/projectstatus.html', context)
 
-@login_required
-@never_cache
-def status(request, num, stat):
-    if request.method == "GET":
-        proj = Project.objects.get(projectnumber=num)
-        proj.Status = stat
-        proj.save()
-        return redirect('/projects')
-
+#deleting a project from the db
 @login_required
 @never_cache
 def delete(request, num):
@@ -332,6 +274,7 @@ def activation(request, num):
         proj.save()
         return redirect('/projects')
 
+#logout user
 def logout(request):
     logout(request)
     return redirect('/projects')

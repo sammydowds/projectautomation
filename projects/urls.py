@@ -12,18 +12,12 @@ urlpatterns = [
     path('delete/<int:num>/', views.delete, name = "delete"),
     path('update/<int:num>/', views.update, name = "update"),
     path('activation/<int:num>/', views.activation, name = "activation"),
-    path('status/<int:num>/<str:stat>/', views.status, name = "status"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', views.register, name = "register"),
     path('pastprojects', views.pastprojects, name = "pastprojects"),
-    path('offtrack', views.offtrack, name = "offtrack"),
-    path('onwatch', views.onwatch, name = "onwatch"),
     path('projectstatus/<int:num>/', views.projectstatus, name = "projectstatus"),
     path('myprojects/', views.myprojects, name = "myprojects"),
     path('planner/', views.planner, name = "planner"),
     path('printable/', views.printable, name = "printable"),
     path('thisweek/', views.thisweek, name = "thisweek"),
-
-
-
 ]
