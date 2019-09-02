@@ -1,4 +1,4 @@
-# projectautomation
+# Project Management Web App 
 I have created a website to help manage projects
 
 Goal: Automate project management. 
