@@ -72,6 +72,7 @@ class Project(models.Model):
         'Documentation', \
         ]
 
+
         #storing project to dictionary and creating new empty dict
         dict_project = self.__dict__
         dict_milestones = {}
@@ -114,6 +115,28 @@ class Project(models.Model):
             phase_calcs[phase] = {'start': start, 'end': end, 'duration': duration, 'hours': duration*8}
 
         return phase_calcs
+
+
+    #milestones this week for project
+    def thisweek(self):
+
+        #saving project to dict
+        this_project = self.__dict__
+
+        #saving this week number
+        week = datetime.today().isocalendar()[1]
+
+        #storing milestones this week of a project
+        milestones_this_week = []
+
+        #working through each field - checking if it is within this week
+        for field, value in this_project.items():
+            if isinstance(value, date):
+                if (value.isocalendar()[1]) == week:
+                    milestones_this_week.append(field)
+                    
+        return milestones_this_week
+
 
     #data structure in (future): {'Task_name': ['Deadline Milestone', int of lead time in weeks, int of duration it takes]}
     #data structure of return: {'Task_name': {'start': datetime, 'end': datetime, 'duration':, int}.....}

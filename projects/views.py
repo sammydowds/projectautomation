@@ -53,15 +53,24 @@ def index(request):
 @never_cache
 def thisweek(request):
     user = request.user
+
+    #new method
+    projects = Project.objects.all()
+    for project in projects:
+        project.thisweek()
+
     #saving current week number, if it is saturday or sunday we select it as the next week
     if date.today().isocalendar()[2] >=6:
         week_number = date.today().isocalendar()[1] + 1
     else:
         week_number = date.today().isocalendar()[1]
+
     #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
+
     #empty array to save projects which have a milestone this week
     projects_list_week = []
+
     #looping through project list
     for project in projects_list:
         if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
