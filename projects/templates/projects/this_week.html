@@ -29,7 +29,7 @@
                             <hr>
                             <p class="lead">{{milestone}}</p>
                             <p>{{value}}</p>
-                            <span class="badge badge-warning">in {{ today|timeuntil:value}}</span>
+                            <span class="badge badge-warning">in {{ value|timeuntil:today}}</span>
                             <hr>
                             <p class="text-muted"><small>Initial: +8</small></p>
                             <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>

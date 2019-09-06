@@ -56,32 +56,15 @@ def thisweek(request):
 
     #new method
     projects = Project.objects.all()
-    for project in projects:
-        project.thisweek()
-
-    #saving current week number, if it is saturday or sunday we select it as the next week
-    if date.today().isocalendar()[2] >=6:
-        week_number = date.today().isocalendar()[1] + 1
-    else:
-        week_number = date.today().isocalendar()[1]
 
     #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
 
-    #empty array to save projects which have a milestone this week
-    projects_list_week = []
-
-    #looping through project list
-    for project in projects_list:
-        if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
-            var = project.current_milestone()['end']
-            projects_list_week.append(project)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
-        'projects': projects_list_week,
+        'projects': projects,
         'today': date.today(),
     }
-    print(projects_list_week)
     return render(request, "projects/this_week.html", context)
 
 #project manager dashboard
@@ -89,24 +72,11 @@ def thisweek(request):
 @never_cache
 def myprojects(request):
     user = request.user
-    #saving current week number
-    if date.today().isocalendar()[2] >=6:
-        week_number = date.today().isocalendar()[1] + 1
-    else:
-        week_number = date.today().isocalendar()[1]
     #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user).order_by('projectnumber')
-    #empty array to save projects which have a milestone this week
-    projects_list_week = []
-    #looping through project list
-    for project in projects_list:
-        if isinstance(project.current_milestone()['end'], datetime.date) == True and (project.current_milestone()['end'].isocalendar()[1]) == week_number:
-            var = project.current_milestone()['end']
-            projects_list_week.append(project)
 
     context = {
         'projects': projects_list,
-        'projects_this_week': projects_list_week,
         'today': date.today(),
         'status': 'Current'
     }
