@@ -125,7 +125,10 @@ class Project(models.Model):
         this_project = self.__dict__
 
         #saving this week number
-        week = datetime.today().isocalendar()[1]
+        if datetime.today().isocalendar()[2] < 6:
+            week = datetime.today().isocalendar()[1]
+        else:
+            week = datetime.today().isocalendar()[1] + 1
 
         #storing milestones this week of a project
         milestones_this_week = {}
