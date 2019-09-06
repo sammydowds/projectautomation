@@ -25,7 +25,9 @@ def index(request):
     # test_proj = import_all_projects()
     # for proj in test_proj:
     #     imported_proj = Project(**proj)
+    #     saving_initial = InitialProject(**proj)
     #     imported_proj.save()
+    #     saving_initial.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
 
     #TODO update for analyzing slippage

@@ -3,14 +3,6 @@ from datetime import date, datetime, timedelta
 import numpy as np
 from django.contrib.auth.models import User
 
-# # Create your models here.
-# class Employee(models.Model):
-#     name = models.CharField(max_length=20)
-#     email = models.EmailField()
-#
-#     def __str__(self):
-#         return self.name
-#TODO maybe current deploy error is due to using single quotes?
 class Project(models.Model):
     STATUS_CHOICES = (
         ("offtrack", "Off Track"),
@@ -46,12 +38,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.projectname
-
-    def progress(self):
-        if self.Documentation and self.engineering_start:
-            return round(100-(int(self.busdays_between(date.today(), self.Documentation))/int(self.busdays_between(self.engineering_start, self.Documentation)))*100, 0)
-        else:
-            return 0
 
     #return dictionary of milestones in the projects
     #data structure of return: {'Milestone_Name': {'start': datetime, 'end': datetime, 'duration':, int}....}
@@ -89,33 +75,6 @@ class Project(models.Model):
 
         return dict_milestones
 
-    #data structure of return: {'Phase_name': {'start': datetime, 'end': datetime, 'duration':, int}....}
-    def phases(self):
-
-        #listing out which attributes make up a phase in the project. start and finish milestones
-        phases = {'Project': ['engineering_start', 'Documentation'], \
-        'Mechanical_Engineering': ['engineering_start', 'Mechanical_Release'], \
-        'Electrical_Engineering': ['Mechanical_Release', 'Electrical_Release'], \
-        'Manufacturing': ['Electrical_Release', 'Finishing'], \
-        'Assembly': ['Finishing', 'Assembly'], \
-        'Integration': ['Assembly', 'Customer_Runoff'], \
-        'Installation': ['Install_Start', 'Install_Finish'], \
-        'Documentation': ['Install_Finish', 'Documentation'], \
-        }
-
-        #saving info to a dict
-        project = self.__dict__
-        phase_calcs = {}
-
-        #calculating dates and saving to calc dict
-        for phase, value in phases.items():
-            start = project[value[0]]
-            end = project[value[-1]]
-            duration = self.busdays_between(end, start)
-            phase_calcs[phase] = {'start': start, 'end': end, 'duration': duration, 'hours': duration*8}
-
-        return phase_calcs
-
 
     #milestones this week for project
     #returns dict with project number, name, and list of milestones happening this week
@@ -143,57 +102,6 @@ class Project(models.Model):
         this_week = {"projectnumber": self.projectnumber, "projectname": self.projectname, "milestonesweek": milestones_this_week}
 
         return this_week
-
-
-    #data structure in (future): {'Task_name': ['Deadline Milestone', int of lead time in weeks, int of duration it takes]}
-    #data structure of return: {'Task_name': {'start': datetime, 'end': datetime, 'duration':, int}.....}
-    def suggested_tasks(self):
-
-        #format of tasks: name of task, deadline, start date, lead time(weeks), duration(days)
-        tasks = {'Transition Meeting': ['Mechanical_Release', 4, 2],\
-        'Mechanical Design Intent Meeting': ['Mechanical_Release', 3, 2],\
-        'Risk Assessment': ['Mechanical_Release', 3, 2],\
-        'Mechanical Design Review': ['Mechanical_Release', 1, 2],\
-        'Electrical Design Review': ['Electrical_Release', 1, 2],\
-        'Finish SOW': ['Mechanical_Release', 1.5, 10],\
-        'Review Outsourcing Plan for Manufacturing': ['Mechanical_Release', -0.5, 5],\
-        'Review Manufacturing Work Plans': ['Mechanical_Release', -1, 5],\
-        'Send Engineering Invoice': ['Electrical_Release', -0.5, 2],\
-        'Order Robot': ['Assembly', 6, 1],\
-        'Review Assembly Work Plans': ['Assembly', 3, 5],\
-        'Manufacturing/Assembly Transition Meeting': ['Assembly', 1, 1],\
-        'Assembly/Integration Transition Meeting': ['Integration', 1, 1],\
-        'Prepare for Customer On-Site': ['Customer_Runoff', 1, 2],\
-        'Prepare Acieta Run Off Document': ['Customer_Runoff', 0.5, 1],\
-        'Prepare Shipping Document': ['Ship', 2, 1],\
-        'Send Acieta Run-Off Invoice': ['Ship', -0.1, 1],\
-        'Prepare T&E Document': ['Install_Start', 1, 2],\
-        'Prepare Final Run-Off Document': ['Install_Finish', 1, 2],\
-        'Send Final Run-Off Invoice': ['Install_Finish', -.1, 2],\
-        }
-
-        #saving this project to a dictionary
-        this_project = self.__dict__
-        suggested_schedule= {}
-        for task in tasks.items():
-            #setting duration, leadtime and deadline of a task
-            duration = task[1][2]
-            leadtime = task[1][1]
-            milestone_deadline = this_project[task[1][0]]
-
-            #testing to see if milestone is none
-            if milestone_deadline != None:
-                #calculating dates
-                start = milestone_deadline - timedelta(weeks=leadtime)
-                end = start + timedelta(days=duration)
-                #saving task name and info to dictionary
-                suggested_schedule[task[0]] = {'start': start, 'end': end, 'duration': duration}
-            else:
-                #saving None to start and end because there is no date entered for the reference milestone
-                suggested_schedule[task[0]] = {'start': None, 'end': None, 'duration': duration}
-
-        return suggested_schedule
-
 
     #returns milestone currently on in form of dict = {'name': str of name, 'start': datetime, 'end': datetime, 'duration': int, 'days_until': int}
     def current_milestone(self):
