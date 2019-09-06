@@ -118,6 +118,7 @@ class Project(models.Model):
 
 
     #milestones this week for project
+    #returns dict with project number, name, and list of milestones happening this week
     def thisweek(self):
 
         #saving project to dict
@@ -127,15 +128,18 @@ class Project(models.Model):
         week = datetime.today().isocalendar()[1]
 
         #storing milestones this week of a project
-        milestones_this_week = []
+        milestones_this_week = {}
 
         #working through each field - checking if it is within this week
-        for field, value in this_project.items():
+        for milestone, value in this_project.items():
             if isinstance(value, date):
                 if (value.isocalendar()[1]) == week:
-                    milestones_this_week.append(field)
-                    
-        return milestones_this_week
+                    milestones_this_week.update({milestone: value})
+
+        #appending some meta data
+        this_week = {"projectnumber": self.projectnumber, "projectname": self.projectname, "milestonesweek": milestones_this_week}
+        
+        return this_week
 
 
     #data structure in (future): {'Task_name': ['Deadline Milestone', int of lead time in weeks, int of duration it takes]}
@@ -208,7 +212,7 @@ class Project(models.Model):
 
         #if date is in the past or no dates exits
         if milestone == {}:
-            milestone = {'name': 'Review Dates', 'start': None, 'end': 'Need to Update', 'duration': None, 'days_until': None}
+            milestone = {'name': 'Review Dates', 'start': None, 'end': None, 'duration': None, 'days_until': None}
             return milestone
 
     #data structure of return: {'current_phase': str of phase name,'start':, 'end':, 'progress': int of % progress}

@@ -19,8 +19,8 @@
             <td>
               <ul class="list-group list-group-horizontal">
                 {% for project in projects %}
-                  {% for milestone, values in project.milestones.items %}
-                    {% if milestone == project.current_milestone.name %}
+                  {% if project.thisweek.milestonesweek %}
+                    {% for milestone, value in project.thisweek.milestonesweek.items %}
                       <div style="width: 300px;" class="container">
                         <li class="list-group-item flex-fill shadow text-nowrap">
                           <div class="col overflow-hidden">
@@ -28,17 +28,17 @@
                             <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
                             <hr>
                             <p class="lead">{{milestone}}</p>
-                            <p>{{values.end}}</p>
-                            <span class="badge badge-warning">in {{project.current_milestone.days_until}} day(s)</span>
+                            <p>{{value}}</p>
+                            <span class="badge badge-warning">in {{ today|timeuntil:value}}</span>
                             <hr>
                             <p class="text-muted"><small>Initial: +8</small></p>
                             <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
                           </div>
                         </li>
                       </div>
+                    {% endfor %}
                   {% endif %}
                 {% endfor %}
-              {% endfor %}
               </ul>
             </td>
           </tr>
@@ -62,7 +62,7 @@
                   <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span>
                 {% endif %}
                 </h4>
-                <p class="lead">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{project.current_milestone.days_until}} day(s)</span></p>
+                <p class="lead">{{project.current_milestone.name}}: {{project.current_milestone.end}} - <span class="badge badge-pill badge-warning">in {{ project.current_milestone.end|timeuntil:today }}</span></p>
                 <p style="max-width: 400px;" class="lead strong text-muted">{{project.Comments}} </p>
                 <ul style="font-size: 9px;" class="list-group list-group-horizontal text-nowrap list-responsive bg-light">
                   <li class="list-group-item list-group-item-secondary">Project Team:</li>
