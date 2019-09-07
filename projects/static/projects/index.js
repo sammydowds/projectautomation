@@ -69,3 +69,12 @@ function updateOfftrack(k) {
   data.append('projectnumber', projectnumber);
   request.send(data);
 }
+
+function copyToClipboard(element) {
+  console.log('Working'); 
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
