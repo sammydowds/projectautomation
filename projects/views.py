@@ -30,24 +30,24 @@ def index(request):
     #     saving_initial.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
     #code below is to convert all project into intial project models
-    for project in projects_list:
-        form = project.__dict__
-        initial_project = InitialProject(projectname = form["projectname"],
-                              projectnumber = form["projectnumber"],\
-                              Mechanical_Release = form["Mechanical_Release"],\
-                              Electrical_Release = form["Electrical_Release"],\
-                              Manufacturing = form["Manufacturing"],\
-                              Finishing = form["Finishing"],\
-                              Assembly = form["Assembly"],\
-                              Internal_Runoff = form["Internal_Runoff"],\
-                              Customer_Runoff = form["Customer_Runoff"],\
-                              Ship = form["Ship"],\
-                              Install_Start = form["Install_Start"],\
-                              Install_Finish = form["Install_Finish"],\
-                              Documentation = form["Documentation"], \
-                              Status = 'onwatch', \
-                              )
-        initial_project.save()
+    # for project in projects_list:
+    #     form = project.__dict__
+    #     initial_project = InitialProject(projectname = form["projectname"],
+    #                           projectnumber = form["projectnumber"],\
+    #                           Mechanical_Release = form["Mechanical_Release"],\
+    #                           Electrical_Release = form["Electrical_Release"],\
+    #                           Manufacturing = form["Manufacturing"],\
+    #                           Finishing = form["Finishing"],\
+    #                           Assembly = form["Assembly"],\
+    #                           Internal_Runoff = form["Internal_Runoff"],\
+    #                           Customer_Runoff = form["Customer_Runoff"],\
+    #                           Ship = form["Ship"],\
+    #                           Install_Start = form["Install_Start"],\
+    #                           Install_Finish = form["Install_Finish"],\
+    #                           Documentation = form["Documentation"], \
+    #                           Status = 'onwatch', \
+    #                           )
+    #     initial_project.save()
 
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
@@ -59,7 +59,6 @@ def index(request):
     num_on = projects_list.filter(Status="ontrack").count()
     #saving info to pass to the template
     context = {
-        'initial_projects': initial_projects,
         'projects': projects_list,
         'num_proj': num_proj,
         'today': date.today(),
