@@ -82,7 +82,7 @@ def thisweek(request):
         'projects': projects,
         'today': date.today(),
     }
-    return render(request, "projects/this_week.html", context)
+    return render(request, "projects/base_week.html", context)
 
 #project manager dashboard
 @login_required
@@ -170,7 +170,7 @@ def update(request, num):
         proj_current = Project.objects.get(projectnumber=project_num)
         #setting form initial to project current dict
         form = ProjectForm(initial = proj_current.__dict__)
-        
+
         return render(request, "projects/update.html", {'form': form, 'project': proj_current})
 
     #if post request, post updates into the database and return back to the main projects page
