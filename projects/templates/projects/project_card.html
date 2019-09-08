@@ -1,0 +1,23 @@
+
+<div style="width: 300px;" class="container">
+  <li class="list-group-item flex-fill shadow text-nowrap">
+    <div class="col overflow-hidden">
+      <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+      <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
+      <hr>
+      <p class="lead">{{milestone}}</p>
+      <p>{{value.end}}</p>
+      <span class="badge badge-warning">in {{ value.end|timeuntil:today}}</span>
+      <hr>
+      <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+      <br>
+      <p>
+        {% if project.Slippage > 0 %}
+          <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
+        {% elif project.Slippage <= 0 %}
+          <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
+        {% endif %}
+      </p>
+    </div>
+  </li>
+</div>

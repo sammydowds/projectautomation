@@ -27,26 +27,7 @@
                   {% for project in projects %}
                     {% if project.thisweek.milestonesweek %}
                       {% for milestone, value in project.thisweek.milestonesweek.items %}
-                        <div style="width: 300px;" class="container">
-                          <li class="list-group-item flex-fill shadow text-nowrap">
-                            <div class="col overflow-hidden">
-                              <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
-                              <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
-                              <hr>
-                              <p class="lead">{{milestone}}</p>
-                              <p>{{value}}</p>
-                              <span class="badge badge-warning">in {{ value|timeuntil:today}}</span>
-                              <hr>
-                              <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-                              <br>
-                              {% if project.Slippage > 0 %}
-                                <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
-                              {% elif project.Slippage <= 0 %}
-                                <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
-                              {% endif %}
-                            </div>
-                          </li>
-                        </div>
+                        {% include "projects/project_card.html" %}
                       {% endfor %}
                     {% endif %}
                   {% endfor %}
@@ -65,30 +46,9 @@
               <td>
                 <ul class="list-group list-group-horizontal">
                   {% for project in projects %}
-                    {% for milestone, values in project.milestones.items %}
+                    {% for milestone, value in project.milestones.items %}
                       {% if milestone == project.current_milestone.name %}
-                      <div style="width: 300px;" class="container">
-                        <li class="list-group-item flex-fill shadow text-nowrap">
-                          <div class="col overflow-hidden">
-                            <h4>
-                              <span class="badge badge-pill badge-light">{{project.projectnumber}}</span>
-                            </h4>
-                            <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
-                            <hr>
-                            <p class="lead">{{milestone}}</p>
-                            <p>{{values.end}}</p>
-                            <span class="badge badge-warning"> in {{ values.end|timeuntil:today }}</span>
-                            <hr>
-                            <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-                            <br>
-                            {% if project.Slippage > 0 %}
-                              <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
-                            {% elif project.Slippage <= 0 %}
-                              <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
-                            {% endif %}
-                          </div>
-                        </li>
-                      </div>
+                        {% include "projects/project_card.html" %}
                     {% endif %}
                   {%endfor%}
                   {% endfor %}
@@ -98,6 +58,7 @@
           </table>
         </div>
       </div>
+      
     {% for project in projects %}
       {% include "projects/project_list.html" %}
     {% endfor %}

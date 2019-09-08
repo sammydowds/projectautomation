@@ -97,7 +97,7 @@ class Project(models.Model):
         for milestone, value in this_project.items():
             if isinstance(value, date) and milestone != 'lastupdated':
                 if (value.isocalendar()[1]) == week:
-                    milestones_this_week.update({milestone: value})
+                    milestones_this_week.update({milestone: {'end': value}})
 
         #appending some meta data
         this_week = {"projectnumber": self.projectnumber, "projectname": self.projectname, "milestonesweek": milestones_this_week}
