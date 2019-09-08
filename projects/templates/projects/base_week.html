@@ -31,7 +31,11 @@
                             <p>{{value}}</p>
                             <span class="badge badge-warning">in {{ value|timeuntil:today}}</span>
                             <hr>
-                            <p class="text-muted"><small>Initial: +8</small></p>
+                            {% if project.Slippage > 0 %}
+                              <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
+                            {% elif project.Slippage <= 0 %}
+                              <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
+                            {% endif %}
                             <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
                           </div>
                         </li>
