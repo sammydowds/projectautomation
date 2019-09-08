@@ -67,7 +67,7 @@ def index(request):
         'num_on': num_on,
         'status': 'Current'
     }
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/base_projects.html", context)
 
 @login_required
 @never_cache
@@ -97,7 +97,7 @@ def myprojects(request):
         'today': date.today(),
         'status': 'Current'
     }
-    return render(request, "projects/main_page_my_projects.html", context)
+    return render(request, "projects/base_myprojects.html", context)
 
 #printable version of projects
 @login_required
@@ -114,7 +114,7 @@ def printable(request):
         'filtered_projects': filtered_projects,
         'time': now,
     }
-    return render(request, "projects/printable.html", context)
+    return render(request, "projects/base_printprojects.html", context)
 
 #past projects main page
 @login_required
@@ -130,7 +130,7 @@ def pastprojects(request):
         'today': date.today(),
         'status': 'Past'
     }
-    return render(request, "projects/main_page.html", context)
+    return render(request, "projects/base_projects.html", context)
 
 #breaking down projects by milestones and deadlines
 @login_required
@@ -155,7 +155,7 @@ def planner(request):
         'status': 'Past'
 
     }
-    return render(request, "projects/main_page_by_milestone.html", context)
+    return render(request, "projects/base_planner.html", context)
 
 #page for updating a project
 @login_required

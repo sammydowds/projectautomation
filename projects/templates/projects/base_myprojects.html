@@ -18,7 +18,6 @@
     </div>
 
     <div class="row py-3 justify-content-center bg-light shadow-sm">
-
       <div class="col-sm-10 px-3 py-3">
         <p class="lead">Your Milestones This Week:</p>
           <table class="table text-center table-responsive table-borderless">
@@ -38,8 +37,13 @@
                               <p>{{value}}</p>
                               <span class="badge badge-warning">in {{ value|timeuntil:today}}</span>
                               <hr>
-                              <p class="text-muted"><small>Initial: +8</small></p>
                               <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+                              <br>
+                              {% if project.Slippage > 0 %}
+                                <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
+                              {% elif project.Slippage <= 0 %}
+                                <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
+                              {% endif %}
                             </div>
                           </li>
                         </div>
@@ -75,8 +79,13 @@
                             <p>{{values.end}}</p>
                             <span class="badge badge-warning"> in {{ values.end|timeuntil:today }}</span>
                             <hr>
-                            <p class="text-muted"><small>Initial: +8</small></p>
                             <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+                            <br>
+                            {% if project.Slippage > 0 %}
+                              <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
+                            {% elif project.Slippage <= 0 %}
+                              <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
+                            {% endif %}
                           </div>
                         </li>
                       </div>
@@ -87,13 +96,10 @@
               </td>
             </tr>
           </table>
+        </div>
       </div>
-    </div>
-    <!-- TODO: PUT PROJECTS LIST RIGHT HERE -->
-  </div>
-</div>
-
-
-
+    {% for project in projects %}
+      {% include "projects/project_list.html" %}
+    {% endfor %}
 
 {% endblock %}
