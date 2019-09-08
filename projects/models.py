@@ -34,6 +34,7 @@ class Project(models.Model):
     electricalengineer = models.CharField(max_length=20, default="Not Entered", null = True)
     programmer = models.CharField(max_length=20, default="Not Entered", null = True)
     lastupdated = models.DateField(default = datetime(2015, 10, 21), null = True)
+    Slippage = models.IntegerField(default=0)
 
 
     def __str__(self):
@@ -194,7 +195,7 @@ class InitialProject(models.Model):
     Integration = models.DateField(null = True)
     Internal_Runoff = models.DateField(null = True)
     Customer_Runoff = models.DateField(null = True)
-    Ship= models.DateField(null = True)
+    Ship = models.DateField(null = True)
     Install_Start = models.DateField(null = True)
     Install_Finish= models.DateField(null = True)
     Documentation = models.DateField(null = True)

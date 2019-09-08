@@ -38,7 +38,7 @@
                               <p>{{value}}</p>
                               <span class="badge badge-warning">in {{ value|timeuntil:today}}</span>
                               <hr>
-                              <p class="text-muted"><small>Initial: +8</small></p>
+                              <p class="text-muted"><small>Initial: {{project.Slippage}}</small></p>
                               <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
                             </div>
                           </li>
@@ -75,7 +75,7 @@
                             <p>{{values.end}}</p>
                             <span class="badge badge-warning"> in {{ values.end|timeuntil:today }}</span>
                             <hr>
-                            <p class="text-muted"><small>Initial: +8</small></p>
+                            <p class="text-muted"><small>Initial: {{project.Slippage}}</small></p>
                             <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
                           </div>
                         </li>
@@ -147,7 +147,7 @@
                           </p>
                           {{values.end}}
                           <hr>
-                          <p class="text-muted"><small>Initial: +8</small></p>
+                          <p class="text-muted"><small>Initial: {{project.Slippage}}</small></p>
                         </li>
                       </div>
                       {% else %}

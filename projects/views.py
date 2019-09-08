@@ -29,16 +29,35 @@ def index(request):
     #     imported_proj.save()
     #     saving_initial.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
-
-    #TODO update for analyzing slippage
-    initial_projects = InitialProject.objects.all()
-    slippage = []
+    #code below is to convert all project into intial project models
+    for project in projects_list:
+        form = project.__dict__
+        initial_project = InitialProject(projectname = form["projectname"],
+                              projectnumber = form["projectnumber"],\
+                              Mechanical_Release = form["Mechanical_Release"],\
+                              Electrical_Release = form["Electrical_Release"],\
+                              Manufacturing = form["Manufacturing"],\
+                              Finishing = form["Finishing"],\
+                              Assembly = form["Assembly"],\
+                              Internal_Runoff = form["Internal_Runoff"],\
+                              Customer_Runoff = form["Customer_Runoff"],\
+                              Ship = form["Ship"],\
+                              Install_Start = form["Install_Start"],\
+                              Install_Finish = form["Install_Finish"],\
+                              Documentation = form["Documentation"], \
+                              Status = 'onwatch', \
+                              )
+        initial_project.save()
 
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
+    #number of project off track
     num_off = projects_list.filter(Status="offtrack").count()
+    #number of project on watch
     num_watch = projects_list.filter(Status="onwatch").count()
+    #number of project on track
     num_on = projects_list.filter(Status="ontrack").count()
+    #saving info to pass to the template
     context = {
         'initial_projects': initial_projects,
         'projects': projects_list,
@@ -56,11 +75,8 @@ def index(request):
 def thisweek(request):
     user = request.user
 
-    #new method
-    projects = Project.objects.all()
-
-    #pulling all active projects
-    projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
+    #list of current projects
+    projects = Project.objects.all().filter(iscurrent=True)
 
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
@@ -146,6 +162,7 @@ def planner(request):
 @login_required
 @never_cache
 def update(request, num):
+
     #if get request, render form with initial values of the project plugged ing
     if request.method == "GET":
         #pulling project number from request
@@ -154,6 +171,7 @@ def update(request, num):
         proj_current = Project.objects.get(projectnumber=project_num)
         form = ProjectForm(initial = proj_current.__dict__)
         return render(request, "projects/update.html", {'form': form, 'project': proj_current})
+
     #if post request, post updates into the database and return back to the main projects page
     if request.method == "POST":
         proj_updating = Project.objects.get(projectnumber = num)
@@ -163,6 +181,25 @@ def update(request, num):
 
         if form.is_valid():
             form.save()
+
+        #updating the slippage of the current milestone
+        if InitialProject.objects.get(projectnumber=num):
+            #saving current project
+            proj = Project.objects.get(projectnumber=num)
+            #looking up the initial project
+            init_proj = InitialProject.objects.get(projectnumber=num)
+            #saving current milestone
+            milestone = proj.current_milestone()
+            #converting init_proj to dict to look up current milestone
+            init_proj = init_proj.__dict__
+            #calculating timedelta
+            slippage = milestone['end']-init_proj[milestone['name']]
+            #updating slippage of project
+            proj.Slippage = slippage.days
+            #saving project slippage to the model
+            proj.save()
+
+
         return redirect('/projects')
 
 
@@ -184,7 +221,6 @@ def create(request):
                                   Manufacturing = form.cleaned_data["Manufacturing"],\
                                   Finishing = form.cleaned_data["Finishing"],\
                                   Assembly = form.cleaned_data["Assembly"],\
-                                  Integration = form.cleaned_data["Integration"],\
                                   Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
                                   Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
                                   Ship = form.cleaned_data["Ship"],\
@@ -202,7 +238,6 @@ def create(request):
                                   Manufacturing = form.cleaned_data["Manufacturing"],\
                                   Finishing = form.cleaned_data["Finishing"],\
                                   Assembly = form.cleaned_data["Assembly"],\
-                                  Integration = form.cleaned_data["Integration"],\
                                   Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
                                   Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
                                   Ship = form.cleaned_data["Ship"],\

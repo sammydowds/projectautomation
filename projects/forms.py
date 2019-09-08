@@ -8,7 +8,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
-        exclude = ('lastupdated','Status', 'iscurrent')
+        exclude = ('lastupdated','Status', 'iscurrent', 'Slippage')
         widgets = {
                     'projectname': forms.TextInput(attrs={'class': 'special','size': '50'}),
                     'Comments': forms.Textarea(attrs={"rows":5, "cols":40}),

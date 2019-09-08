@@ -1,0 +1,99 @@
+{% extends "projects/base.html" %}
+
+{% block title %}
+    Acieta: {{status}} Projects
+{% endblock %}
+
+{% block main %}
+<div class="bg-light">
+  <div style="max-width: 1900px;" class = "container bg-light text-center">
+
+    <div class="row py-3 justify-content-center bg-light shadow-sm">
+      <div class="col">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+           <h2 class="display-4">Your Projects</h2>
+           <p class="lead">Deliverying tomorrow, today.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row py-3 justify-content-center bg-light shadow-sm">
+
+      <div class="col-sm-10 px-3 py-3">
+        <p class="lead">Your Milestones This Week:</p>
+          <table class="table text-center table-responsive table-borderless">
+            <tr>
+              <td>
+                <ul class="list-group list-group-horizontal">
+                  {% for project in projects %}
+                    {% if project.thisweek.milestonesweek %}
+                      {% for milestone, value in project.thisweek.milestonesweek.items %}
+                        <div style="width: 300px;" class="container">
+                          <li class="list-group-item flex-fill shadow text-nowrap">
+                            <div class="col overflow-hidden">
+                              <h4><span class="badge badge-pill badge-light">{{project.projectnumber}}</span></h4>
+                              <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
+                              <hr>
+                              <p class="lead">{{milestone}}</p>
+                              <p>{{value}}</p>
+                              <span class="badge badge-warning">in {{ value|timeuntil:today}}</span>
+                              <hr>
+                              <p class="text-muted"><small>Initial: +8</small></p>
+                              <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+                            </div>
+                          </li>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+    <div class="row py-3 justify-content-center bg-light shadow-sm">
+      <div class="col-sm-10 px-3 py-3 border-left-dark">
+        <p class="lead">Next Milestones for Each Project:</p>
+        <table class="table text-center table-responsive table-borderless">
+            <tr>
+              <td>
+                <ul class="list-group list-group-horizontal">
+                  {% for project in projects %}
+                    {% for milestone, values in project.milestones.items %}
+                      {% if milestone == project.current_milestone.name %}
+                      <div style="width: 300px;" class="container">
+                        <li class="list-group-item flex-fill shadow text-nowrap">
+                          <div class="col overflow-hidden">
+                            <h4>
+                              <span class="badge badge-pill badge-light">{{project.projectnumber}}</span>
+                            </h4>
+                            <small><a class="overflow-hidden text-nowrap">{{project.projectname}}</a></small>
+                            <hr>
+                            <p class="lead">{{milestone}}</p>
+                            <p>{{values.end}}</p>
+                            <span class="badge badge-warning"> in {{ values.end|timeuntil:today }}</span>
+                            <hr>
+                            <p class="text-muted"><small>Initial: +8</small></p>
+                            <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+                          </div>
+                        </li>
+                      </div>
+                    {% endif %}
+                  {%endfor%}
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+    <!-- TODO: PUT PROJECTS LIST RIGHT HERE -->
+  </div>
+</div>
+
+
+
+
+{% endblock %}
