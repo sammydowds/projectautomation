@@ -9,13 +9,14 @@
       <p>{{value.end}}</p>
       <span class="badge badge-warning">in {{ value.end|timeuntil:today}}</span>
       <hr>
-      <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-      <br>
+      <p>
+        <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+      </p>
       <p>
         {% if project.Slippage > 0 %}
-          <small>Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span></small>
+        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span> days</small>
         {% elif project.Slippage <= 0 %}
-          <small>Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span></small>
+          <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span> days</small>
         {% endif %}
       </p>
     </div>
