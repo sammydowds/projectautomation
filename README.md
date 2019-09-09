@@ -3,11 +3,11 @@ I have created a website to help manage projects
 
 Goal: Automate project management. 
 
-Base Problems Solved: 
-  Ability to access at any time. 
-  Ability to store data. 
-  Parsing Data in a user friendly way. 
-  Platform that can be expanded to everyone internally, and eventually customers. 
+**Base Problems Solved: 
+- Ability to access at any time. 
+- Ability to store data. 
+- Parsing Data in a user friendly way. 
+- Platform that can be expanded to everyone internally, and eventually customers. 
   
 # Design
 
