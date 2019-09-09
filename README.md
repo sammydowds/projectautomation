@@ -1,7 +1,7 @@
 # Project Management Web App 
 I have created a website to help manage projects
 
-**Goal: Automate project management.**
+## **Accessible Project Information.**
 
 *Base Problems Solved:*
 - Ability to access at any time. 
