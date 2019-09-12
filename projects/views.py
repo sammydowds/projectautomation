@@ -194,9 +194,12 @@ def update(request, num):
             #converting init_proj to dict to look up current milestone
             init_proj = init_proj.__dict__
             #calculating timedelta
-            slippage = milestone['end']-init_proj[milestone['name']]
-            #updating slippage of project
-            proj.Slippage = slippage.days
+            if milestone['name'] != 'Review Dates':
+                slippage = milestone['end']-init_proj[milestone['name']]
+                proj.Slippage = slippage.days
+            else:
+                proj.Slippage = proj.Slippage
+
             #saving project slippage to the model
             proj.save()
 
