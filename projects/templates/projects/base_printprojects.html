@@ -9,59 +9,45 @@
   {% for type, projects in status.items %}
   <div class="container">
     <div class="pt-5 row text-left">
-      <div class="col">
+      <div class="col text-center">
         <h3> {{type}} Projects - as of {{time}}</h3>
       </div>
     </div>
-    {% for project in projects %}
-    <div class="row">
-      <div class="col">
-        <table style="font-size: 10px;" class="table table-sm table-bordered table-responsive">
-          <thead>
-          </thead>
-          <tbody>
-              <tr class="lead">
-                <td style="max-width: 150px;" class="align-middle text-center">{{project.projectnumber}}</td>
-                <td style="max-width: 150px;" class="align-middle text-center">{{project.projectname}}<br><a style="font-size: 10px;" class="text-muted">Last Updated:{{project.lastupdated}}</a></td>
-                <td style="max-width: 150px;" class="align-middle text-center">{{project.current_milestone.name}}: <br><a class="text-center">{{project.current_milestone.end}}</a><br><small class="text-center">Status: {{project.Status}}</small></td>
-                <td style="max-width: 150px;" class="align-middle text-center">
-                  <p class="text-left">Project Team:
-                    <ul style="font-size: 12px;" class="text-left">
-                      <li>PM: {{project.projectmanager}}</li>
-                      <li>ME: {{project.mechanicalengineer}}</li>
-                      <li>EE: {{project.electricalengineer}}</li>
-                      <li>Pr: {{project.programmer}}</li>
-                    <ul>
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="4" class="align-middle">
-                  <div class="col align-items-middle">
-                    <table style="font-size: 10px;" class="table table-sm table-bordered text-center table-responsive">
-                      <tbody>
-                        <tr>
-                          {% for milestone,values in project.milestones.items %}
-                            <td style="width: 125px;">{{milestone}}<hr>{{values.end}}</td>
-                          {% endfor %}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </td>
-              </tr>
-              <tr class="lead text-left">
-                <td colspan="4">{{project.Comments}}</td>
-              </tr>
-
-          </tbody>
-        </table>
-      </div>
+    <table class="table table-sm table-bordered">
+      <thead class="text-nowrap">
+        <td>Project #</td>
+        <td>Desc.</td>
+        <td>PM</td>
+        <td>ME Rel</td>
+        <td>EE Rel</td>
+        <td>Manuf</td>
+        <td>Fin.</td>
+        <td>Runoff</td>
+        <td>Inst. Start</td>
+        <td>Inst. Finish</td>
+        <td>Docs</td>
+      </thead>
+      <tbody>
+        {% for project in projects %}
+          <tr>
+            <td>{{project.projectnumber}}</td>
+            <td>{{project.projectname}}</td>
+            <td>{{project.projectmanager}}</td>
+            <td>{{project.Mechanical_Release|date:'m/d/y'}}</td>
+            <td>{{project.Electrical_Release|date:'m/d/y'}}</td>
+            <td>{{project.Manufacturing|date:'m/d/y'}}</td>
+            <td>{{project.Finishing|date:'m/d/y'}}</td>
+            <td>{{project.Customer_Runoff|date:'m/d/y'}}</td>
+            <td>{{project.Install_Start|date:'m/d/y'}}</td>
+            <td>{{project.Install_Finish|date:'m/d/y'}}</td>
+            <td>{{project.Documentation|date:'m/d/y'}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
-    {% endfor %}
-  </div>
   {% endfor %}
-{% endfor %}
+  {% endfor %}
 
 
 {% endblock %}
