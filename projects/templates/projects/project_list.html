@@ -21,6 +21,8 @@
         <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
         <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
         <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+        <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-success" role="button">Complete</a>
+
 
       </td>
 

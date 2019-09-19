@@ -125,6 +125,7 @@ def pastprojects(request):
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
+        'title': 'Past', 
         'projects': projects_list,
         'num_proj': num_proj,
         'today': date.today(),
@@ -272,10 +273,11 @@ def projectstatus(request, num):
 #deleting a project from the db
 @login_required
 @never_cache
-def delete(request, num):
+def complete(request, num):
     if request.method == "GET":
         proj = Project.objects.get(projectnumber=num)
-        proj.delete()
+        proj.iscurrent=False
+        proj.save()
         return redirect('/projects/pastprojects')
 
 #updating project ontrack
