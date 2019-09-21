@@ -1,7 +1,7 @@
 <div style="max-width: 1300px;" class="container-fluid bg-light">
-  <table class="table bg-light table responsive">
+  <table class="table table bg-light table responsive">
     <tr>
-      <td style="min-width: 700px;" class="col text-left">
+      <td style="min-width: 650px; max-width: 800px;"class="col text-left">
         <h4>
           {{project.projectnumber}} - {{project.projectname}}
           {% if project.Status == "offtrack" %}
@@ -19,17 +19,8 @@
         <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Project Complete</a>
       </td>
 
-      <td class="col">
-        <p>
-          <ul style="font-size: 9px;" class="list-group list-group-horizontal text-nowrap text-right list-responsive bg-light overflow-auto">
-            <li class="list-group-item list-group-item-secondary">Project Team:</li>
-            <li class="list-group-item">PM: {{project.projectmanager}}</li>
-            <li class="list-group-item">EE: {{project.mechanicalengineer}}</li>
-            <li class="list-group-item">ME: {{project.electricalengineer}}</li>
-            <li class="list-group-item">Pr: {{project.programmer}}</li>
-          </ul>
-        </p>
-        <p style="max-height: 95px;" class="lead strong text-left overflow-auto">Comments: <a class="text-muted">{{project.Comments}}</a></p>
+      <td style="min-width: 300px;" class="col text-left">
+        <p style="max-height: 95px;" class="lead strong overflow-auto">Comments: <a class="text-muted">{{project.Comments}}</a></p>
       </td>
     </tr>
   </table>
@@ -38,21 +29,23 @@
       <tr>
         <td class="col">
           <ul class="list-group list-group-horizontal">
-            <div style="font-size: 10px; width: 300px; height: 200px;" class="container overflow-auto text-left">
-              <h6>Completed Milestones</h6>
-              <ul class="list-group shadow">
-                {% for milestone, values in project.milestones.items %}
-                  {% if values.status == True and values.end != None %}
-                    <li class="list-group-item">
-                      <div class="form-check custom-control-inline">
-                        <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}<br>{{values.end}}</label>
-                        <input type="checkbox" value= "{{milestone}}" onclick="completeMilestone(this)"class="form-check-input" id="{{ project.projectnumber }}" checked>
-                      </div>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </div>
+            {% if project.anymilestonescomplete == True %}
+              <div style="font-size: 10px; width: 300px; height: 200px;" class="container overflow-auto text-left">
+                <h6>Completed Milestones:</h6>
+                <ul class="list-group shadow">
+                  {% for milestone, values in project.milestones.items %}
+                    {% if values.status == True and values.end != None %}
+                      <li class="list-group-item">
+                        <div class="form-check custom-control-inline">
+                          <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}<br>{{values.end}}</label>
+                          <input type="checkbox" value= "{{milestone}}" onclick="completeMilestone(this)"class="form-check-input" id="{{ project.projectnumber }}" checked>
+                        </div>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
             {% for milestone, values in project.milestones.items %}
               {% if milestone == project.current_milestone.name %}
               <div style="width: 300px;" class="container">
@@ -122,6 +115,9 @@
                 </li>
               {% endif %}
             {%endfor%}
+            <li style="font-size: 15px; width: 180px; height: 150px;" class="list-group-item bg-light px-3 flex-fill">
+              <h5>Project End</h5>
+            </li>
           </ul>
         </td>
       </tr>

@@ -125,7 +125,6 @@ class Project(models.Model):
         # TODO change to central time or time of laptop?
         today = date.today()
         milestone = {}
-        print(project)
 
         #looping through project milestones
         for key, value in project.items():
@@ -139,6 +138,13 @@ class Project(models.Model):
             milestone = {'name': 'Review Dates', 'start': None, 'end': None, 'duration': None, 'days_until': None}
             return milestone
 
+    #checking if a milestone has been complete in one of the projects
+    def anymilestonescomplete(self):
+        project = self.milestones()
+        for milestone, values in project.items():
+            if values['status'] == True:
+                return True
+        return False
     #data structure of return: {'current_phase': str of phase name,'start':, 'end':, 'progress': int of % progress}
     def current_phase(self):
 
