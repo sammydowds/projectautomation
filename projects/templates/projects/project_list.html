@@ -16,7 +16,7 @@
         <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
         <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
         <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-        <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Complete</a>
+        <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Mark Complete</a>
       </td>
 
       <td class="col">
@@ -57,15 +57,33 @@
               {% if milestone == project.current_milestone.name %}
               <div style="width: 300px;" class="container">
                   <div class="card shadow" style="max-width: 18rem;">
-                    <div style="height: 40px; background-color: #ff6961;" class="card-header">
+                    {% if project.Status == "offtrack" %}
+                    <div style="height: 40px;" class="card-header bg-danger text-white">
                       <h6>
-                        Next Deadline
+                        Off Track
                       </h6>
                     </div>
+                    {% elif project.Status == "ontrack" %}
+                      <div style="height: 40px;" class="card-header bg-success text-white">
+                        <h6>
+                          On Track
+                        </h6>
+                      </div>
+                    {% elif project.Status == "onwatch" %}
+                      <div style="height: 40px;" class="card-header bg-warning">
+                        <h6>
+                          On Watch
+                        </h6>
+                      </div>
+                    {% endif %}
+
                     <div class="card-body">
                       <h5 class="card-title">
                         <div class="form-check custom-control-inline">
-                          <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}} <span class="badge badge-warning">in {{ project.current_milestone.end|timeuntil:today }}</span></label>
+                          <label name="lblmile" class="form-check-label" for="materialUnchecked">
+                            {{milestone}}
+                            <!-- <span class="badge badge-warning">in {{ project.current_milestone.end|timeuntil:today }}</span> -->
+                          </label>
                           <input type="checkbox" value= "{{milestone}}" onclick="completeMilestone(this)"class="form-check-input" id="{{ project.projectnumber }}">
                         </div>
                       </h5>
