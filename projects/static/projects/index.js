@@ -1,4 +1,25 @@
 // using jQuery
+
+function completeMilestone(k) {
+  console.log("TEST");
+  const projectnumber = k.id;
+  const milestone = k.value;
+  const request = new XMLHttpRequest();
+  request.open('POST', '/projects/milestonecomplete/');
+  var csrftoken = getCookie('csrftoken');
+  request.setRequestHeader("X-CSRFToken", csrftoken);
+
+  request.onload = function(){
+    }
+
+  var data = new FormData();
+  data.append('projectnumber', projectnumber);
+  data.append('milestone', milestone);
+  request.send(data);
+  console.log(projectnumber, milestone);
+  }
+
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -71,7 +92,7 @@ function updateOfftrack(k) {
 }
 
 function copyToClipboard(element) {
-  console.log('Working'); 
+  console.log('Working');
   var $temp = $("<input>");
   $("body").append($temp);
   $temp.val($(element).text()).select();

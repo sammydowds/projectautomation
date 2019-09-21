@@ -22,5 +22,6 @@ urlpatterns = [
     path('thisweek/', views.thisweek, name = "thisweek"),
     path('ontrack/', views.ontrack, name = "ontrack"),
     path('offtrack/', views.offtrack, name = "offtrack"),
-    path('onwatch/', views.onwatch, name = "onwatch")
+    path('onwatch/', views.onwatch, name = "onwatch"),
+    path('milestonecomplete/', views.milestonecomplete, name = "milestonecomplete")
 ]

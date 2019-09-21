@@ -125,7 +125,7 @@ def pastprojects(request):
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     context = {
-        'title': 'Past', 
+        'title': 'Past',
         'projects': projects_list,
         'num_proj': num_proj,
         'today': date.today(),
@@ -269,6 +269,28 @@ def projectstatus(request, num):
             'project': proj
             }
         return render(request, 'projects/projectstatus.html', context)
+
+@login_required
+def milestonecomplete(request):
+    if request.method == "POST":
+        #saving request data
+        print("Test")
+        projectnumber = request.POST['projectnumber']
+        milestone = request.POST['milestone']
+        milestone_status = milestone + '_Complete'
+        print(milestone_status)
+
+        #query the database for matching project
+        project = Project.objects.get(projectnumber=projectnumber)
+        print(project)
+
+        #pull current boolean/status of the milestone
+        current = getattr(project, milestone_status)
+
+        #updating the milestone status to be the opposite of the current one
+        setattr(project, milestone_status, not current)
+        project.save()
+        return redirect('/projects')
 
 #deleting a project from the db
 @login_required

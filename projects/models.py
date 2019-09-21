@@ -17,16 +17,27 @@ class Project(models.Model):
     Comments = models.CharField(max_length=255, default="Enter Project Comments.", null = True)
     engineering_start = models.DateField(blank=True, null = True)
     Mechanical_Release = models.DateField('Mech Rel', blank=True, null = True)
+    Mechanical_Release_Complete = models.BooleanField(default=False, null = True)
     Electrical_Release = models.DateField('Electrical Release', blank=True, null = True)
+    Electrical_Release_Complete = models.BooleanField(default=False)
     Manufacturing = models.DateField(blank=True, null = True)
+    Manufacturing_Complete = models.BooleanField(default=False)
     Finishing = models.DateField(blank=True, null = True)
+    Finishing_Complete = models.BooleanField(default=False)
     Assembly = models.DateField(blank=True, null = True)
+    Assembly_Complete = models.BooleanField(default=False)
     Internal_Runoff = models.DateField(blank=True, null = True)
+    Internal_Runoff_Complete = models.BooleanField(default=False)
     Customer_Runoff = models.DateField(blank=True, null = True)
+    Customer_Runoff_Complete = models.BooleanField(default=False)
     Ship = models.DateField(blank=True, null = True)
+    Ship_Complete = models.BooleanField(default=False)
     Install_Start = models.DateField(blank=True, null = True)
+    Install_Start_Complete = models.BooleanField(default=False)
     Install_Finish = models.DateField(blank=True, null = True)
+    Install_Finish_Complete= models.BooleanField(default=False)
     Documentation = models.DateField(blank=True, null = True)
+    Documentation_Complete = models.BooleanField(default=False)
     Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="offtrack", null = True)
     iscurrent = models.BooleanField(default=True, null = True)
     projectmanager = models.ForeignKey(User, blank=True, null=True, on_delete = models.SET_NULL)
@@ -71,8 +82,10 @@ class Project(models.Model):
             end = dict_project[list_milestones[i]]
             #duration between both start and end dates
             duration = self.busdays_between(end, start)
+            #status of the milestone
+            status = dict_project[list_milestones[i]+ '_Complete']
             #storing information to dictionary
-            dict_milestones[list_milestones[i]] = {'start': start, 'end': end, 'duration': duration}
+            dict_milestones[list_milestones[i]] = {'start': start, 'end': end, 'duration': duration, 'status': status}
 
         return dict_milestones
 
@@ -112,15 +125,14 @@ class Project(models.Model):
         # TODO change to central time or time of laptop?
         today = date.today()
         milestone = {}
+        print(project)
 
         #looping through project milestones
         for key, value in project.items():
-            if value['end'] != None:
+            if value['status'] == False and value['end'] != None:
                 value['days_until'] = self.busdays_between(value['end'], today)
                 value['name'] = key
-
-                if value['end'] >= today:
-                    return value
+                return value
 
         #if date is in the past or no dates exits
         if milestone == {}:

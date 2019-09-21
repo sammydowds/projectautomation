@@ -10,9 +10,9 @@
      <h4 class="display-4">{{title}} Projects</h4>
      <p class="lead">Delivering Tomorrow, today.</p>
      <div class="btn-group" role="group" aria-label="Basic example">
-      <a href="#" class="btn btn-outline-secondary" role="button">On Track <span class="badge badge-pill badge-success">{{num_on}}</span></a>
-      <a href="#" class="btn btn-outline-secondary" role="button">On Watch <span class="badge badge-pill badge-warning">{{num_watch}}</span></a>
-      <a href="#" class="btn btn-outline-secondary" role="button"> Off Track <span class="badge badge-pill badge-danger">{{num_off}}</span></a>
+      <a href="{% url 'printable' %}" class="btn btn-outline-secondary" role="button">On Track <span class="badge badge-pill badge-success">{{num_on}}</span></a>
+      <a href="{% url 'printable' %}" class="btn btn-outline-secondary" role="button">On Watch <span class="badge badge-pill badge-warning">{{num_watch}}</span></a>
+      <a href="{% url 'printable' %}" class="btn btn-outline-secondary" role="button"> Off Track <span class="badge badge-pill badge-danger">{{num_off}}</span></a>
       <a href="{% url 'planner' %}" class="btn btn-outline-secondary" role="button"> Planner </a>
       <a href="{% url 'printable' %}" class="btn btn-outline-secondary" role="button"> Print View </a>
     </div>
