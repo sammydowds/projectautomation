@@ -38,6 +38,21 @@
       <tr>
         <td class="col">
           <ul class="list-group list-group-horizontal">
+            <div style="font-size: 10px; width: 200px; height: 200px;" class="container overflow-auto">
+              <h6>Completed</h6>
+              <ul class="list-group">
+                {% for milestone, values in project.milestones.items %}
+                  {% if values.status == True and values.end != None %}
+                    <li class="list-group-item">
+                      <div class="form-check custom-control-inline">
+                        <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}- {{values.end}}</label>
+                        <input type="checkbox" value= "{{milestone}}" onclick="completeMilestone(this)"class="form-check-input" id="{{ project.projectnumber }}" checked>
+                      </div>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
             {% for milestone, values in project.milestones.items %}
               {% if milestone == project.current_milestone.name %}
               <div style="width: 300px;" class="container">
@@ -69,7 +84,7 @@
                   </div>
 
               </div>
-              {% elif values.end != None %}
+              {% elif values.end != None and values.status == False %}
                 <li style="font-size: 15px; width: 180px; height: 150px;" class="list-group-item bg-light px-3 flex-fill">
                   {% if values.status == True %}
                     <div class="form-check custom-control-inline">
