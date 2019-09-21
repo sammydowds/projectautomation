@@ -11,19 +11,19 @@ class ProjectForm(forms.ModelForm):
         exclude = ('lastupdated', \
                     'Status', \
                     'iscurrent', \
-                    'Slippage', \
-                    'Mechanical_Release_Complete', \
-                    'Electrical_Release_Complete', \
-                    'Manufacturing_Complete', \
-                    'Finishing_Complete', \
-                    'Assembly_Complete', \
-                    'Internal_Runoff_Complete', \
-                    'Customer_Runoff_Complete', \
-                    'Ship_Complete', \
-                    'Install_Start_Complete', \
-                    'Install_Finish_Complete', \
-                    'Documentation_Complete', \
-                    )
+                    'Slippage', \)
+                    # 'Mechanical_Release_Complete', \
+                    # 'Electrical_Release_Complete', \
+                    # 'Manufacturing_Complete', \
+                    # 'Finishing_Complete', \
+                    # 'Assembly_Complete', \
+                    # 'Internal_Runoff_Complete', \
+                    # 'Customer_Runoff_Complete', \
+                    # 'Ship_Complete', \
+                    # 'Install_Start_Complete', \
+                    # 'Install_Finish_Complete', \
+                    # 'Documentation_Complete', \
+                    # )
         widgets = {
                     'projectname': forms.TextInput(attrs={'class': 'special','size': '50'}),
                     'Comments': forms.Textarea(attrs={"rows":5, "cols":40}),
