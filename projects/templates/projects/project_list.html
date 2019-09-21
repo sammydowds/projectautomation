@@ -34,7 +34,7 @@
                 <h6>Milesones Marked Complete:</h6>
                 <ul class="list-group shadow">
                   {% for milestone, values in project.milestones.items %}
-                    {% if values.status == True and values.end != None %}
+                    {% if values.status == True %}
                       <li class="list-group-item">
                         <div class="form-check custom-control-inline">
                           <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}<br>{{values.end}}</label>
