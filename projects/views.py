@@ -172,7 +172,7 @@ def update(request, num):
         #setting form initial to project current dict
         form = ProjectForm(initial = proj_current.__dict__)
 
-        return render(request, "projects/update.html", {'form': form, 'project': proj_current})
+        return render(request, "projects/update.html", {'form': form, 'project': proj_current, 'today': datetime.date.today()})
 
     #if post request, post updates into the database and return back to the main projects page
     if request.method == "POST":
@@ -195,7 +195,9 @@ def update(request, num):
             #converting init_proj to dict to look up current milestone
             init_proj = init_proj.__dict__
             #calculating timedelta
-            if milestone['name'] != 'Review Dates':
+            print(milestone['end'])
+            print(init_proj[milestone['name']])
+            if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
                 slippage = milestone['end']-init_proj[milestone['name']]
                 proj.Slippage = slippage.days
             else:

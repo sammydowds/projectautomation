@@ -15,48 +15,7 @@
   </div>
 </div>
 
-<div class = "container-fluid bg-ligth text-center justify-content-center">
-    <div style= "padding: 2rem 0rem 2rem" class = "row shadow-sm">
-      <div class="col">
-        <table class="table table-borderless">
-            <tr>
-              <td class="text-left"><h4> {{project.projectnumber}} Current Schedule  <span class="badge badge-danger">Off Track</span></h4>
-              </td>
-              <!-- <td><h4>{{project.current_milestone.name}}: <br>{{project.current_milestone.end}} <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span></h4></td> -->
-              <td class="text-right">
-                <button type="button" class="btn btn-outline-success">On Track</button>
-                <button type="button" class="btn btn-outline-danger">On Watch</button>
-                <button type="button" class="btn btn-outline-warning">Off Track</button>
-              </td>
-            </tr>
-        </table>
-        <table class="table text-center table-responsive table-borderless">
-            <tr>
-              <td class="col">
-                <ul class="list-group list-group-horizontal">
-                  {% for milestone, values in project.milestones.items %}
-                    {% if milestone == project.current_milestone.name %}
-                    <div style="width: 235px;" class="container">
-                      <li class="list-group-item flex-fill shadow">
-                        <h4><span class="badge badge-pill badge-light">Next Milestone</span></h4>
-                        <p class="lead">{{milestone}}</p>
-                        <span class="badge badge-warning">in {{project.current_milestone.days_until}} business days</span>
-                        <hr>
-                        {{values.end}}
-                        <p class="text-muted"><small>Initial: {{project.Slippage}}</small></p>
-                      </li>
-                    </div>
-                    {% else %}
-                      <li style="font-size: 14px; width: 200px; height: 200px;" class="list-group-item flex-fill">{{milestone}}<hr>{{values.end}}</li>
-                    {% endif %}
-                  {%endfor%}
-                </ul>
-              </td>
-            </tr>
-        </table>
-      </div>
-    </div>
-  </div>
+{% include "projects/project_list.html" %}
 
 <div style="width 50%;padding: 1rem 5rem 2rem; text-align: center" class="container">
 <!-- TODO: Style the form to match the base.html navbar?? -->
