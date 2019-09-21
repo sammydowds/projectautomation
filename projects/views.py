@@ -195,8 +195,7 @@ def update(request, num):
             #converting init_proj to dict to look up current milestone
             init_proj = init_proj.__dict__
             #calculating timedelta
-            print(milestone['end'])
-            print(init_proj[milestone['name']])
+
             if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
                 slippage = milestone['end']-init_proj[milestone['name']]
                 proj.Slippage = int((slippage.days)/7)
