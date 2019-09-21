@@ -46,8 +46,11 @@ function updateOntrack(k) {
 
   request.onload = function(){
     badge = document.getElementById(k.id.concat("_status_badge"));
+    card = document.getElementById(k.id.concat("_card_header"));
     badge.className = "btn btn-sm badge-success";
+    card.className = "card-header bg-success text-white";
     badge.innerHTML = "Updated - On Track";
+    card.innerHTML = "Updated To On Track";
     }
 
   var data = new FormData();
@@ -63,6 +66,9 @@ function updateOnwatch(k) {
   request.setRequestHeader("X-CSRFToken", csrftoken);
 
   request.onload = function(){
+    card = document.getElementById(k.id.concat("_card_header"));
+    card.className = "card-header bg-warning";
+    card.innerHTML = "Updated To On Watch";
     badge = document.getElementById(k.id.concat("_status_badge"));
     badge.className = "btn btn-sm badge-warning";
     badge.innerHTML = "Updated - On Watch";
@@ -81,6 +87,9 @@ function updateOfftrack(k) {
   request.setRequestHeader("X-CSRFToken", csrftoken);
 
   request.onload = function(){
+    card = document.getElementById(k.id.concat("_card_header"));
+    card.className = "card-header bg-danger text-white";
+    card.innerHTML = "Updated To Off Track";
     badge = document.getElementById(k.id.concat("_status_badge"));
     badge.className = "btn btn-sm badge-danger";
     badge.innerHTML = "Updated - Off Track";

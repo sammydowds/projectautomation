@@ -16,7 +16,7 @@
         <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
         <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
         <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-        <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Mark Complete</a>
+        <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Project Complete</a>
       </td>
 
       <td class="col">
@@ -38,14 +38,14 @@
       <tr>
         <td class="col">
           <ul class="list-group list-group-horizontal">
-            <div style="font-size: 10px; width: 200px; height: 200px;" class="container overflow-auto">
+            <div style="font-size: 10px; width: 300px; height: 200px;" class="container overflow-auto text-left">
               <h6>Completed Milestones</h6>
-              <ul class="list-group">
+              <ul class="list-group shadow">
                 {% for milestone, values in project.milestones.items %}
                   {% if values.status == True and values.end != None %}
                     <li class="list-group-item">
                       <div class="form-check custom-control-inline">
-                        <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}- {{values.end}}</label>
+                        <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}<br>{{values.end}}</label>
                         <input type="checkbox" value= "{{milestone}}" onclick="completeMilestone(this)"class="form-check-input" id="{{ project.projectnumber }}" checked>
                       </div>
                     </li>
@@ -58,25 +58,24 @@
               <div style="width: 300px;" class="container">
                   <div class="card shadow" style="max-width: 18rem;">
                     {% if project.Status == "offtrack" %}
-                    <div style="height: 40px;" class="card-header bg-danger text-white">
+                    <div id="{{project.projectnumber}}_card_header" style="height: 40px;" class="card-header bg-danger text-white">
                       <h6>
                         Off Track
                       </h6>
                     </div>
                     {% elif project.Status == "ontrack" %}
-                      <div style="height: 40px;" class="card-header bg-success text-white">
+                      <div id="{{project.projectnumber}}_card_header" style="height: 40px;" class="card-header bg-success text-white">
                         <h6>
                           On Track
                         </h6>
                       </div>
                     {% elif project.Status == "onwatch" %}
-                      <div style="height: 40px;" class="card-header bg-warning">
+                      <div id="{{project.projectnumber}}_card_header" style="height: 40px;" class="card-header bg-warning">
                         <h6>
                           On Watch
                         </h6>
                       </div>
                     {% endif %}
-
                     <div class="card-body">
                       <h5 class="card-title">
                         <div class="form-check custom-control-inline">
