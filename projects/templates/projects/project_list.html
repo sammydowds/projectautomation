@@ -31,7 +31,7 @@
           <ul class="list-group list-group-horizontal">
             {% if project.anymilestonescomplete == True %}
               <div style="font-size: 10px; width: 300px; height: 200px;" class="container overflow-auto text-left">
-                <h6>Completed Milestones:</h6>
+                <h6>Milesones Marked Complete:</h6>
                 <ul class="list-group shadow">
                   {% for milestone, values in project.milestones.items %}
                     {% if values.status == True and values.end != None %}
@@ -86,9 +86,9 @@
                     </div>
                     <div class="card-footer bg-transparent">
                       {% if project.Slippage > 0 %}
-                        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span> days</small>
+                        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span> week(s)</small>
                       {% elif project.Slippage <= 0 %}
-                        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span> days</small>
+                        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span> week(s)</small>
                       {% endif %}
                     </div>
                   </div>

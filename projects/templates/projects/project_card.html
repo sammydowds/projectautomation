@@ -14,9 +14,9 @@
       </p>
       <p>
         {% if project.Slippage > 0 %}
-        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span> days</small>
+        <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-danger">{{project.Slippage}}</span> week(s)</small>
         {% elif project.Slippage <= 0 %}
-          <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span> days </small>
+          <small class="text-muted">Project Slippage: <span class="badge badge-pill badge-success">{{project.Slippage}}</span> week(s) </small>
         {% endif %}
       </p>
     </div>

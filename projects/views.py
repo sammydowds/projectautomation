@@ -199,7 +199,7 @@ def update(request, num):
             print(init_proj[milestone['name']])
             if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
                 slippage = milestone['end']-init_proj[milestone['name']]
-                proj.Slippage = slippage.days
+                proj.Slippage = int((slippage.days)/7)
             else:
                 proj.Slippage = proj.Slippage
 
