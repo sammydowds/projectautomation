@@ -22,7 +22,7 @@
 <form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="{% url 'update' num=project.projectnumber %}" method="POST">
   {% csrf_token %}
   <div class="row">
-    <table class="table-sm table-hover">
+    <table class="table-sm table-bordered table-hover">
             {% for field in form %}
             <tr>
               <th> {{field.label_tag}}</th>
