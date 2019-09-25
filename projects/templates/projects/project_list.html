@@ -12,12 +12,13 @@
             <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span>
           {% endif %}
         </h4>
+        <a class="text-muted"><em>Dates Last Updated: {{project.lastupdated }}</em></a>
         <p class="text-muted small"> PM: {{project.projectmanager}} ME: {{project.mechanicalengineer}} EE: {{project.electricaleengineer}} Programmer: {{project.programmer}}</p>
         <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-outline-success">On Track</button>
         <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
         <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
         <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-        <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Project Complete</a>
+        <a href = "{% url 'activation' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Close/Activate</a>
       </td>
 
       <td style="min-width: 600px;" class="col text-left">
@@ -36,7 +37,7 @@
                 <ul class="list-group shadow">
                   {% for milestone, values in project.milestones.items %}
                     {% if values.status == True %}
-                      <li class="list-group-item">
+                      <li class="list-group-item bg-light">
                         <div class="form-check custom-control-inline">
                           <label name="lblmile" class="form-check-label" for="materialUnchecked">{{milestone}}<br>{{values.end}}</label>
                           <input type="checkbox" value= "{{milestone}}" onclick="completeMilestone(this)"class="form-check-input" id="{{ project.projectnumber }}" checked>

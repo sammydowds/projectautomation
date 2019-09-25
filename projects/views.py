@@ -317,16 +317,6 @@ def milestonecomplete(request):
 
         return redirect('/projects')
 
-#deleting a project from the db
-@login_required
-@never_cache
-def complete(request, num):
-    if request.method == "GET":
-        proj = Project.objects.get(projectnumber=num)
-        proj.iscurrent=False
-        proj.save()
-        return redirect('/projects/pastprojects')
-
 #updating project ontrack
 @login_required
 @never_cache
