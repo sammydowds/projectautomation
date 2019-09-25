@@ -12,7 +12,7 @@
             <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span>
           {% endif %}
         </h4>
-        <a class="text-muted"><em>Dates Last Updated: {{project.lastupdated }}</em></a>
+        <a class="text-muted"><em>Dates Last Updated: {{project.lastupdated|timesince:today }} ago</em></a>
         <p class="text-muted small"> PM: {{project.projectmanager}} ME: {{project.mechanicalengineer}} EE: {{project.electricaleengineer}} Programmer: {{project.programmer}}</p>
         <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-outline-success">On Track</button>
         <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
