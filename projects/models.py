@@ -17,7 +17,7 @@ class Project(models.Model):
     Comments = models.CharField(max_length=255, default="Enter Project Comments.", null = True)
     engineering_start = models.DateField(blank=True, null = True)
     Mechanical_Release = models.DateField('Mech Rel', blank=True, null = True)
-    Mechanical_Release_Complete = models.BooleanField(default=False, null = True)
+    Mechanical_Release_Complete = models.BooleanField(default=False)
     Electrical_Release = models.DateField('Electrical Release', blank=True, null = True)
     Electrical_Release_Complete = models.BooleanField(default=False)
     Manufacturing = models.DateField(blank=True, null = True)

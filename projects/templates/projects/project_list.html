@@ -1,7 +1,7 @@
 <div style="max-width: 1300px;" class="container-fluid bg-light">
   <table class="table table bg-light table responsive">
     <tr>
-      <td style="min-width: 650px; max-width: 800px;"class="col text-left">
+      <td style="min-width: 560px;" class="col text-left">
         <h4>
           {{project.projectnumber}} - {{project.projectname}}
           {% if project.Status == "offtrack" %}
@@ -12,6 +12,7 @@
             <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span>
           {% endif %}
         </h4>
+        <p class="text-muted small"> PM: {{project.projectmanager}} ME: {{project.mechanicalengineer}} EE: {{project.electricaleengineer}} Programmer: {{project.programmer}}</p>
         <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-outline-success">On Track</button>
         <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
         <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
@@ -19,7 +20,7 @@
         <a href = "{% url 'complete' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Project Complete</a>
       </td>
 
-      <td style="min-width: 300px;" class="col text-left">
+      <td style="min-width: 600px;" class="col text-left">
         <p style="max-height: 95px;" class="lead strong overflow-auto">Comments: <a class="text-muted">{{project.Comments}}</a></p>
       </td>
     </tr>

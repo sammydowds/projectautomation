@@ -93,6 +93,7 @@ def myprojects(request):
     projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user).order_by('projectnumber')
 
     context = {
+        'count': len(projects_list),
         'projects': projects_list,
         'today': date.today(),
         'status': 'Current'
@@ -291,6 +292,29 @@ def milestonecomplete(request):
         #updating the milestone status to be the opposite of the current one
         setattr(project, milestone_status, not current)
         project.save()
+
+        #updating project slippage (because new current milestone has changed) - note this is repeat code, should combine it into one function
+        #updating the slippage of the current milestone
+        if InitialProject.objects.get(projectnumber=projectnumber):
+            #saving current project
+            proj = Project.objects.get(projectnumber=projectnumber)
+            #looking up the initial project
+            init_proj = InitialProject.objects.get(projectnumber=projectnumber)
+            #saving current milestone
+            milestone = proj.current_milestone()
+            #converting init_proj to dict to look up current milestone
+            init_proj = init_proj.__dict__
+            #calculating timedelta
+
+            if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
+                slippage = milestone['end']-init_proj[milestone['name']]
+                proj.Slippage = int((slippage.days)/7)
+            else:
+                proj.Slippage = proj.Slippage
+
+            #saving project slippage to the model
+            proj.save()
+
         return redirect('/projects')
 
 #deleting a project from the db

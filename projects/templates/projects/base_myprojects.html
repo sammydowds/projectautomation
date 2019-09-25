@@ -6,12 +6,12 @@
 
 {% block main %}
 <div class="bg-light">
-  <div style="max-width: 1900px;" class = "container bg-light text-center">
+  <div style="max-width: 1500px;" class = "container bg-light text-center">
 
     <div class="row py-3 justify-content-center bg-light shadow-sm">
       <div class="col">
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-           <h2 class="display-4">Your Projects</h2>
+           <h2 class="display-4">Your Projects ({{count}})</h2>
            <p class="lead">Deliverying tomorrow, today.</p>
         </div>
       </div>
@@ -58,7 +58,7 @@
           </table>
         </div>
       </div>
-      
+
     {% for project in projects %}
       {% include "projects/project_list.html" %}
     {% endfor %}
