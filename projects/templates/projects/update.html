@@ -7,46 +7,48 @@
 {% block main %}
 
 
-
-<!-- TODO: Currently this jumbotron is pretty lame, could it be spiced up?-->
-<div style = "height:200px;" class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-7">Updating {{ project.projectnumber }} {{ project.projectname}}</h1>
-  </div>
-</div>
-
-{% include "projects/project_list.html" %}
-
-<div style="width 50%;padding: 1rem 5rem 2rem; text-align: center" class="container">
-<!-- TODO: Style the form to match the base.html navbar?? -->
-<form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="{% url 'update' num=project.projectnumber %}" method="POST">
-  {% csrf_token %}
-  <div class="row">
-    <table class="table-sm table-bordered table-hover">
-            {% for field in form %}
-            <tr>
-              <th> {{field.label_tag}}</th>
-              <td>
-                <p> {{ field }}
-                  {% if field.help_text %}
-                    <small style="color: grey">{{ field.help_text }}</small>
-                  {% endif %}
-                  {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                  {% endfor %}
-                </p>
-              </td>
-              </tr>
-            {% endfor %}
-      </table>
-  </div>
-</div>
-
-  <div style="padding: 0rem 0rem 10rem;"class="row justify-content-center">
-    <input type="submit" value="Update Project">
+<div class="bg-light">
+  <!-- TODO: Currently this jumbotron is pretty lame, could it be spiced up?-->
+  <div style = "height:200px;" class="jumbotron jumbotron-fluid bg-light">
+    <div class="container">
+      <h1 class="display-7">Updating {{ project.projectnumber }} {{ project.projectname}}</h1>
+    </div>
   </div>
 
-</form>
+  {% include "projects/project_list.html" %}
+
+  <div style="width 50%;padding: 1rem 5rem 2rem; text-align: left" class="container bg-light">
+  <!-- TODO: Style the form to match the base.html navbar?? -->
+  <h1> Update Project Details </h1>
+  <form style="font-size: 20px; text-align: left; padding: 2rem 0rem 2rem;" action="{% url 'update' num=project.projectnumber %}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <table class="table-sm table-bordered table-hover">
+              {% for field in form %}
+              <tr>
+                <th> {{field.label_tag}}</th>
+                <td>
+                  <p> {{ field }}
+                    {% if field.help_text %}
+                      <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  </p>
+                </td>
+                </tr>
+              {% endfor %}
+        </table>
+    </div>
+  </div>
+
+    <div style="padding: 0rem 0rem 10rem;"class="row justify-content-center">
+      <input type="submit" value="Update Project">
+    </div>
+
+  </form>
+  </div>
 </div>
 
 
