@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row py-5 justify-content-center">
+    <div class="col">
+      <h3><span class="badge badge-sm badge-danger">Off Track</span></h3>
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Project</th>
+            <th colspan="2" scope="col">Next Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            {% if project.Status == "offtrack" %}
+              <tr>
+                <td>{{project.projectname}}</td>
+                <td>{{project.current_milestone.name}}<br> in {{project.current_milestone.end|timeuntil}}</td>
+                <td><a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-sm btn-outline-info" role="button">Update</a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h3><span class="badge badge-sm badge-warning">On Watch</span></h3>
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Project</th>
+            <th colspan="2" scope="col">Next Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            {% if project.Status == "onwatch" %}
+              <tr>
+                <td>{{project.projectname}}</td>
+                <td>{{project.current_milestone.name}}<br> in {{project.current_milestone.end|timeuntil}}</td>
+                <td><a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-sm btn-outline-info" role="button">Update</a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <h3><span class="badge badge-sm badge-success">On Track</span></h3>
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Project</th>
+            <th colspan="2" scope="col">Next Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            {% if project.Status == "ontrack" %}
+              <tr>
+                <td>{{project.projectname}}</td>
+                <td>{{project.current_milestone.name}}<br> in {{project.current_milestone.end|timeuntil}}</td>
+                <td><a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-sm btn-outline-info" role="button">Update</a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

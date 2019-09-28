@@ -7,66 +7,23 @@
 {% block main %}
 <div class="bg-light">
   <div style="max-width: 1500px;" class = "container bg-light text-center">
-
-    <div class="row py-3 justify-content-center bg-light shadow-sm">
+    <div class="row py-5 justify-content-center bg-light">
       <div class="col">
-        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <div class="pricing-header text-center">
            <h2 class="display-4">Your Projects ({{count}})</h2>
            <p class="lead">Deliverying tomorrow, today.</p>
-        </div>
-        <div class="pricing-header py-5 px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-           <div class="btn-group" role="group" aria-label="Basic example">
-            <a href="https://www.gotomeeting.com/" class="btn btn-outline-secondary" role="button">Schedule a Meeting</a>
-            <a href="https://outlook.live.com/owa/" class="btn btn-outline-secondary" role="button">Send an Email</a>
-            <a href="https://weather.com/" class="btn btn-outline-secondary" role="button">Check The Weather</a>
-            <a href="https://www.robotics.org/News" class="btn btn-outline-secondary" role="button"> Industry News </a>
-            <a href="{% url 'printable' %}" class="btn btn-outline-secondary" role="button"> Print View </a>
+           <div class="btn-group">
+             <a href="https://www.gotomeeting.com/" class="btn btn-outline-secondary" role="button">Schedule a Meeting</a>
+             <a href="https://outlook.live.com/owa/" class="btn btn-outline-secondary" role="button">Send an Email</a>
+             <a href="https://weather.com/" class="btn btn-outline-secondary" role="button">Check The Weather</a>
+             <a href="https://www.robotics.org/News" class="btn btn-outline-secondary" role="button"> Industry News </a>
+             <a href="{% url 'printable' %}" class="btn btn-outline-secondary" role="button"> Print View </a>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row py-3 justify-content-center bg-light shadow-sm">
-      <div class="col-sm-10 px-3 py-3">
-        <p class="lead">Your Milestones This Week:</p>
-          <table class="table text-center table-responsive table-borderless">
-            <tr>
-              <td>
-                <ul class="list-group list-group-horizontal">
-                  {% for project in projects %}
-                    {% if project.thisweek.milestonesweek %}
-                      {% for milestone, value in project.thisweek.milestonesweek.items %}
-                        {% include "projects/project_card.html" %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-    <div class="row py-3 justify-content-center bg-light shadow-sm">
-      <div class="col-sm-10 px-3 py-3 border-left-dark">
-        <p class="lead">Next Milestones for Each Project:</p>
-        <table class="table text-center table-responsive table-borderless">
-            <tr>
-              <td>
-                <ul class="list-group list-group-horizontal">
-                  {% for project in projects %}
-                    {% for milestone, value in project.milestones.items %}
-                      {% if milestone == project.current_milestone.name %}
-                        {% include "projects/project_card.html" %}
-                    {% endif %}
-                  {%endfor%}
-                  {% endfor %}
-                </ul>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+    {% include "projects/snapshot.html" %}
 
     {% for project in projects %}
       {% include "projects/project_list.html" %}
