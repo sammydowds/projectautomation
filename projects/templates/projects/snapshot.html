@@ -1,95 +1,42 @@
 <div class="container">
-  <div class="row py-5 justify-content-center">
-    <div class="col">
-      <h3><span class="badge badge-sm badge-danger">Off Track</span></h3>
-      <table class="table table-sm table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Project Number</th>
-            <th scope="col">Project</th>
-            <th colspan="2" scope="col">Next Deadline</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for project in projects %}
-            {% if project.Status == "onwatch" %}
-              <tr>
-                <td>{{project.projectnumber}}</td>
-                <td>{{project.projectname}}</td>
-                <td>{{project.current_milestone.name}}<br> in {{project.current_milestone.end|timeuntil}}</td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col">
-      <h3><span class="badge badge-sm badge-warning">On Watch</span></h3>
-      <table class="table table-sm table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Project Number</th>
-            <th scope="col">Project</th>
-            <th colspan="2" scope="col">Next Deadline</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for project in projects %}
-            {% if project.Status == "onwatch" %}
-              <tr>
-                <td>{{project.projectnumber}}</td>
-                <td>{{project.projectname}}</td>
-                <td>{{project.current_milestone.name}}<br> in {{project.current_milestone.end|timeuntil}}</td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="col">
-      <h3><span class="badge badge-sm badge-success">On Track</span></h3>
-      <table class="table table-sm table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Project Number</th>
-            <th scope="col">Project</th>
-            <th colspan="2" scope="col">Next Deadline</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for project in projects %}
-            {% if project.Status == "onwatch" %}
-              <tr>
-                <td>{{project.projectnumber}}</td>
-                <td>{{project.projectname}}</td>
-                <td>{{project.current_milestone.name}}<br> in {{project.current_milestone.end|timeuntil}}</td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
   <div class="row justify-content-center pb-5">
     <div class="col-10">
       <h3><span class="badge badge-sm badge-primary">Next Deadlines</span></h3>
       <table class="table table-sm table-hover text-left">
         <thead>
           <tr>
-            <th scope="col">Project Number</th>
-            <th scope="col">Project</th>
+            <th scope="col"></th>
+            <th colspan='2' scope="col">Project</th>
             <th scope="col">Next Deadline</th>
             <th scope="col"> Due </th>
           </tr>
         </thead>
         <tbody>
           {% for project in projects %}
+            {% if project.Status == 'offtrack' %}
             <tr>
+              <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-danger">Off Track</span></td>
               <td>{{project.projectnumber}}</td>
               <td>{{project.projectname}}</td>
               <td>{{project.current_milestone.name}}</td>
               <td>{{project.current_milestone.end}} - <a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
             </tr>
+            {% elif project.Status == 'onwatch' %}
+            <tr>
+              <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span></td>
+              <td>{{project.projectnumber}}</td>
+              <td>{{project.projectname}}</td>
+              <td>{{project.current_milestone.name}}</td>
+              <td>{{project.current_milestone.end}} - <a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+            {% elif project.Status == 'ontrack' %}
+            <tr>
+              <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span></td>
+              <td>{{project.projectnumber}}</td>
+              <td>{{project.projectname}}</td>
+              <td>{{project.current_milestone.name}}</td>
+              <td>{{project.current_milestone.end}} - <a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+            </tr>
+            {% endif %}
           {% endfor %}
         </tbody>
       </table>
