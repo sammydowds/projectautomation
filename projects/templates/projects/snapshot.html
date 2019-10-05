@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center pb-5">
-    <div class="col-10">
+    <div class="col-8">
       <h3><span class="badge badge-sm badge-primary">Next Deadlines</span></h3>
       <table class="table table-sm table-hover text-left">
         <thead>
@@ -8,7 +8,7 @@
             <th scope="col"></th>
             <th colspan='2' scope="col">Project</th>
             <th scope="col">Next Deadline</th>
-            <th scope="col"> Due </th>
+            <th scope="col"> Due in </th>
           </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
               <td>{{project.projectnumber}}</td>
               <td>{{project.projectname}}</td>
               <td>{{project.current_milestone.name}}</td>
-              <td>{{project.current_milestone.end}} - <a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td><a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
             </tr>
             {% elif project.Status == 'onwatch' %}
             <tr>
@@ -27,14 +27,14 @@
               <td>{{project.projectnumber}}</td>
               <td>{{project.projectname}}</td>
               <td>{{project.current_milestone.name}}</td>
-              <td>{{project.current_milestone.end}} - <a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td><a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
             {% elif project.Status == 'ontrack' %}
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span></td>
               <td>{{project.projectnumber}}</td>
               <td>{{project.projectname}}</td>
               <td>{{project.current_milestone.name}}</td>
-              <td>{{project.current_milestone.end}} - <a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td><a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
             </tr>
             {% endif %}
           {% endfor %}
