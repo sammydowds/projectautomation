@@ -2,15 +2,8 @@
   <table class="table table bg-light table responsive">
     <tr>
       <td style="min-width: 560px;" class="col text-left">
-        <h4>
+        <h4 id="{{project.projectnumber}}_details">
           {{project.projectnumber}} - {{project.projectname}}
-          {% if project.Status == "offtrack" %}
-            <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-danger">Off Track</span>
-          {% elif project.Status == "ontrack" %}
-            <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span>
-          {% elif project.Status == "onwatch" %}
-            <span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span>
-          {% endif %}
         </h4>
         <a class="text-muted"><em>Dates Last Updated: {{project.lastupdated|timesince:today }} ago</em></a>
         <p class="text-muted small"> PM: {{project.projectmanager}} ME: {{project.mechanicalengineer}} EE: {{project.electricaleengineer}} Programmer: {{project.programmer}}</p>

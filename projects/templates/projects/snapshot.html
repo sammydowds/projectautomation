@@ -1,15 +1,25 @@
 <div class="container">
-  <div class="row justify-content-center pb-5">
-    <div class="col-8">
-      <h3><span class="badge badge-sm badge-primary">Next Deadlines</span></h3>
-      <table class="table table-sm table-hover text-left">
+
+  <div class="row pb-5 text-center">
+    <div class="col">
+      <h3>Next Milestones</h3>
+    </div>
+  </div>
+
+  <div class="row pb-5">
+    <div style="height: 400px;" class="col overflow-auto">
+      <table class="table table-sm table-hover justify-content-center text-left">
         <thead>
-          <tr>
-            <th scope="col"></th>
-            <th colspan='2' scope="col">Project</th>
-            <th scope="col">Next Deadline</th>
-            <th scope="col"> Due in </th>
-          </tr>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th colspan='2' scope="col">Project</th>
+              <th scope="col">Next Deadline</th>
+              <th scope="col"> Due in </th>
+              <th scope="col"> Date Due </th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
         </thead>
         <tbody>
           {% for project in projects %}
@@ -17,24 +27,42 @@
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-danger">Off Track</span></td>
               <td>{{project.projectnumber}}</td>
-              <td>{{project.projectname}}</td>
+              <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
               <td>{{project.current_milestone.name}}</td>
-              <td><a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td class="text-nowrap">{{project.current_milestone.end}}</td>
+              <td style="width: 200px;">
+                <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-success"><a style="font-size: 8px;">On Track</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-warning"><a style="font-size: 8px;">On Watch</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-danger"><a style="font-size: 8px;">Off Track</a></button>
+              </td>
             </tr>
             {% elif project.Status == 'onwatch' %}
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span></td>
               <td>{{project.projectnumber}}</td>
-              <td>{{project.projectname}}</td>
-              <td>{{project.current_milestone.name}}</td>
-              <td><a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+              <td class="text-nowrap">{{project.current_milestone.name}}</td>
+              <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td class="text-nowrap">{{project.current_milestone.end}}</td>
+              <td>
+                <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-success"><a style="font-size: 8px;">On Track</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-warning"><a style="font-size: 8px;">On Watch</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-danger"><a style="font-size: 8px;">Off Track</a></button>
+              </td>
             {% elif project.Status == 'ontrack' %}
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span></td>
               <td>{{project.projectnumber}}</td>
-              <td>{{project.projectname}}</td>
+              <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
               <td>{{project.current_milestone.name}}</td>
-              <td><a class="font-italic text-danger">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
+              <td class="text-nowrap">{{project.current_milestone.end}}</td>
+              <td>
+                <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-success"><a style="font-size: 8px;">On Track</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-warning"><a style="font-size: 8px;">On Watch</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-danger"><a style="font-size: 8px;">Off Track</a></button>
+              </td>
             </tr>
             {% endif %}
           {% endfor %}
