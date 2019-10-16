@@ -58,6 +58,7 @@ def index(request):
     #number of project on track
     num_on = projects_list.filter(Status="ontrack").count()
     #saving info to pass to the template
+    is_pm = request.user.groups.filter(name='Project_Manager').exists()
     context = {
         'projects': projects_list,
         'num_proj': num_proj,
@@ -65,7 +66,8 @@ def index(request):
         'num_off': num_off,
         'num_watch': num_watch,
         'num_on': num_on,
-        'status': 'Current'
+        'status': 'Current',
+        'is_pm': is_pm
     }
     return render(request, "projects/base_projects.html", context)
 
@@ -91,12 +93,13 @@ def myprojects(request):
     user = request.user
     #pulling all active projects
     projects_list = Project.objects.all().exclude(iscurrent=False).filter(projectmanager=user).order_by('projectnumber')
-
+    is_pm = request.user.groups.filter(name='Project_Manager').exists()
     context = {
         'count': len(projects_list),
         'projects': projects_list,
         'today': date.today(),
-        'status': 'Current'
+        'status': 'Current',
+        'is_pm': is_pm
     }
     return render(request, "projects/base_myprojects.html", context)
 
@@ -125,12 +128,14 @@ def pastprojects(request):
     projects_list = Project.objects.all().exclude(iscurrent=True)
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
+    is_pm = request.user.groups.filter(name='Project_Manager').exists()
     context = {
         'title': 'Past',
         'projects': projects_list,
         'num_proj': num_proj,
         'today': date.today(),
-        'status': 'Past'
+        'status': 'Past',
+        'is_pm': is_pm
     }
     return render(request, "projects/base_projects.html", context)
 

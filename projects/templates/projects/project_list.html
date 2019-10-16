@@ -7,11 +7,13 @@
         </h4>
         <a class="text-muted"><em>Dates Last Updated: {{project.lastupdated|timesince:today }} ago</em></a>
         <p class="text-muted small"> PM: {{project.projectmanager}} ME: {{project.mechanicalengineer}} EE: {{project.electricaleengineer}} Programmer: {{project.programmer}}</p>
-        <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-outline-success">On Track</button>
-        <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
-        <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
-        <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
-        <a href = "{% url 'activation' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Close/Activate</a>
+        {% if is_pm %}
+          <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-outline-success">On Track</button>
+          <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-outline-warning">On Watch</button>
+          <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-outline-danger">Off Track</button>
+          <a href = "{% url 'update' num=project.projectnumber %}" class="btn btn-outline-info" role="button">Update</a>
+          <a href = "{% url 'activation' num=project.projectnumber %}" class="btn btn-outline-secondary" role="button">Close/Activate</a>
+        {% endif %}
       </td>
 
       <td style="min-width: 600px;" class="col text-left">
