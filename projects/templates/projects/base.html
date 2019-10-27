@@ -24,7 +24,17 @@
   <div style="font-weight: bold; background-color: #f8e955;" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom box-shadow sticky-top">
     <h5 class="my-0 mr-md-auto font-weight-light lead">Acieta Projects Site</h5>
     <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" style="color: black;" href="{% url 'index' %}">Projects</a>
+      <a class="nav-item dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Projects
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'index' %}">All Projects</a>
+          <a class="dropdown-item" href="{% url 'viewofftrack' %}">Off Track Projects</a>
+          <a class="dropdown-item" href="{% url 'viewonwatch' %}">On Watch Projects</a>
+          <a class="dropdown-item" href="{% url 'viewontrack' %}">On Track Projects</a>
+        </div>
+      </a>
       <a class="p-2 text-dark" href="{% url 'myprojects' %}">My Projects</a>
       <a class="p-2 text-dark" href="{% url 'pastprojects' %}">Past Projects</a>
       <a class="p-2 text-dark" href="{% url 'create' %}">Create</a>

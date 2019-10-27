@@ -67,7 +67,8 @@ def index(request):
         'num_watch': num_watch,
         'num_on': num_on,
         'status': 'Current',
-        'is_pm': is_pm
+        'is_pm': is_pm,
+        'Title': 'All Projects'
     }
     return render(request, "projects/base_projects.html", context)
 
@@ -118,6 +119,7 @@ def printable(request):
     context = {
         'projects': projects,
         'time': now,
+        'title': 'All Projects'
     }
     return render(request, "projects/base_printprojects.html", context)
 
@@ -361,6 +363,96 @@ def onwatch(request):
         proj.save()
     else:
         return redirect('/projects/')
+#returns projects ontrack
+@login_required
+@never_cache
+def viewontrack(request):
+    #TODO: condense all HTML views to run through this one
+    user = request.user
+    projects_list = Project.objects.all().exclude(iscurrent=False).filter(Status='ontrack')
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    #number of project off track
+    num_off = projects_list.filter(Status="offtrack").count()
+    #number of project on watch
+    num_watch = projects_list.filter(Status="onwatch").count()
+    #number of project on track
+    num_on = projects_list.filter(Status="ontrack").count()
+    #saving info to pass to the template
+    is_pm = request.user.groups.filter(name='Project_Manager').exists()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'num_off': num_off,
+        'num_watch': num_watch,
+        'num_on': num_on,
+        'status': 'Current',
+        'is_pm': is_pm,
+        'Title': 'On Track'
+    }
+    return render(request, "projects/base_projects.html", context)
+
+#returns projects ontrack
+@login_required
+@never_cache
+def viewofftrack(request):
+    #TODO: condense all HTML views to run through this one
+    user = request.user
+    projects_list = Project.objects.all().exclude(iscurrent=False).filter(Status='offtrack')
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    #number of project off track
+    num_off = projects_list.filter(Status="offtrack").count()
+    #number of project on watch
+    num_watch = projects_list.filter(Status="onwatch").count()
+    #number of project on track
+    num_on = projects_list.filter(Status="ontrack").count()
+    #saving info to pass to the template
+    is_pm = request.user.groups.filter(name='Project_Manager').exists()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'num_off': num_off,
+        'num_watch': num_watch,
+        'num_on': num_on,
+        'status': 'Current',
+        'is_pm': is_pm,
+        'Title': 'Off Track'
+    }
+    return render(request, "projects/base_projects.html", context)
+
+#returns projects ontrack
+@login_required
+@never_cache
+def viewonwatch(request):
+    #TODO: condense all HTML views to run through this one
+    user = request.user
+    projects_list = Project.objects.all().exclude(iscurrent=False).filter(Status='onwatch')
+    # projects_list = reversed(projects_list.exclude(iscurrent=False))
+    num_proj = projects_list.count()
+    #number of project off track
+    num_off = projects_list.filter(Status="offtrack").count()
+    #number of project on watch
+    num_watch = projects_list.filter(Status="onwatch").count()
+    #number of project on track
+    num_on = projects_list.filter(Status="ontrack").count()
+    #saving info to pass to the template
+    is_pm = request.user.groups.filter(name='Project_Manager').exists()
+    context = {
+        'projects': projects_list,
+        'num_proj': num_proj,
+        'today': date.today(),
+        'num_off': num_off,
+        'num_watch': num_watch,
+        'num_on': num_on,
+        'status': 'Current',
+        'is_pm': is_pm,
+        'Title': 'On Watch'
+    }
+    return render(request, "projects/base_projects.html", context)
+
 
 #closing out a project based on a get request - note need to update this method.
 @login_required
