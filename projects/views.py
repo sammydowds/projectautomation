@@ -110,12 +110,31 @@ def printable(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
     filtered_projects = []
-    filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
-    filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
-    filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
+    projects = Project.objects.all()
+    # filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
+    # filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
+    # filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
     now = datetime.datetime.now()
     context = {
-        'filtered_projects': filtered_projects,
+        'projects': projects,
+        'time': now,
+    }
+    return render(request, "projects/base_printprojects.html", context)
+
+#printable version of projects
+@login_required
+@never_cache
+def myprintable(request):
+    #TODO: condense all HTML views to run through this one
+    user = request.user
+    filtered_projects = []
+    projects = Project.objects.filter(projectmanager=user)
+    # filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
+    # filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
+    # filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
+    now = datetime.datetime.now()
+    context = {
+        'projects': projects,
         'time': now,
     }
     return render(request, "projects/base_printprojects.html", context)

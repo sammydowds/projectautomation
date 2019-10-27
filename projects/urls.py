@@ -18,6 +18,7 @@ urlpatterns = [
     path('myprojects/', views.myprojects, name = "myprojects"),
     path('planner/', views.planner, name = "planner"),
     path('printable/', views.printable, name = "printable"),
+    path('myprintable/', views.myprintable, name = "myprintable"),
     path('thisweek/', views.thisweek, name = "thisweek"),
     path('ontrack/', views.ontrack, name = "ontrack"),
     path('offtrack/', views.offtrack, name = "offtrack"),
