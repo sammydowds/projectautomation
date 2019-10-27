@@ -22,5 +22,7 @@ urlpatterns = [
     path('ontrack/', views.ontrack, name = "ontrack"),
     path('offtrack/', views.offtrack, name = "offtrack"),
     path('onwatch/', views.onwatch, name = "onwatch"),
+    path('scheduled/', views.scheduled, name = "scheduled"),
+    path('notscheduled/', views.notscheduled, name = "notscheduled"),
     path('milestonecomplete/', views.milestonecomplete, name = "milestonecomplete")
 ]

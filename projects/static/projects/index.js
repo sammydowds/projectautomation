@@ -1,5 +1,40 @@
 // using jQuery
 
+function nowScheduled(element) {
+  const projectnumber = element.name;
+  const request = new XMLHttpRequest();
+  request.open('POST', '/projects/scheduled/');
+  var csrftoken = getCookie('csrftoken');
+  request.setRequestHeader("X-CSRFToken", csrftoken);
+
+  request.onload = function(){
+    card = document.getElementById(element.id.concat('_status'));
+    card.className = "badge badge-success";
+    card.onclick = "notScheduled(this)"
+    card.innerHTML = "Scheduled";
+    }
+  var data = new FormData();
+  data.append('projectnumber', projectnumber);
+  request.send(data);
+}
+
+function notScheduled(element) {
+  const projectnumber = element.name;
+  const request = new XMLHttpRequest();
+  request.open('POST', '/projects/notscheduled/');
+  var csrftoken = getCookie('csrftoken');
+  request.setRequestHeader("X-CSRFToken", csrftoken);
+
+  request.onload = function(){
+    card = document.getElementById(element.id.concat('_status'));
+    card.className = "badge badge-warning";
+    card.innerHTML = "Not Scheduled";
+    }
+  var data = new FormData();
+  data.append('projectnumber', projectnumber);
+  request.send(data);
+}
+
 function completeMilestone(k) {
   console.log("TEST");
   const projectnumber = k.id;
@@ -98,13 +133,4 @@ function updateOfftrack(k) {
   var data = new FormData();
   data.append('projectnumber', projectnumber);
   request.send(data);
-}
-
-function copyToClipboard(element) {
-  console.log('Working');
-  var $temp = $("<input>");
-  $("body").append($temp);
-  $temp.val($(element).text()).select();
-  document.execCommand("copy");
-  $temp.remove();
 }

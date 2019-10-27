@@ -133,7 +133,7 @@ def pastprojects(request):
         'title': 'Past',
         'projects': projects_list,
         'num_proj': num_proj,
-        'today': date.today(),
+        'today': date.today,
         'status': 'Past',
         'is_pm': is_pm
     }
@@ -143,24 +143,11 @@ def pastprojects(request):
 @login_required
 @never_cache
 def planner(request):
-    user = request.user
-    today = datetime.datetime.now()
-    #note, probably better way to do the following
-    parsed_milestones = []
-    parsed_milestones.append({'Mechanical Engineering': list(Project.objects.all().filter(iscurrent=True, Mechanical_Release__gte=today).order_by('Mechanical_Release').values('projectnumber','projectname','Mechanical_Release', 'Status'))})
-    parsed_milestones.append({'Electrical Engineering': list(Project.objects.all().filter(iscurrent=True, Electrical_Release__gte=today).order_by('Electrical_Release').values('projectnumber','projectname','Electrical_Release', 'Status'))})
-    parsed_milestones.append({'Manufacturing': list(Project.objects.all().filter(iscurrent=True, Manufacturing__gte=today).order_by('Manufacturing').values('projectnumber','projectname','Manufacturing', 'Status'))})
-    parsed_milestones.append({'Finishing': list(Project.objects.all().filter(iscurrent=True, Finishing__gte=today).order_by('Finishing').values('projectnumber','projectname','Finishing', 'Status'))})
-    parsed_milestones.append({'Assembly': list(Project.objects.all().filter(iscurrent=True, Assembly__gte=today).order_by('Assembly').values('projectnumber','projectname','Assembly', 'Status'))})
-    parsed_milestones.append({'Ship': list(Project.objects.all().filter(iscurrent=True, Ship__gte=today).order_by('Ship').values('projectnumber','projectname','Ship', 'Status'))})
-    parsed_milestones.append({'Integration': list(Project.objects.all().filter(iscurrent=True, Customer_Runoff__gte=today).order_by('Customer_Runoff').values('projectnumber','projectname', 'Internal_Runoff', 'Customer_Runoff', 'Status'))})
-
+    projects = Project.objects.all()
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
-        'info': parsed_milestones,
+        'projects': projects,
         'time': datetime.datetime.now(),
-        'status': 'Past'
-
     }
     return render(request, "projects/base_planner.html", context)
 
@@ -367,6 +354,35 @@ def activation(request, num):
         proj.iscurrent = not proj.iscurrent
         proj.save()
         return redirect('/projects')
+
+#marking scheduled as true
+@login_required
+@never_cache
+def scheduled(request):
+    if request.method == "POST":
+        num = request.POST['projectnumber']
+        print(num)
+        proj = Project.objects.get(projectnumber=num)
+        print(proj)
+        print(proj.scheduled)
+        proj.scheduled = True
+        proj.save()
+        return redirect('/planner')
+    else:
+        return redirect('/projects/')
+
+#marking scheduled as false
+@login_required
+@never_cache
+def notscheduled(request):
+    if request.method == "POST":
+        num = request.POST['projectnumber']
+        print(num)
+        proj = Project.objects.get(projectnumber=num)
+        proj.scheduled = False
+        proj.save()
+    else:
+        return redirect('/projects/')
 
 #logout user
 def logout(request):

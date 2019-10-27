@@ -11,7 +11,9 @@ class ProjectForm(forms.ModelForm):
         exclude = ('lastupdated', \
                     'Status', \
                     'iscurrent', \
-                    'Slippage')
+                    'Slippage', \
+                    'scheduled', \
+                    )
                     # 'Mechanical_Release_Complete', \
                     # 'Electrical_Release_Complete', \
                     # 'Manufacturing_Complete', \

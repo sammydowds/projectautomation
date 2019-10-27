@@ -5,39 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div class="container justify-content-center main">
-  <div class="px-5 py-5 row text-center">
-    <div class="col">
-      <h4> Projects as of {{time}}</h4>
-    </div>
-  </div>
-  {% for milestone in info %}
-    {% for name, projects in milestone.items %}
-      <div style="padding-top: 20px;" class="row justify-content-center">
-        <div class="col-10">
-          <h3>{{name}} Deadlines</h3>
-          <table class="table table-responsive-sm table-bordered">
-            <thead>
-              <tr>
-                {% for info_name in projects.0 %}
-                  <th scope="col">{{info_name}}</th>
-                {% endfor %}
-              </tr>
-            </thead>
-            <tbody>
-              {% for project in projects %}
-                <tr>
-                  {% for key, value in project.items %}
-                    <td>{{value}}</td>
-                  {%endfor%}
-                </tr>
-              {%endfor%}
-            </tbody>
-        </table>
-        </div>
-      </div>
-    {%endfor%}
-{%endfor%}
-</div>
+
+{% include "projects/snapshot_planner.html" %}
 
 {% endblock %}
