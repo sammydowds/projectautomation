@@ -138,6 +138,7 @@ def myprintable(request):
     context = {
         'projects': projects,
         'time': now,
+        'title': str(user.first_name) + "'s Projects"
     }
     return render(request, "projects/base_printprojects.html", context)
 
