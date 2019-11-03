@@ -28,7 +28,13 @@
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-danger">Off Track</span></td>
               <td>{{project.projectnumber}}</td>
               <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td>{{project.current_milestone.name}}</td>
+              <td>
+                {{project.current_milestone.name}}
+                {% if not project.current_milestone.scheduled %}
+                  <a style="font-size: 12px;"><span class="badge badge-warning">Not Scheduled</span></a>
+                {% else %}
+                  <a style="font-size: 12px;"><span class="badge badge-success">Scheduled</span></a>
+                {% endif %}</td>
               <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.current_milestone.end}}</td>
               <td style="width: 200px;">
@@ -44,7 +50,13 @@
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span></td>
               <td>{{project.projectnumber}}</td>
               <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td class="text-nowrap">{{project.current_milestone.name}}</td>
+              <td class="text-nowrap">
+                {{project.current_milestone.name}}
+                {% if not project.current_milestone.scheduled %}
+                  <a style="font-size: 12px;"><span class="badge badge-warning">Not Scheduled</span></a>
+                {% else %}
+                  <a style="font-size: 12px;"><span class="badge badge-success">Scheduled</span></a>
+                {% endif %}</td>
               <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.current_milestone.end}}</td>
               <td>
@@ -59,7 +71,14 @@
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span></td>
               <td>{{project.projectnumber}}</td>
               <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td>{{project.current_milestone.name}}</td>
+              <td>
+                {{project.current_milestone.name}}
+                {% if not project.current_milestone.scheduled %}
+                  <a style="font-size: 12px;"><span class="badge badge-warning">Not Scheduled</span></a>
+                {% else %}
+                  <a style="font-size: 12px;"><span class="badge badge-success">Scheduled</span></a>
+                {% endif %}
+              </td>
               <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.current_milestone.end}}</td>
               <td>

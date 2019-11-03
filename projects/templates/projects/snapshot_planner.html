@@ -2,7 +2,7 @@
 
   <div class="row pb-5 text-center">
     <div class="col">
-      <h3>Next Milestones</h3>
+      <h3>{{milestone}}</h3>
     </div>
   </div>
 
@@ -26,10 +26,10 @@
             <tr>
               <td>{{project.projectnumber}}</td>
               <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td>{{project.current_milestone.name}}</td>
-              <td><a class="font-italic text-danger text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
-              <td class="text-nowrap">{{project.current_milestone.end}}</td>
-              {% if project.scheduled %}
+              <td>{{milestone}}</td>
+              <td><a class="font-italic text-danger text-nowrap">{{project.milestone|timeuntil}}</a></td>
+              <td class="text-nowrap">{{project.milestone}}</td>
+              {% if project.milestone_scheduled %}
                 <td style="width: 200px;">
                   <h4><span id="{{project.projectnumber}}_schedule_status" class="badge badge-success">Scheduled</span></h4>
                 </td>

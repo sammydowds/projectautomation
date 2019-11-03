@@ -27,7 +27,7 @@ class Project(models.Model):
     Manufacturing_Scheduled = models.BooleanField(default=False)
     Finishing = models.DateField(blank=True, null = True)
     Finishing_Complete = models.BooleanField(default=False)
-    Finishing_Scheduled = models.BooleanField(default=False)
+    Finishing_Scheduled = models.BooleanField(default=True)
     Assembly = models.DateField(blank=True, null = True)
     Assembly_Complete = models.BooleanField(default=False)
     Assembly_Scheduled = models.BooleanField(default=False)
@@ -45,7 +45,7 @@ class Project(models.Model):
     Install_Start_Scheduled = models.BooleanField(default=False)
     Install_Finish = models.DateField(blank=True, null = True)
     Install_Finish_Complete= models.BooleanField(default=False)
-    Install_FinishSchedulede= models.BooleanField(default=False)
+    Install_Finish_Scheduled= models.BooleanField(default=False)
     Documentation = models.DateField(blank=True, null = True)
     Documentation_Complete = models.BooleanField(default=False)
     Documentation_Scheduled = models.BooleanField(default=False)
@@ -94,8 +94,12 @@ class Project(models.Model):
             duration = self.busdays_between(end, start)
             #status of the milestone
             status = dict_project[list_milestones[i]+ '_Complete']
+            #status of the milestone
+            scheduled = dict_project[list_milestones[i] + '_Scheduled']
+            print(scheduled)
+            print(list_milestones[i])
             #storing information to dictionary
-            dict_milestones[list_milestones[i]] = {'start': start, 'end': end, 'duration': duration, 'status': status}
+            dict_milestones[list_milestones[i]] = {'start': start, 'end': end, 'duration': duration, 'status': status, 'scheduled': scheduled}
 
         return dict_milestones
 
@@ -145,7 +149,7 @@ class Project(models.Model):
 
         #if date is in the past or no dates exits
         if milestone == {}:
-            milestone = {'name': 'Review Dates', 'start': None, 'end': None, 'duration': None, 'days_until': None}
+            milestone = {'name': 'Review Dates', 'start': None, 'end': None, 'duration': None, 'days_until': None, 'scheduled': False}
             return milestone
 
     #checking if a milestone has been complete in one of the projects

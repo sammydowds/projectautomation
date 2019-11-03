@@ -1,7 +1,8 @@
 // using jQuery
-
-function nowScheduled(element) {
-  const projectnumber = element.name;
+//TODO note, this is bad design on the scheduled functions - should not isolate?
+function nowScheduled(element, proj_num, milestone) {
+  const projectnumber = proj_num;
+  console.log(milestone);
   const request = new XMLHttpRequest();
   request.open('POST', '/projects/scheduled/');
   var csrftoken = getCookie('csrftoken');
@@ -10,16 +11,17 @@ function nowScheduled(element) {
   request.onload = function(){
     card = document.getElementById(element.id.concat('_status'));
     card.className = "badge badge-success";
-    card.onclick = "notScheduled(this)"
     card.innerHTML = "Scheduled";
     }
   var data = new FormData();
   data.append('projectnumber', projectnumber);
+  data.append('milestone', milestone);
   request.send(data);
 }
 
-function notScheduled(element) {
-  const projectnumber = element.name;
+function notScheduled(element, proj_num, milestone) {
+  const projectnumber = proj_num;
+  console.log(milestone);
   const request = new XMLHttpRequest();
   request.open('POST', '/projects/notscheduled/');
   var csrftoken = getCookie('csrftoken');
@@ -32,6 +34,7 @@ function notScheduled(element) {
     }
   var data = new FormData();
   data.append('projectnumber', projectnumber);
+  data.append('milestone', milestone);
   request.send(data);
 }
 

@@ -1,0 +1,53 @@
+<div class="container">
+
+  <div class="row pb-5 text-center">
+    <div class="col">
+      <h3>Assembly</h3>
+    </div>
+  </div>
+
+  <div class="row pb-5">
+    <div class="col overflow-auto">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-left text-nowrap">
+        <thead>
+          <thead>
+            <tr>
+              <th colspan='2' scope="col">Project</th>
+              <th scope="col">Milestone</th>
+              <th scope="col"> Due in </th>
+              <th scope="col"> Date Due </th>
+              <th scope="col"></th>
+              <th scope="col">Scheduled</th>
+            </tr>
+          </thead>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            {% if project.Assembly_Complete != True and project.Assembly > time.date %}
+              <tr>
+                <td>{{project.projectnumber}}</td>
+                <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+                <td>Assembly</td>
+                <td><a class="font-italic text-danger text-nowrap">{{project.Assembly|timeuntil}}</a></td>
+                <td class="text-nowrap">{{project.Assembly}}</td>
+                {% if project.Assembly_Scheduled %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_Assembly_schedule_status" class="badge badge-success">Scheduled</span></h4>
+                  </td>
+                {% else %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_Assembly_schedule_status" class="badge badge-warning">Not Scheduled</span></h4>
+                  </td>
+                {% endif %}
+                <td style="width: 500px;">
+                  <button id ="{{ project.projectnumber }}_Assembly_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'Assembly_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
+                  <button id ="{{ project.projectnumber }}_Assembly_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'Assembly_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

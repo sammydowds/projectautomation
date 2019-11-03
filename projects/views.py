@@ -111,7 +111,7 @@ def printable(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
     filtered_projects = []
-    projects = Project.objects.all()
+    projects = Project.objects.all().filter(iscurrent=True)
     # filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
     # filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
     # filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
@@ -165,11 +165,23 @@ def pastprojects(request):
 @login_required
 @never_cache
 def planner(request):
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('projectnumber').exclude(iscurrent=False, )
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
         'projects': projects,
         'time': datetime.datetime.now(),
+        'list_milestones': ['Mechanical_Release',\
+        'Electrical_Release', \
+        'Manufacturing',\
+        'Finishing',\
+        'Assembly',\
+        'Internal_Runoff', \
+        'Customer_Runoff', \
+        'Ship', \
+        'Install_Start', \
+        'Install_Finish', \
+        'Documentation', \
+        ]
     }
     return render(request, "projects/base_planner.html", context)
 
@@ -467,19 +479,18 @@ def activation(request, num):
         proj.save()
         return redirect('/projects')
 
+#TODO: note, this is probably bad design to have two schedule functions for marking True and False - might consider switching to one
 #marking scheduled as true
 @login_required
 @never_cache
 def scheduled(request):
     if request.method == "POST":
         num = request.POST['projectnumber']
-        print(num)
+        milestone = request.POST['milestone']
         proj = Project.objects.get(projectnumber=num)
-        print(proj)
-        print(proj.scheduled)
-        proj.scheduled = True
+        setattr(proj, milestone, True)
         proj.save()
-        return redirect('/planner')
+        return redirect('/projects/planner')
     else:
         return redirect('/projects/')
 
@@ -489,10 +500,15 @@ def scheduled(request):
 def notscheduled(request):
     if request.method == "POST":
         num = request.POST['projectnumber']
-        print(num)
+        print("TESTING")
+        milestone = request.POST['milestone']
+        print('Testing')
+        print(milestone)
         proj = Project.objects.get(projectnumber=num)
-        proj.scheduled = False
+        print(proj)
+        setattr(proj, milestone, False)
         proj.save()
+        return redirect('/projects/planner')
     else:
         return redirect('/projects/')
 

@@ -79,6 +79,11 @@
                       <p class="card-text">
                         <hr>
                         <h5>{{values.end}}</h5>
+                        {% if not values.scheduled %}
+                          <h5><span class="badge badge-warning">Not Scheduled</span></h5>
+                        {% else %}
+                          <h5><span class="badge badge-success">Scheduled</span></h5>
+                        {% endif %}
                       </p>
                     </div>
                     <div class="card-footer bg-transparent">
@@ -109,6 +114,11 @@
                     <span class="badge badge-sm badge-pill badge-light">in {{ values.end|timeuntil:today }}</span>
                   {% endif %}
                   <hr>{{values.end}}
+                  {% if not values.scheduled %}
+                    <a class="text-small"><span class="badge badge-warning">Not Scheduled</span></a>
+                  {% else %}
+                    <a class="text-small"><span class="badge badge-success">Scheduled</span></a>
+                  {% endif %}
                 </li>
               {% endif %}
             {%endfor%}

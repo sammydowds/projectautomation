@@ -6,6 +6,48 @@
 
 {% block main %}
 
-{% include "projects/snapshot_planner.html" %}
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Engineering Deadlines </h3>
+      {% include "projects/snapshot_planner_engineering.html" %}
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Manufacturing Deadlines </h3>
+      {% include "projects/snapshot_planner_manufacturing.html" %}
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Assembly Deadlines </h3>
+      {% include "projects/snapshot_planner_assembly.html" %}
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Integration Deadlines </h3>
+      {% include "projects/snapshot_planner_integration.html" %}
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Ship Deadlines </h3>
+      {% include "projects/snapshot_planner_shipping.html" %}
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Install Deadlines </h3>
+      {% include "projects/snapshot_planner_install.html" %}
+  </div>
+</div>
+
+
 
 {% endblock %}
