@@ -382,7 +382,9 @@ def onwatch(request):
 def viewontrack(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
-    projects_list = Project.objects.all().exclude(iscurrent=False).filter(Status='ontrack')
+
+    projects_list= Project.objects.all().exclude(iscurrent=False)
+    projects_list_ontrack = Project.objects.all().exclude(iscurrent=False).filter(Status='ontrack')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     #number of project off track
@@ -394,7 +396,7 @@ def viewontrack(request):
     #saving info to pass to the template
     is_pm = request.user.groups.filter(name='Project_Manager').exists()
     context = {
-        'projects': projects_list,
+        'projects': projects_list_ontrack,
         'num_proj': num_proj,
         'today': date.today(),
         'num_off': num_off,
@@ -412,7 +414,8 @@ def viewontrack(request):
 def viewofftrack(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
-    projects_list = Project.objects.all().exclude(iscurrent=False).filter(Status='offtrack')
+    projects_list= Project.objects.all().exclude(iscurrent=False)
+    projects_list_off = Project.objects.all().exclude(iscurrent=False).filter(Status='offtrack')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     #number of project off track
@@ -424,7 +427,7 @@ def viewofftrack(request):
     #saving info to pass to the template
     is_pm = request.user.groups.filter(name='Project_Manager').exists()
     context = {
-        'projects': projects_list,
+        'projects': projects_list_off,
         'num_proj': num_proj,
         'today': date.today(),
         'num_off': num_off,
@@ -442,7 +445,9 @@ def viewofftrack(request):
 def viewonwatch(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
-    projects_list = Project.objects.all().exclude(iscurrent=False).filter(Status='onwatch')
+
+    projects_list= Project.objects.all().exclude(iscurrent=False)
+    projects_list_onwatch = Project.objects.all().exclude(iscurrent=False).filter(Status='onwatch')
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
     #number of project off track
@@ -454,7 +459,7 @@ def viewonwatch(request):
     #saving info to pass to the template
     is_pm = request.user.groups.filter(name='Project_Manager').exists()
     context = {
-        'projects': projects_list,
+        'projects': projects_list_onwatch,
         'num_proj': num_proj,
         'today': date.today(),
         'num_off': num_off,
