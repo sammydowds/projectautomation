@@ -493,6 +493,10 @@ def scheduled(request):
         num = request.POST['projectnumber']
         milestone = request.POST['milestone']
         proj = Project.objects.get(projectnumber=num)
+        if milestone == 'Install_Start_Scheduled':
+            setattr(proj, 'Install_Finish_Scheduled', True)
+        if milestone == 'Manufacturing_Scheduled':
+            setattr(proj, 'Finishing_Scheduled', True)
         setattr(proj, milestone, True)
         proj.save()
         return redirect('/projects/planner')
@@ -505,12 +509,12 @@ def scheduled(request):
 def notscheduled(request):
     if request.method == "POST":
         num = request.POST['projectnumber']
-        print("TESTING")
         milestone = request.POST['milestone']
-        print('Testing')
-        print(milestone)
         proj = Project.objects.get(projectnumber=num)
-        print(proj)
+        if milestone == 'Install_Start_Scheduled':
+            setattr(proj, 'Install_Finish_Scheduled', False)
+        if milestone == 'Manufacturing_Scheduled':
+            setattr(proj, 'Finishing_Scheduled', False)
         setattr(proj, milestone, False)
         proj.save()
         return redirect('/projects/planner')
