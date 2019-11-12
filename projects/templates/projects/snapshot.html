@@ -8,7 +8,7 @@
 
   <div class="row pb-5">
     <div class="col overflow-auto">
-      <table id="snapshot" class="table table-sm table-hover justify-content-center text-left">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-center">
         <thead>
           <thead>
             <tr>
@@ -27,8 +27,8 @@
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-danger">Off Track</span></td>
               <td>{{project.projectnumber}}</td>
-              <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td>
+              <td style="min-width: 275px;" class="text-left"><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+              <td class="text-nowrap">
                 {{project.current_milestone.name}}
                 {% if not project.current_milestone.scheduled %}
                   <a style="font-size: 12px;"><span class="badge badge-warning">Not Scheduled</span></a>
@@ -49,7 +49,7 @@
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-warning">On Watch</span></td>
               <td>{{project.projectnumber}}</td>
-              <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+              <td style="min-width: 275px;" class="text-left"><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
               <td class="text-nowrap">
                 {{project.current_milestone.name}}
                 {% if not project.current_milestone.scheduled %}
@@ -70,8 +70,8 @@
             <tr>
               <td><span id="{{project.projectnumber}}_status_badge" class="badge badge-sm badge-success">On Track</span></td>
               <td>{{project.projectnumber}}</td>
-              <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td>
+              <td style="min-width: 275px;" class="text-left"><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+              <td class="text-nowrap">
                 {{project.current_milestone.name}}
                 {% if not project.current_milestone.scheduled %}
                   <a style="font-size: 12px;"><span class="badge badge-warning">Not Scheduled</span></a>
