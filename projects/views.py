@@ -111,7 +111,7 @@ def printable(request):
     #TODO: condense all HTML views to run through this one
     user = request.user
     filtered_projects = []
-    projects = Project.objects.all().filter(iscurrent=True)
+    projects = Project.objects.all().order_by('projectnumber').filter(iscurrent=True)
     # filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
     # filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
     # filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
