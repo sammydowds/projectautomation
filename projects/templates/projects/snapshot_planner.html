@@ -30,11 +30,11 @@
               <td><a class="font-italic text-danger text-nowrap">{{project.milestone|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.milestone}}</td>
               {% if project.milestone_scheduled %}
-                <td style="width: 200px;">
+                <td style="width: 200px;" class="text-center">
                   <h4><span id="{{project.projectnumber}}_schedule_status" class="badge badge-success">Scheduled</span></h4>
                 </td>
               {% else %}
-                <td style="width: 200px;">
+                <td style="width: 200px;" class="text-center">
                   <h4><span id="{{project.projectnumber}}_schedule_status" class="badge badge-warning">Not Scheduled</span></h4>
                 </td>
               {% endif %}
