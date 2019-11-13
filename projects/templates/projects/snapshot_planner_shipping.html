@@ -33,8 +33,8 @@
                   </td>
                 {% endif %}
                 <td style="width: 500px;">
-                  <button id ="{{ project.projectnumber }}_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this)" type="button" class="btn btn-sm btn-secondary">Yes</button>
-                  <button id ="{{ project.projectnumber }}_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this)" type="button" class="btn btn-sm btn-info">No</button>
+                  <button id ="{{ project.projectnumber }}_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'Ship_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
+                  <button id ="{{ project.projectnumber }}_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'Ship_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
                 </td>
               </tr>
             {% endif %}
