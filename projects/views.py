@@ -169,7 +169,7 @@ def planner(request):
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     context = {
         'projects': projects,
-        'time': datetime.datetime.now(),
+        'today': datetime.datetime.now(),
         'list_milestones': ['Mechanical_Release',\
         'Electrical_Release', \
         'Manufacturing',\

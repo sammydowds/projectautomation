@@ -2,14 +2,13 @@
 
   <div class="row pb-5">
     <div class="col overflow-auto">
-      <table id="snapshot" class="table table-sm table-hover justify-content-center text-left text-nowrap">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-center text-nowrap">
         <thead>
           <thead>
             <tr>
               <th colspan='2' scope="col">Project</th>
-              <th scope="col">Milestone</th>
               <th scope="col"> Due in </th>
-              <th scope="col"> Date Due </th>
+              <th scope="col"> Dates </th>
               <th scope="col"></th>
               <th scope="col">Scheduled</th>
             </tr>
@@ -17,13 +16,12 @@
         </thead>
         <tbody>
           {% for project in projects %}
-            {% if project.Manufacturing_Complete != True and project.Manufacturing > time.date %}
+            {% if project.Manufacturing_Complete != True and project.Manufacturing > today.date %}
               <tr>
                 <td>{{project.projectnumber}}</td>
                 <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-                <td>Manufacturing</td>
                 <td><a class="font-italic text-danger text-nowrap">{{project.Manufacturing|timeuntil}}</a></td>
-                <td class="text-nowrap">{{project.Manufacturing}}</td>
+                <td class="text-nowrap">{{project.Mechanical_Release}} - {{project.Manufacturing}}</td>
                 {% if project.Manufacturing_Scheduled %}
                   <td style="width: 200px;">
                     <h4><span id="{{project.projectnumber}}_Manufacturing_schedule_status" class="badge badge-success">Scheduled</span></h4>

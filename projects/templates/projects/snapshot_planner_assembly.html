@@ -2,12 +2,11 @@
 
   <div class="row pb-5">
     <div class="col overflow-auto">
-      <table id="snapshot" class="table table-sm table-hover justify-content-center text-left text-nowrap">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-center text-nowrap">
         <thead>
           <thead>
             <tr>
               <th colspan='2' scope="col">Project</th>
-              <th scope="col">Milestone</th>
               <th scope="col"> Due in </th>
               <th scope="col"> Date Due </th>
               <th scope="col"></th>
@@ -17,13 +16,12 @@
         </thead>
         <tbody>
           {% for project in projects %}
-            {% if project.Assembly_Complete != True and project.Assembly > time.date %}
+            {% if project.Assembly_Complete != True and project.Assembly > today.date %}
               <tr>
                 <td>{{project.projectnumber}}</td>
                 <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-                <td>Assembly</td>
                 <td><a class="font-italic text-danger text-nowrap">{{project.Assembly|timeuntil}}</a></td>
-                <td class="text-nowrap">{{project.Assembly}}</td>
+                <td class="text-nowrap">{{project.Finishing}} - {{project.Assembly}}</td>
                 {% if project.Assembly_Scheduled %}
                   <td style="width: 200px;">
                     <h4><span id="{{project.projectnumber}}_Assembly_schedule_status" class="badge badge-success">Scheduled</span></h4>

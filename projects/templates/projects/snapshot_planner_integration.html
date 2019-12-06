@@ -3,14 +3,13 @@
 
   <div class="row pb-5">
     <div class="col overflow-auto">
-      <table id="snapshot" class="table table-sm table-hover justify-content-center text-left text-nowrap">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-center text-nowrap">
         <thead>
           <thead>
             <tr>
               <th colspan='2' scope="col">Project</th>
-              <th scope="col">Milestone</th>
-              <th scope="col"> Install Starts in </th>
-              <th scope="col"> Date Due </th>
+              <th scope="col"> Due in </th>
+              <th scope="col"> Dates </th>
               <th scope="col"></th>
               <th scope="col">Scheduled</th>
             </tr>
@@ -18,13 +17,12 @@
         </thead>
         <tbody>
           {% for project in projects %}
-          {% if project.Internal_Runoff_Complete != True and project.Internal_Runoff > time.date %}
+          {% if project.Internal_Runoff_Complete != True and project.Internal_Runoff > today.date %}
             <tr>
               <td>{{project.projectnumber}}</td>
               <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
-              <td>Internal_Runoff</td>
               <td><a class="font-italic text-danger text-nowrap">{{project.Internal_Runoff|timeuntil}}</a></td>
-              <td class="text-nowrap">{{project.Internal_Runoff}}</td>
+              <td class="text-nowrap">{{project.Assembly}} - {{project.Internal_Runoff}}</td>
               {% if project.Internal_Runoff_Scheduled %}
                 <td style="width: 200px;">
                   <h4><span id="{{project.projectnumber}}_Internal_Runoff_schedule_status" class="badge badge-success">Scheduled</span></h4>
@@ -40,7 +38,7 @@
               </td>
             </tr>
           {% endif %}
-            {% if project.Customer_Runoff_Complete != True and project.Customer_Runoff > time.date %}
+            <!-- {% if project.Customer_Runoff_Complete != True and project.Customer_Runoff > time.date %}
               <tr>
                 <td>{{project.projectnumber}}</td>
                 <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
@@ -60,8 +58,8 @@
                   <button id ="{{ project.projectnumber }}_Customer_Runoff_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'Customer_Runoff_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
                   <button id ="{{ project.projectnumber }}_Customer_Runoff_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'Customer_Runoff_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
                 </td>
-              </tr>
-            {% endif %}
+              </tr> -->
+            <!-- {% endif %} -->
           {% endfor %}
         </tbody>
       </table>

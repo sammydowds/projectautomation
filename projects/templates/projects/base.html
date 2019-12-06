@@ -50,10 +50,10 @@
 </body>
 
 <main>
-  <div class="d-flex fixed-bottom justify-content-end py-3 px-5">
-    <a href="#snapshot" class="btn btn-lg btn-secondary" role="button">Jump To Top</a>
+  {% block main %}{% endblock %}
+  <div class="d-flex fixed-bottom justify-content-end pb-1 pt-5 px-5">
+    <a href="#snapshot" class="btn btn-sm btn-secondary" role="button">Jump To Top</a>
   </div>
-    {% block main %}{% endblock %}
 </main>
 
 

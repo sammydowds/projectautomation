@@ -36,7 +36,7 @@
 
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Ship Deadlines </h3>
+    <h3> Tear Down & Ship Deadlines </h3>
       {% include "projects/snapshot_planner_shipping.html" %}
   </div>
 </div>
@@ -45,6 +45,14 @@
   <div class="col pt-3">
     <h3> Install Deadlines </h3>
       {% include "projects/snapshot_planner_install.html" %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    {% for project in projects %}
+      {% include "projects/project_list.html" %}
+    {% endfor %}
   </div>
 </div>
 
