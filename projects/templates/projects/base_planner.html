@@ -1,60 +1,58 @@
 {% extends "projects/base.html" %}
 
 {% block title %}
-    Acieta: {{status}} Projects
+    Company Name: {{status}} Projects
 {% endblock %}
 
 {% block main %}
 
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Engineering Deadlines </h3>
-      {% include "projects/snapshot_planner_engineering.html" %}
+    <h3> Department 1 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneOne.html" %}
   </div>
 </div>
 
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Manufacturing Deadlines </h3>
-      {% include "projects/snapshot_planner_manufacturing.html" %}
+    <h3> Department 2 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneTwo.html" %}
   </div>
 </div>
 
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Assembly Deadlines </h3>
-      {% include "projects/snapshot_planner_assembly.html" %}
+    <h3> Department 3 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneThree.html" %}
   </div>
 </div>
-
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Integration Deadlines </h3>
-      {% include "projects/snapshot_planner_integration.html" %}
+    <h3> Department 4 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneFour.html" %}
   </div>
 </div>
-
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Tear Down & Ship Deadlines </h3>
-      {% include "projects/snapshot_planner_shipping.html" %}
+    <h3> Department 5 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneFive.html" %}
   </div>
 </div>
-
 <div class="row text-center">
   <div class="col pt-3">
-    <h3> Install Deadlines </h3>
-      {% include "projects/snapshot_planner_install.html" %}
+    <h3> Department 6 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneSix.html" %}
+  </div>
+</div>
+<div class="row text-center">
+  <div class="col pt-3">
+    <h3> Department 7 Deadlines </h3>
+      {% include "projects/snapshot_planner_MilestoneSeven.html" %}
   </div>
 </div>
 
-<div class="row">
-  <div class="col">
-    {% for project in projects %}
-      {% include "projects/project_list.html" %}
-    {% endfor %}
-  </div>
-</div>
+
+
 
 
 

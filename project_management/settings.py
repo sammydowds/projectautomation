@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'acieta.urls'
+ROOT_URLCONF = 'project_management.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'acieta.wsgi.application'
+WSGI_APPLICATION = 'project_management.wsgi.application'
 
 
 # Database

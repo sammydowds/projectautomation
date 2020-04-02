@@ -38,11 +38,10 @@
               <td><a class="font-italic text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.current_milestone.end}}</td>
               <td>
-                {% if is_pm %}
                   <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Track</a></button>
                   <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Watch</a></button>
                   <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">Off Track</a></button>
-                {% endif %}
+
               </td>
             </tr>
             {% elif project.Status == 'onwatch' %}
@@ -60,11 +59,9 @@
               <td><a class="font-italic text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.current_milestone.end}}</td>
               <td>
-                {% if is_pm %}
-                  <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Track</a></button>
-                  <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Watch</a></button>
-                  <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">Off Track</a></button>
-                {% endif %}
+                <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Track</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Watch</a></button>
+                <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">Off Track</a></button>
               </td>
             {% elif project.Status == 'ontrack' %}
             <tr>
@@ -82,11 +79,10 @@
               <td><a class="font-italic text-nowrap">{{project.current_milestone.end|timeuntil}}</a></td>
               <td class="text-nowrap">{{project.current_milestone.end}}</td>
               <td>
-                {% if is_pm %}
+
                   <button id ="{{ project.projectnumber }}" onclick="updateOntrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Track</a></button>
                   <button id ="{{project.projectnumber}}" onclick="updateOnwatch(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">On Watch</a></button>
                   <button id ="{{project.projectnumber}}" onclick="updateOfftrack(this)" type="button" class="btn btn-sm btn-outline-dark"><a style="font-size: 8px;">Off Track</a></button>
-                {% endif %}
               </td>
             </tr>
             {% endif %}

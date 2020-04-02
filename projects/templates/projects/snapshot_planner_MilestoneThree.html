@@ -1,0 +1,47 @@
+<div class="container">
+
+  <div class="row py-5">
+    <div class="col overflow-auto">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-center text-nowrap">
+        <thead>
+          <thead>
+            <tr>
+              <th colspan='2' scope="col">Project</th>
+              <th scope="col">Milestone</th>
+              <th scope="col"> Due in </th>
+              <th scope="col"> Date </th>
+              <th scope="col"></th>
+              <th scope="col">Scheduled</th>
+            </tr>
+          </thead>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            {% if project.MilestoneThree_Complete != True and project.MilestoneThree > today.date%}
+              <tr>
+                <td>{{project.projectnumber}}</td>
+                <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+                <td>MilestoneThree</td>
+                <td><a class="font-italic text-danger text-nowrap">{{project.MilestoneThree|timeuntil}}</a></td>
+                <td class="text-nowrap">{{project.MilestoneThree}}</td>
+                {% if project.MilestoneThree_Scheduled %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_MilestoneThree_schedule_status" class="badge badge-success">Scheduled</span></h4>
+                  </td>
+                {% else %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_MilestoneThree_schedule_status" class="badge badge-warning">Not Scheduled</span></h4>
+                  </td>
+                {% endif %}
+                <td style="width: 500px;">
+                  <button id ="{{ project.projectnumber }}_MilestoneThree_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'MilestoneThree_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
+                  <button id ="{{ project.projectnumber }}_MilestoneThree_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'MilestoneThree_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

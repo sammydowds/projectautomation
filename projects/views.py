@@ -170,7 +170,7 @@ def planner(request):
     context = {
         'projects': projects,
         'today': datetime.datetime.now(),
-        'list_milestones': ['Mechanical_Release',\
+        'list_milestones': ['MilestoneOne',\
         'Electrical_Release', \
         'Manufacturing',\
         'Finishing',\
@@ -211,26 +211,26 @@ def update(request, num):
         if form.is_valid():
             form.save()
 
-        #updating the slippage of the current milestone
-        if InitialProject.objects.get(projectnumber=num):
-            #saving current project
-            proj = Project.objects.get(projectnumber=num)
-            #looking up the initial project
-            init_proj = InitialProject.objects.get(projectnumber=num)
-            #saving current milestone
-            milestone = proj.current_milestone()
-            #converting init_proj to dict to look up current milestone
-            init_proj = init_proj.__dict__
-            #calculating timedelta
-
-            if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
-                slippage = milestone['end']-init_proj[milestone['name']]
-                proj.Slippage = int((slippage.days)/7)
-            else:
-                proj.Slippage = proj.Slippage
-
-            #saving project slippage to the model
-            proj.save()
+        # #updating the slippage of the current milestone
+        # if InitialProject.objects.get(projectnumber=num):
+        #     #saving current project
+        #     proj = Project.objects.get(projectnumber=num)
+        #     #looking up the initial project
+        #     init_proj = InitialProject.objects.get(projectnumber=num)
+        #     #saving current milestone
+        #     milestone = proj.current_milestone()
+        #     #converting init_proj to dict to look up current milestone
+        #     init_proj = init_proj.__dict__
+        #     #calculating timedelta
+        #
+        #     if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
+        #         slippage = milestone['end']-init_proj[milestone['name']]
+        #         proj.Slippage = int((slippage.days)/7)
+        #     else:
+        #         proj.Slippage = proj.Slippage
+        #
+        #     #saving project slippage to the model
+        #     proj.save()
 
 
         return redirect('/projects')
@@ -249,34 +249,46 @@ def create(request):
             #note: there has to be a better way to convert a form directly to an object below....!
             new_project = Project(projectname = form.cleaned_data["projectname"],
                                   projectnumber = form.cleaned_data["projectnumber"],\
-                                  Mechanical_Release = form.cleaned_data["Mechanical_Release"],\
-                                  Electrical_Release = form.cleaned_data["Electrical_Release"],\
-                                  Manufacturing = form.cleaned_data["Manufacturing"],\
-                                  Finishing = form.cleaned_data["Finishing"],\
-                                  Assembly = form.cleaned_data["Assembly"],\
-                                  Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
-                                  Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
-                                  Ship = form.cleaned_data["Ship"],\
-                                  Install_Start = form.cleaned_data["Install_Start"],\
-                                  Install_Finish = form.cleaned_data["Install_Finish"],\
-                                  Documentation = form.cleaned_data["Documentation"], \
+                                  MilestoneOne = form.cleaned_data["MilestoneOne"],\
+                                  MilestoneTwo = form.cleaned_data["MilestoneTwo"],\
+                                  MilestoneThree = form.cleaned_data["MilestoneThree"],\
+                                  MilestoneFour = form.cleaned_data["MilestoneFour"],\
+                                  MilestoneFive = form.cleaned_data["MilestoneFive"],\
+                                  MilestoneSix = form.cleaned_data["MilestoneSix"],\
+                                  MilestoneSeven = form.cleaned_data["MilestoneSeven"],\
+                                  # Electrical_Release = form.cleaned_data["Electrical_Release"],\
+                                  # Manufacturing = form.cleaned_data["Manufacturing"],\
+                                  # Finishing = form.cleaned_data["Finishing"],\
+                                  # Assembly = form.cleaned_data["Assembly"],\
+                                  # Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
+                                  # Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
+                                  # Ship = form.cleaned_data["Ship"],\
+                                  # Install_Start = form.cleaned_data["Install_Start"],\
+                                  # Install_Finish = form.cleaned_data["Install_Finish"],\
+                                  # Documentation = form.cleaned_data["Documentation"], \
                                   Status="onwatch",\
                                   projectmanager=form.cleaned_data["projectmanager"] )
             #adding the new project to the initial project table
             #note: there has to be a better way to convert a form directly to an object below....!
             initial_project = InitialProject(projectname = form.cleaned_data["projectname"],
                                   projectnumber = form.cleaned_data["projectnumber"],\
-                                  Mechanical_Release = form.cleaned_data["Mechanical_Release"],\
-                                  Electrical_Release = form.cleaned_data["Electrical_Release"],\
-                                  Manufacturing = form.cleaned_data["Manufacturing"],\
-                                  Finishing = form.cleaned_data["Finishing"],\
-                                  Assembly = form.cleaned_data["Assembly"],\
-                                  Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
-                                  Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
-                                  Ship = form.cleaned_data["Ship"],\
-                                  Install_Start = form.cleaned_data["Install_Start"],\
-                                  Install_Finish = form.cleaned_data["Install_Finish"],\
-                                  Documentation = form.cleaned_data["Documentation"], \
+                                  MilestoneOne = form.cleaned_data["MilestoneOne"],\
+                                  MilestoneTwo = form.cleaned_data["MilestoneTwo"],\
+                                  MilestoneThree = form.cleaned_data["MilestoneThree"],\
+                                  MilestoneFour = form.cleaned_data["MilestoneFour"],\
+                                  MilestoneFive = form.cleaned_data["MilestoneFive"],\
+                                  MilestoneSix = form.cleaned_data["MilestoneSix"],\
+                                  MilestoneSeven = form.cleaned_data["MilestoneSeven"],\
+                                  # Electrical_Release = form.cleaned_data["Electrical_Release"],\
+                                  # Manufacturing = form.cleaned_data["Manufacturing"],\
+                                  # Finishing = form.cleaned_data["Finishing"],\
+                                  # Assembly = form.cleaned_data["Assembly"],\
+                                  # Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
+                                  # Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
+                                  # Ship = form.cleaned_data["Ship"],\
+                                  # Install_Start = form.cleaned_data["Install_Start"],\
+                                  # Install_Finish = form.cleaned_data["Install_Finish"],\
+                                  # Documentation = form.cleaned_data["Documentation"], \
                                   Status = 'onwatch', \
                                   )
 

@@ -1,0 +1,91 @@
+<div class="container">
+
+  <div class="row py-5">
+    <div class="col overflow-auto">
+      <table id="snapshot" class="table table-sm table-hover justify-content-center text-center text-nowrap">
+        <thead>
+          <thead>
+            <tr>
+              <th colspan='2' scope="col">Project</th>
+              <th scope="col">Milestone</th>
+              <th scope="col"> Due in </th>
+              <th scope="col"> Date </th>
+              <th scope="col"></th>
+              <th scope="col">Scheduled</th>
+            </tr>
+          </thead>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+            {% if project.MilestoneFour_Complete != True and project.MilestoneFour > today.date%}
+              <tr>
+                <td>{{project.projectnumber}}</td>
+                <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+                <td>MilestoneFour</td>
+                <td><a class="font-italic text-danger text-nowrap">{{project.MilestoneFour|timeuntil}}</a></td>
+                <td class="text-nowrap">{{project.MilestoneFour}}</td>
+                {% if project.MilestoneFour_Scheduled %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_MilestoneFour_schedule_status" class="badge badge-success">Scheduled</span></h4>
+                  </td>
+                {% else %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_MilestoneFour_schedule_status" class="badge badge-warning">Not Scheduled</span></h4>
+                  </td>
+                {% endif %}
+                <td style="width: 500px;">
+                  <button id ="{{ project.projectnumber }}_MilestoneFour_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'MilestoneFour_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
+                  <button id ="{{ project.projectnumber }}_MilestoneFour_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'MilestoneFour_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
+                </td>
+              </tr>
+            {% endif %}
+            {% if project.Electrical_Release_Complete != True and project.Electrical_Release > today.date %}
+              <tr>
+                <td>{{project.projectnumber}}</td>
+                <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+                <td>Electrical Release</td>
+                <td><a class="font-italic text-danger text-nowrap">{{project.Electrical_Release|timeuntil}}</a></td>
+                <td class="text-nowrap">{{project.Electrical_Release}}</td>
+                {% if project.Electrical_Release_Scheduled == True %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_EE_schedule_status" class="badge badge-success">Scheduled</span></h4>
+                  </td>
+                {% else %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_EE_schedule_status" class="badge badge-warning">Not Scheduled</span></h4>
+                  </td>
+                {% endif %}
+                <td style="width: 500px;">
+                  <button id ="{{project.projectnumber}}_EE_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'Electrical_Release_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
+                  <button id ="{{project.projectnumber}}_EE_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'Electrical_Release_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
+                </td>
+              </tr>
+            {% endif %}
+            {% if project.Documentation_Complete != True and project.Documentation > today.date %}
+              <tr>
+                <td>{{project.projectnumber}}</td>
+                <td><a href='#{{project.projectnumber}}_details' style="text-nowrap">{{project.projectname}}</a></td>
+                <td>Documentation</td>
+                <td><a class="font-italic text-danger text-nowrap">{{project.Documentation|timeuntil}}</a></td>
+                <td class="text-nowrap">{{project.Install_Finish}} - {{project.Documentation}}</td>
+                {% if project.Documentation_Scheduled == True %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_Documentation_schedule_status" class="badge badge-success">Scheduled</span></h4>
+                  </td>
+                {% else %}
+                  <td style="width: 200px;">
+                    <h4><span id="{{project.projectnumber}}_Documentation_schedule_status" class="badge badge-warning">Not Scheduled</span></h4>
+                  </td>
+                {% endif %}
+                <td style="width: 500px;">
+                  <button id ="{{project.projectnumber}}_Documentation_schedule" name="{{ project.projectnumber }}" onclick="nowScheduled(this, {{project.projectnumber}}, 'Documentation_Scheduled')" type="button" class="btn btn-sm btn-secondary">Yes</button>
+                  <button id ="{{project.projectnumber}}_Documentation_schedule" name="{{ project.projectnumber }}" onclick="notScheduled(this, {{project.projectnumber}}, 'Documentation_Scheduled')" type="button" class="btn btn-sm btn-info">No</button>
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

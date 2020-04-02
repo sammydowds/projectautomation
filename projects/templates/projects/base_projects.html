@@ -1,14 +1,14 @@
 {% extends "projects/base.html" %}
 
 {% block title %}
-    Acieta: {{status}} Projects
+    Company Name: {{status}} Projects
 {% endblock %}
 
 {% block main %}
 <div class="bg-light">
   <div class="pricing-header py-5 text-center">
      <h4 class="display-4"> {{Title}}</h4>
-     <p class="lead">Delivering Tomorrow, today.</p>
+     <p class="lead">More visible, and accessible projects!</p>
      <div class="btn-group" role="group" aria-label="Basic example">
       <a href="{% url 'index' %}" class="btn btn-outline-secondary" role="button">All Projects <span class="badge badge-pill badge-secondary">{{num_proj}}</span></a>
       <a href="{% url 'viewontrack' %}" class="btn btn-outline-secondary" role="button">On Track <span class="badge badge-pill badge-success">{{num_on}}</span></a>

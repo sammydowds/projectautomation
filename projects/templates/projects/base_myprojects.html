@@ -1,7 +1,7 @@
 {% extends "projects/base.html" %}
 
 {% block title %}
-    Acieta: {{status}} Projects
+    Company Name: {{status}} Projects
 {% endblock %}
 
 {% block main %}
@@ -11,7 +11,6 @@
       <div class="col">
         <div class="pricing-header text-center">
            <h2 class="display-4">Your Projects ({{count}})</h2>
-           <p class="lead">Deliverying tomorrow, today.</p>
            <div class="btn-group">
              <a href="https://www.gotomeeting.com/" target="_blank" class="btn btn-outline-secondary" role="button">Schedule a Meeting</a>
              <a href="https://outlook.live.com/owa/" target="_blank" class="btn btn-outline-secondary" role="button">Send an Email</a>
@@ -25,8 +24,12 @@
 
     {% include "projects/snapshot.html" %}
 
-    {% for project in projects %}
-      {% include "projects/project_list.html" %}
-    {% endfor %}
+      {% for project in projects %}
+        {% include "projects/project_list.html" %}
+      {% endfor %}
 
-{% endblock %}
+    {% endblock %}
+
+<h2 class="display-4">More Details</h2>
+  </div>
+</div>
