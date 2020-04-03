@@ -8,7 +8,7 @@ I have created a website to help manage projects
 - Ability to store data. 
 - Platform that can be expanded to everyone internally, and eventually customers. 
   
-Read More: 
+Read More: https://samdowds.wordpress.com/2020/04/02/project-management-platform/
 
 
 
