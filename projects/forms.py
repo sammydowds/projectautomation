@@ -14,18 +14,7 @@ class ProjectForm(forms.ModelForm):
                     'Slippage', \
                     'scheduled', \
                     )
-                    # 'Mechanical_Release_Complete', \
-                    # 'Electrical_Release_Complete', \
-                    # 'Manufacturing_Complete', \
-                    # 'Finishing_Complete', \
-                    # 'Assembly_Complete', \
-                    # 'Internal_Runoff_Complete', \
-                    # 'Customer_Runoff_Complete', \
-                    # 'Ship_Complete', \
-                    # 'Install_Start_Complete', \
-                    # 'Install_Finish_Complete', \
-                    # 'Documentation_Complete', \
-                    # )
+
         widgets = {
                     'projectname': forms.TextInput(attrs={'class': 'special','size': '50'}),
                     'Comments': forms.Textarea(attrs={"rows":5, "cols":40}),
@@ -37,17 +26,6 @@ class ProjectForm(forms.ModelForm):
                     'MilestoneFive': forms.DateInput(attrs={'class': 'datepicker'}),
                     'MilestoneSix': forms.DateInput(attrs={'class': 'datepicker'}),
                     'MilestoneSeven': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Electrical_Release': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Manufacturing': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Finishing': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Assembly': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Integration': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Internal_Runoff': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Customer_Runoff': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Ship': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Install_Start': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Install_Finish': forms.DateInput(attrs={'class': 'datepicker'}),
-                    # 'Documentation': forms.DateInput(attrs={'class': 'datepicker'}),
                     }
 
 
