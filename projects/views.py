@@ -29,25 +29,6 @@ def index(request):
     #     imported_proj.save()
     #     saving_initial.save()
     projects_list = Project.objects.all().exclude(iscurrent=False).order_by('projectnumber')
-    #code below is to convert all project into intial project models
-    # for project in projects_list:
-    #     form = project.__dict__
-    #     initial_project = InitialProject(projectname = form["projectname"],
-    #                           projectnumber = form["projectnumber"],\
-    #                           Mechanical_Release = form["Mechanical_Release"],\
-    #                           Electrical_Release = form["Electrical_Release"],\
-    #                           Manufacturing = form["Manufacturing"],\
-    #                           Finishing = form["Finishing"],\
-    #                           Assembly = form["Assembly"],\
-    #                           Internal_Runoff = form["Internal_Runoff"],\
-    #                           Customer_Runoff = form["Customer_Runoff"],\
-    #                           Ship = form["Ship"],\
-    #                           Install_Start = form["Install_Start"],\
-    #                           Install_Finish = form["Install_Finish"],\
-    #                           Documentation = form["Documentation"], \
-    #                           Status = 'onwatch', \
-    #                           )
-    #     initial_project.save()
 
     # projects_list = reversed(projects_list.exclude(iscurrent=False))
     num_proj = projects_list.count()
@@ -112,9 +93,6 @@ def printable(request):
     user = request.user
     filtered_projects = []
     projects = Project.objects.all().order_by('projectnumber').filter(iscurrent=True)
-    # filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
-    # filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
-    # filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
     now = datetime.datetime.now()
     context = {
         'projects': projects,
@@ -131,9 +109,6 @@ def myprintable(request):
     user = request.user
     filtered_projects = []
     projects = Project.objects.filter(projectmanager=user)
-    # filtered_projects.append({'Off Track': Project.objects.all().filter(iscurrent=True, Status='offtrack').order_by('-projectnumber')})
-    # filtered_projects.append({'On Watch': Project.objects.all().filter(iscurrent=True, Status='onwatch').order_by('-projectnumber')})
-    # filtered_projects.append({'On Track': Project.objects.all().filter(iscurrent=True, Status='ontrack').order_by('-projectnumber')})
     now = datetime.datetime.now()
     context = {
         'projects': projects,
@@ -211,28 +186,6 @@ def update(request, num):
         if form.is_valid():
             form.save()
 
-        # #updating the slippage of the current milestone
-        # if InitialProject.objects.get(projectnumber=num):
-        #     #saving current project
-        #     proj = Project.objects.get(projectnumber=num)
-        #     #looking up the initial project
-        #     init_proj = InitialProject.objects.get(projectnumber=num)
-        #     #saving current milestone
-        #     milestone = proj.current_milestone()
-        #     #converting init_proj to dict to look up current milestone
-        #     init_proj = init_proj.__dict__
-        #     #calculating timedelta
-        #
-        #     if milestone['name'] != 'Review Dates' and init_proj[milestone['name']] != None:
-        #         slippage = milestone['end']-init_proj[milestone['name']]
-        #         proj.Slippage = int((slippage.days)/7)
-        #     else:
-        #         proj.Slippage = proj.Slippage
-        #
-        #     #saving project slippage to the model
-        #     proj.save()
-
-
         return redirect('/projects')
 
 
@@ -256,16 +209,6 @@ def create(request):
                                   MilestoneFive = form.cleaned_data["MilestoneFive"],\
                                   MilestoneSix = form.cleaned_data["MilestoneSix"],\
                                   MilestoneSeven = form.cleaned_data["MilestoneSeven"],\
-                                  # Electrical_Release = form.cleaned_data["Electrical_Release"],\
-                                  # Manufacturing = form.cleaned_data["Manufacturing"],\
-                                  # Finishing = form.cleaned_data["Finishing"],\
-                                  # Assembly = form.cleaned_data["Assembly"],\
-                                  # Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
-                                  # Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
-                                  # Ship = form.cleaned_data["Ship"],\
-                                  # Install_Start = form.cleaned_data["Install_Start"],\
-                                  # Install_Finish = form.cleaned_data["Install_Finish"],\
-                                  # Documentation = form.cleaned_data["Documentation"], \
                                   Status="onwatch",\
                                   projectmanager=form.cleaned_data["projectmanager"] )
             #adding the new project to the initial project table
@@ -279,16 +222,6 @@ def create(request):
                                   MilestoneFive = form.cleaned_data["MilestoneFive"],\
                                   MilestoneSix = form.cleaned_data["MilestoneSix"],\
                                   MilestoneSeven = form.cleaned_data["MilestoneSeven"],\
-                                  # Electrical_Release = form.cleaned_data["Electrical_Release"],\
-                                  # Manufacturing = form.cleaned_data["Manufacturing"],\
-                                  # Finishing = form.cleaned_data["Finishing"],\
-                                  # Assembly = form.cleaned_data["Assembly"],\
-                                  # Internal_Runoff = form.cleaned_data["Internal_Runoff"],\
-                                  # Customer_Runoff = form.cleaned_data["Customer_Runoff"],\
-                                  # Ship = form.cleaned_data["Ship"],\
-                                  # Install_Start = form.cleaned_data["Install_Start"],\
-                                  # Install_Finish = form.cleaned_data["Install_Finish"],\
-                                  # Documentation = form.cleaned_data["Documentation"], \
                                   Status = 'onwatch', \
                                   )
 
